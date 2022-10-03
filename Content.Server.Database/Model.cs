@@ -44,15 +44,15 @@ namespace Content.Server.Database
                 .IsUnique();
 
             modelBuilder.Entity<Profile>()
-                .HasIndex(p => new {p.Slot, PrefsId = p.PreferenceId})
+                .HasIndex(p => new { p.Slot, PrefsId = p.PreferenceId })
                 .IsUnique();
 
             modelBuilder.Entity<Antag>()
-                .HasIndex(p => new {HumanoidProfileId = p.ProfileId, p.AntagName})
+                .HasIndex(p => new { HumanoidProfileId = p.ProfileId, p.AntagName })
                 .IsUnique();
 
             modelBuilder.Entity<Trait>()
-                        .HasIndex(p => new {HumanoidProfileId = p.ProfileId, p.TraitName})
+                        .HasIndex(p => new { HumanoidProfileId = p.ProfileId, p.TraitName })
                         .IsUnique();
 
             modelBuilder.Entity<Job>()
@@ -82,15 +82,15 @@ namespace Content.Server.Database
                 .OnDelete(DeleteBehavior.SetNull);
 
             modelBuilder.Entity<AdminFlag>()
-                .HasIndex(f => new {f.Flag, f.AdminId})
+                .HasIndex(f => new { f.Flag, f.AdminId })
                 .IsUnique();
 
             modelBuilder.Entity<AdminRankFlag>()
-                .HasIndex(f => new {f.Flag, f.AdminRankId})
+                .HasIndex(f => new { f.Flag, f.AdminRankId })
                 .IsUnique();
 
             modelBuilder.Entity<AdminLog>()
-                .HasKey(log => new {log.Id, log.RoundId});
+                .HasKey(log => new { log.Id, log.RoundId });
 
             modelBuilder.Entity<AdminLog>()
                 .Property(log => log.Id)
@@ -110,7 +110,7 @@ namespace Content.Server.Database
                 .HasPrincipalKey(player => player.UserId);
 
             modelBuilder.Entity<AdminLogPlayer>()
-                .HasKey(logPlayer => new {logPlayer.PlayerUserId, logPlayer.LogId, logPlayer.RoundId});
+                .HasKey(logPlayer => new { logPlayer.PlayerUserId, logPlayer.LogId, logPlayer.RoundId });
 
             modelBuilder.Entity<ServerBan>()
                 .HasIndex(p => p.UserId);
@@ -209,7 +209,6 @@ namespace Content.Server.Database
         public string FlavorText { get; set; } = null!;
         public int Age { get; set; }
         public string Sex { get; set; } = null!;
-        public string Gender { get; set; } = null!;
         public string Species { get; set; } = null!;
         [Column(TypeName = "jsonb")] public JsonDocument? Markings { get; set; } = null!;
         public string HairName { get; set; } = null!;

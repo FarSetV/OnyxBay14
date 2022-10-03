@@ -46,7 +46,6 @@ namespace Content.Tests.Server.Preferences
                 "Human",
                 21,
                 Sex.Male,
-                Gender.Epicene,
                 new HumanoidCharacterAppearance(
                     "Afro",
                     Color.Aqua,
@@ -54,7 +53,7 @@ namespace Content.Tests.Server.Preferences
                     Color.Aquamarine,
                     Color.Azure,
                     Color.Beige,
-                    new ()
+                    new()
                 ),
                 ClothingPreference.Jumpskirt,
                 BackpackPreference.Backpack,
@@ -63,7 +62,7 @@ namespace Content.Tests.Server.Preferences
                     {SharedGameTicker.FallbackOverflowJob, JobPriority.High}
                 },
                 PreferenceUnavailableMode.StayInLobby,
-                new List<string> (),
+                new List<string>(),
                 new List<string>()
             );
         }

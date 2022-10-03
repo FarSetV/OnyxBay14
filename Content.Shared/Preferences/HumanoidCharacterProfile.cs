@@ -39,7 +39,6 @@ namespace Content.Shared.Preferences
             string species,
             int age,
             Sex sex,
-            Gender gender,
             HumanoidCharacterAppearance appearance,
             ClothingPreference clothing,
             BackpackPreference backpack,
@@ -53,7 +52,6 @@ namespace Content.Shared.Preferences
             Species = species;
             Age = age;
             Sex = sex;
-            Gender = gender;
             Appearance = appearance;
             Clothing = clothing;
             Backpack = backpack;
@@ -69,7 +67,7 @@ namespace Content.Shared.Preferences
             Dictionary<string, JobPriority> jobPriorities,
             List<string> antagPreferences,
             List<string> traitPreferences)
-            : this(other.Name, other.FlavorText, other.Species, other.Age, other.Sex, other.Gender, other.Appearance, other.Clothing, other.Backpack,
+            : this(other.Name, other.FlavorText, other.Species, other.Age, other.Sex, other.Appearance, other.Clothing, other.Backpack,
                 jobPriorities, other.PreferenceUnavailable, antagPreferences, traitPreferences)
         {
         }
@@ -86,7 +84,6 @@ namespace Content.Shared.Preferences
             string species,
             int age,
             Sex sex,
-            Gender gender,
             HumanoidCharacterAppearance appearance,
             ClothingPreference clothing,
             BackpackPreference backpack,
@@ -94,7 +91,7 @@ namespace Content.Shared.Preferences
             PreferenceUnavailableMode preferenceUnavailable,
             IReadOnlyList<string> antagPreferences,
             IReadOnlyList<string> traitPreferences)
-            : this(name, flavortext, species, age, sex, gender, appearance, clothing, backpack, new Dictionary<string, JobPriority>(jobPriorities),
+            : this(name, flavortext, species, age, sex, appearance, clothing, backpack, new Dictionary<string, JobPriority>(jobPriorities),
                 preferenceUnavailable, new List<string>(antagPreferences), new List<string>(traitPreferences))
         {
         }
@@ -112,7 +109,6 @@ namespace Content.Shared.Preferences
                 SharedHumanoidSystem.DefaultSpecies,
                 MinimumAge,
                 Sex.Male,
-                Gender.Male,
                 HumanoidCharacterAppearance.Default(),
                 ClothingPreference.Jumpsuit,
                 BackpackPreference.Backpack,
@@ -138,7 +134,6 @@ namespace Content.Shared.Preferences
                 species,
                 MinimumAge,
                 Sex.Male,
-                Gender.Male,
                 HumanoidCharacterAppearance.DefaultWithSpecies(species),
                 ClothingPreference.Jumpsuit,
                 BackpackPreference.Backpack,
@@ -172,12 +167,11 @@ namespace Content.Shared.Preferences
             var random = IoCManager.Resolve<IRobustRandom>();
 
             var sex = random.Prob(0.5f) ? Sex.Male : Sex.Female;
-            var gender = sex == Sex.Male ? Gender.Male : Gender.Female;
 
             var name = sex.GetName(species, prototypeManager, random);
             var age = random.Next(MinimumAge, MaximumAge);
 
-            return new HumanoidCharacterProfile(name, "", species, age, sex, gender, HumanoidCharacterAppearance.Random(species, sex), ClothingPreference.Jumpsuit, BackpackPreference.Backpack,
+            return new HumanoidCharacterProfile(name, "", species, age, sex, HumanoidCharacterAppearance.Random(species, sex), ClothingPreference.Jumpsuit, BackpackPreference.Backpack,
                 new Dictionary<string, JobPriority>
                 {
                     {SharedGameTicker.FallbackOverflowJob, JobPriority.High},
@@ -194,8 +188,15 @@ namespace Content.Shared.Preferences
         [DataField("sex")]
         public Sex Sex { get; private set; }
 
-        [DataField("gender")]
-        public Gender Gender { get; private set; }
+        public Gender GetGender()
+        {
+            return this.Sex switch
+            {
+                Sex.Male => Gender.Male,
+                Sex.Female => Gender.Female,
+                _ => throw new ArgumentOutOfRangeException(nameof(this.Sex))
+            };
+        }
 
         public ICharacterAppearance CharacterAppearance => Appearance;
 
@@ -226,11 +227,6 @@ namespace Content.Shared.Preferences
         public HumanoidCharacterProfile WithSex(Sex sex)
         {
             return new(this) { Sex = sex };
-        }
-
-        public HumanoidCharacterProfile WithGender(Gender gender)
-        {
-            return new(this) { Gender = gender };
         }
 
         public HumanoidCharacterProfile WithSpecies(string species)
@@ -284,16 +280,16 @@ namespace Content.Shared.Preferences
         public HumanoidCharacterProfile WithAntagPreference(string antagId, bool pref)
         {
             var list = new List<string>(_antagPreferences);
-            if(pref)
+            if (pref)
             {
-                if(!list.Contains(antagId))
+                if (!list.Contains(antagId))
                 {
                     list.Add(antagId);
                 }
             }
             else
             {
-                if(list.Contains(antagId))
+                if (list.Contains(antagId))
                 {
                     list.Remove(antagId);
                 }
@@ -306,16 +302,16 @@ namespace Content.Shared.Preferences
             var list = new List<string>(_traitPreferences);
 
             // TODO: Maybe just refactor this to HashSet? Same with _antagPreferences
-            if(pref)
+            if (pref)
             {
-                if(!list.Contains(traitId))
+                if (!list.Contains(traitId))
                 {
                     list.Add(traitId);
                 }
             }
             else
             {
-                if(list.Contains(traitId))
+                if (list.Contains(traitId))
                 {
                     list.Remove(traitId);
                 }
@@ -327,7 +323,7 @@ namespace Content.Shared.Preferences
             Loc.GetString(
                 "humanoid-character-profile-summary",
                 ("name", Name),
-                ("gender", Gender.ToString().ToLowerInvariant()),
+                ("gender", GetGender().ToString().ToLowerInvariant()),
                 ("age", Age)
             );
 
@@ -337,7 +333,6 @@ namespace Content.Shared.Preferences
             if (Name != other.Name) return false;
             if (Age != other.Age) return false;
             if (Sex != other.Sex) return false;
-            if (Gender != other.Gender) return false;
             if (PreferenceUnavailable != other.PreferenceUnavailable) return false;
             if (Clothing != other.Clothing) return false;
             if (Backpack != other.Backpack) return false;
@@ -356,15 +351,6 @@ namespace Content.Shared.Preferences
                 Sex.Male => Sex.Male,
                 Sex.Female => Sex.Female,
                 _ => Sex.Male // Invalid enum values.
-            };
-
-            var gender = Gender switch
-            {
-                Gender.Epicene => Gender.Epicene,
-                Gender.Female => Gender.Female,
-                Gender.Male => Gender.Male,
-                Gender.Neuter => Gender.Neuter,
-                _ => Gender.Epicene // Invalid enum values.
             };
 
             string name;
@@ -460,7 +446,6 @@ namespace Content.Shared.Preferences
             FlavorText = flavortext;
             Age = age;
             Sex = sex;
-            Gender = gender;
             Appearance = appearance;
             Clothing = clothing;
             Backpack = backpack;
@@ -494,7 +479,6 @@ namespace Content.Shared.Preferences
                     Species,
                     Age,
                     Sex,
-                    Gender,
                     Appearance,
                     Clothing,
                     Backpack

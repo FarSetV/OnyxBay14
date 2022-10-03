@@ -64,7 +64,6 @@ namespace Content.Client.Preferences.UI
         private Button _saveButton => CSaveButton;
         private Button _sexFemaleButton => CSexFemale;
         private Button _sexMaleButton => CSexMale;
-        private OptionButton _genderButton => CPronounsButton;
         private Slider _skinColor => CSkin;
         private OptionButton _clothingButton => CClothingButton;
         private OptionButton _backpackButton => CBackpackButton;
@@ -146,23 +145,12 @@ namespace Content.Client.Preferences.UI
             _sexMaleButton.OnPressed += args =>
             {
                 SetSex(Sex.Male);
-                if (Profile?.Gender == Gender.Female)
-                {
-                    SetGender(Gender.Male);
-                    UpdateGenderControls();
-                }
             };
 
             _sexFemaleButton.Group = sexButtonGroup;
             _sexFemaleButton.OnPressed += _ =>
             {
                 SetSex(Sex.Female);
-
-                if (Profile?.Gender == Gender.Male)
-                {
-                    SetGender(Gender.Female);
-                    UpdateGenderControls();
-                }
             };
 
             #endregion Sex
@@ -177,21 +165,6 @@ namespace Content.Client.Preferences.UI
             };
 
             #endregion Age
-
-            #region Gender
-
-            _genderButton.AddItem(Loc.GetString("humanoid-profile-editor-pronouns-male-text"), (int) Gender.Male);
-            _genderButton.AddItem(Loc.GetString("humanoid-profile-editor-pronouns-female-text"), (int) Gender.Female);
-            _genderButton.AddItem(Loc.GetString("humanoid-profile-editor-pronouns-epicene-text"), (int) Gender.Epicene);
-            _genderButton.AddItem(Loc.GetString("humanoid-profile-editor-pronouns-neuter-text"), (int) Gender.Neuter);
-
-            _genderButton.OnItemSelected += args =>
-            {
-                _genderButton.SelectId(args.Id);
-                SetGender((Gender) args.Id);
-            };
-
-            #endregion Gender
 
             #region Species
 
@@ -288,7 +261,7 @@ namespace Content.Client.Preferences.UI
                 IsDirty = true;
             };
 
-            _hairPicker.OnSlotAdd += delegate()
+            _hairPicker.OnSlotAdd += delegate ()
             {
                 if (Profile is null)
                     return;
@@ -308,7 +281,7 @@ namespace Content.Client.Preferences.UI
                 IsDirty = true;
             };
 
-            _facialHairPicker.OnSlotAdd += delegate()
+            _facialHairPicker.OnSlotAdd += delegate ()
             {
                 if (Profile is null)
                     return;
@@ -426,7 +399,7 @@ namespace Content.Client.Preferences.UI
 
                     category.AddChild(new PanelContainer
                     {
-                        PanelOverride = new StyleBoxFlat {BackgroundColor = Color.FromHex("#464966")},
+                        PanelOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#464966") },
                         Children =
                         {
                             new Label
@@ -657,45 +630,45 @@ namespace Content.Client.Preferences.UI
             switch (skin)
             {
                 case HumanoidSkinColor.HumanToned:
-                {
-                    if (!_skinColor.Visible)
                     {
-                        _skinColor.Visible = true;
-                        _rgbSkinColorContainer.Visible = false;
+                        if (!_skinColor.Visible)
+                        {
+                            _skinColor.Visible = true;
+                            _rgbSkinColorContainer.Visible = false;
+                        }
+
+                        var color = SkinColor.HumanSkinTone((int) _skinColor.Value);
+
+                        CMarkings.CurrentSkinColor = color;
+                        Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
+                        break;
                     }
-
-                    var color = SkinColor.HumanSkinTone((int) _skinColor.Value);
-
-                    CMarkings.CurrentSkinColor = color;
-                    Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
-                    break;
-                }
                 case HumanoidSkinColor.Hues:
-                {
-                    if (!_rgbSkinColorContainer.Visible)
                     {
-                        _skinColor.Visible = false;
-                        _rgbSkinColorContainer.Visible = true;
-                    }
+                        if (!_rgbSkinColorContainer.Visible)
+                        {
+                            _skinColor.Visible = false;
+                            _rgbSkinColorContainer.Visible = true;
+                        }
 
-                    CMarkings.CurrentSkinColor = _rgbSkinColorSelector.Color;
-                    Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(_rgbSkinColorSelector.Color));
-                    break;
-                }
+                        CMarkings.CurrentSkinColor = _rgbSkinColorSelector.Color;
+                        Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(_rgbSkinColorSelector.Color));
+                        break;
+                    }
                 case HumanoidSkinColor.TintedHues:
-                {
-                    if (!_rgbSkinColorContainer.Visible)
                     {
-                        _skinColor.Visible = false;
-                        _rgbSkinColorContainer.Visible = true;
+                        if (!_rgbSkinColorContainer.Visible)
+                        {
+                            _skinColor.Visible = false;
+                            _rgbSkinColorContainer.Visible = true;
+                        }
+
+                        var color = SkinColor.TintedHues(_rgbSkinColorSelector.Color);
+
+                        CMarkings.CurrentSkinColor = color;
+                        Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
+                        break;
                     }
-
-                    var color = SkinColor.TintedHues(_rgbSkinColorSelector.Color);
-
-                    CMarkings.CurrentSkinColor = color;
-                    Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
-                    break;
-                }
             }
 
             IsDirty = true;
@@ -783,12 +756,6 @@ namespace Content.Client.Preferences.UI
             IsDirty = true;
         }
 
-        private void SetGender(Gender newGender)
-        {
-            Profile = Profile?.WithGender(newGender);
-            IsDirty = true;
-        }
-
         private void SetSpecies(string newSpecies)
         {
             Profile = Profile?.WithSpecies(newSpecies);
@@ -856,7 +823,7 @@ namespace Content.Client.Preferences.UI
 
         private void UpdateFlavorTextEdit()
         {
-            if(_flavorTextEdit != null)
+            if (_flavorTextEdit != null)
             {
                 _flavorTextEdit.Text = Profile?.FlavorText ?? "";
             }
@@ -885,41 +852,41 @@ namespace Content.Client.Preferences.UI
             switch (skin)
             {
                 case HumanoidSkinColor.HumanToned:
-                {
-                    if (!_skinColor.Visible)
                     {
-                        _skinColor.Visible = true;
-                        _rgbSkinColorContainer.Visible = false;
+                        if (!_skinColor.Visible)
+                        {
+                            _skinColor.Visible = true;
+                            _rgbSkinColorContainer.Visible = false;
+                        }
+
+                        _skinColor.Value = SkinColor.HumanSkinToneFromColor(Profile.Appearance.SkinColor);
+
+                        break;
                     }
-
-                    _skinColor.Value = SkinColor.HumanSkinToneFromColor(Profile.Appearance.SkinColor);
-
-                    break;
-                }
                 case HumanoidSkinColor.Hues:
-                {
-                    if (!_rgbSkinColorContainer.Visible)
                     {
-                        _skinColor.Visible = false;
-                        _rgbSkinColorContainer.Visible = true;
-                    }
+                        if (!_rgbSkinColorContainer.Visible)
+                        {
+                            _skinColor.Visible = false;
+                            _rgbSkinColorContainer.Visible = true;
+                        }
 
-                    // set the RGB values to the direct values otherwise
-                    _rgbSkinColorSelector.Color = Profile.Appearance.SkinColor;
-                    break;
-                }
+                        // set the RGB values to the direct values otherwise
+                        _rgbSkinColorSelector.Color = Profile.Appearance.SkinColor;
+                        break;
+                    }
                 case HumanoidSkinColor.TintedHues:
-                {
-                    if (!_rgbSkinColorContainer.Visible)
                     {
-                        _skinColor.Visible = false;
-                        _rgbSkinColorContainer.Visible = true;
-                    }
+                        if (!_rgbSkinColorContainer.Visible)
+                        {
+                            _skinColor.Visible = false;
+                            _rgbSkinColorContainer.Visible = true;
+                        }
 
-                    // set the RGB values to the direct values otherwise
-                    _rgbSkinColorSelector.Color = Profile.Appearance.SkinColor;
-                    break;
-                }
+                        // set the RGB values to the direct values otherwise
+                        _rgbSkinColorSelector.Color = Profile.Appearance.SkinColor;
+                        break;
+                    }
             }
 
         }
@@ -942,16 +909,6 @@ namespace Content.Client.Preferences.UI
             }
 
             CSpeciesButton.Select(_speciesList.FindIndex(x => x.ID == Profile.Species));
-        }
-
-        private void UpdateGenderControls()
-        {
-            if (Profile == null)
-            {
-                return;
-            }
-
-            _genderButton.SelectId((int) Profile.Gender);
         }
 
         private void UpdateClothingControls()
@@ -1041,7 +998,6 @@ namespace Content.Client.Preferences.UI
             UpdateNameEdit();
             UpdateFlavorTextEdit();
             UpdateSexControls();
-            UpdateGenderControls();
             UpdateSkinColor();
             UpdateSpecies();
             UpdateClothingControls();
@@ -1141,7 +1097,7 @@ namespace Content.Client.Preferences.UI
                     Text = Loc.GetString("role-timer-locked"),
                     Visible = true,
                     HorizontalAlignment = HAlignment.Center,
-                    StyleClasses = {StyleBase.StyleClassLabelSubText},
+                    StyleClasses = { StyleBase.StyleClassLabelSubText },
                 };
 
                 _lockStripe = new StripeBack()
@@ -1224,7 +1180,7 @@ namespace Content.Client.Preferences.UI
             {
                 Antag = antag;
 
-                _checkBox = new CheckBox {Text = $"{antag.Name}"};
+                _checkBox = new CheckBox { Text = $"{antag.Name}" };
                 _checkBox.OnToggled += OnCheckBoxToggled;
 
                 AddChild(new BoxContainer
@@ -1260,7 +1216,7 @@ namespace Content.Client.Preferences.UI
             {
                 Trait = trait;
 
-                _checkBox = new CheckBox {Text = $"{trait.Name}"};
+                _checkBox = new CheckBox { Text = $"{trait.Name}" };
                 _checkBox.OnToggled += OnCheckBoxToggled;
 
                 AddChild(new BoxContainer

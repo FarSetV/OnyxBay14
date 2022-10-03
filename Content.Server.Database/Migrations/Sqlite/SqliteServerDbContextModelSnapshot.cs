@@ -572,11 +572,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("flavor_text");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("gender");
-
                     b.Property<string>("HairColor")
                         .IsRequired()
                         .HasColumnType("TEXT")
@@ -871,8 +866,8 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.HasKey("Id")
                         .HasName("PK_trait");
 
-                    b.HasIndex("ProfileId")
-                        .HasDatabaseName("IX_trait_profile_id");
+                    b.HasIndex("ProfileId", "TraitName")
+                        .IsUnique();
 
                     b.ToTable("trait", (string)null);
                 });

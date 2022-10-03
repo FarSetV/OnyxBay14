@@ -69,13 +69,6 @@
                                         <LineEdit Name="CAgeEdit" MinSize="40 0" />
                                     </BoxContainer>
                                 </prefUi:HighlightedContainer>
-                                <!-- Gender -->
-                                <prefUi:HighlightedContainer>
-                                    <BoxContainer Orientation="Horizontal">
-                                        <Label Text="{Loc 'humanoid-profile-editor-pronouns-label'}" />
-                                        <OptionButton Name="CPronounsButton" />
-                                    </BoxContainer>
-                                </prefUi:HighlightedContainer>
                             </BoxContainer>
                             <BoxContainer Orientation="Horizontal" SeparationOverride="10">
                                 <!-- Species -->

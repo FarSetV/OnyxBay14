@@ -121,7 +121,7 @@ namespace Content.Server.Database
 
             await db.DbContext.SaveChangesAsync();
 
-            return new PlayerPreferences(new[] {new KeyValuePair<int, ICharacterProfile>(0, defaultProfile)}, 0, Color.FromHex(prefs.AdminOOCColor));
+            return new PlayerPreferences(new[] { new KeyValuePair<int, ICharacterProfile>(0, defaultProfile) }, 0, Color.FromHex(prefs.AdminOOCColor));
         }
 
         public async Task DeleteSlotAndSetSelectedIndex(NetUserId userId, int deleteSlot, int newSlot)
@@ -171,10 +171,6 @@ namespace Content.Server.Database
             if (Enum.TryParse<BackpackPreference>(profile.Backpack, true, out var backpackVal))
                 backpack = backpackVal;
 
-            var gender = sex == Sex.Male ? Gender.Male : Gender.Female;
-            if (Enum.TryParse<Gender>(profile.Gender, true, out var genderVal))
-                gender = genderVal;
-
             // ReSharper disable once ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
             var markingsRaw = profile.Markings?.Deserialize<List<string>>();
 
@@ -197,7 +193,6 @@ namespace Content.Server.Database
                 profile.Species,
                 profile.Age,
                 sex,
-                gender,
                 new HumanoidCharacterAppearance
                 (
                     profile.HairName,
@@ -234,7 +229,6 @@ namespace Content.Server.Database
                 Species = humanoid.Species,
                 Age = humanoid.Age,
                 Sex = humanoid.Sex.ToString(),
-                Gender = humanoid.Gender.ToString(),
                 HairName = appearance.HairStyleId,
                 HairColor = appearance.HairColor.ToHex(),
                 FacialHairName = appearance.FacialHairStyleId,
@@ -250,15 +244,15 @@ namespace Content.Server.Database
             entity.Jobs.AddRange(
                 humanoid.JobPriorities
                     .Where(j => j.Value != JobPriority.Never)
-                    .Select(j => new Job {JobName = j.Key, Priority = (DbJobPriority) j.Value})
+                    .Select(j => new Job { JobName = j.Key, Priority = (DbJobPriority) j.Value })
             );
             entity.Antags.AddRange(
                 humanoid.AntagPreferences
-                    .Select(a => new Antag {AntagName = a})
+                    .Select(a => new Antag { AntagName = a })
             );
             entity.Traits.AddRange(
                 humanoid.TraitPreferences
-                        .Select(t => new Trait {TraitName = t})
+                        .Select(t => new Trait { TraitName = t })
             );
 
             return entity;

@@ -109,11 +109,11 @@ public sealed partial class HumanoidSystem : SharedHumanoidSystem
 
         EnsureDefaultMarkings(uid, humanoid);
 
-        humanoid.Gender = profile.Gender;
+        humanoid.Gender = profile.GetGender();
 
         if (TryComp<GrammarComponent>(uid, out var grammar))
         {
-            grammar.Gender = profile.Gender;
+            grammar.Gender = profile.GetGender();
         }
 
         humanoid.Age = profile.Age;
