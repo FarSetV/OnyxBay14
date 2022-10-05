@@ -5,8 +5,6 @@ concurrency:
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 10 * * *'
 
 jobs:
   build:
@@ -56,4 +54,3 @@ jobs:
         username: wizards-build-push
         key: ${{ secrets.CENTCOMM_WIZARDS_BUILDS_PUSH_KEY }}
         script: /home/wizards-build-push/push.ps1 ${{ github.sha }}
-
