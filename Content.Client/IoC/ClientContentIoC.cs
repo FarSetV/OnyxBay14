@@ -40,7 +40,6 @@ namespace Content.Client.IoC
             IoCManager.Register<EuiManager, EuiManager>();
             IoCManager.Register<IVoteManager, VoteManager>();
             IoCManager.Register<ChangelogManager, ChangelogManager>();
-            IoCManager.Register<RulesManager, RulesManager>();
             IoCManager.Register<ViewportManager, ViewportManager>();
             IoCManager.Register<IGamePrototypeLoadManager, GamePrototypeLoadManager>();
             IoCManager.Register<NetworkResourceManager>();

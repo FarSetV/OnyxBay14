@@ -61,7 +61,6 @@ namespace Content.Client.Entry
         [Dependency] private readonly IStylesheetManager _stylesheetManager = default!;
         [Dependency] private readonly IScreenshotHook _screenshotHook = default!;
         [Dependency] private readonly ChangelogManager _changelogManager = default!;
-        [Dependency] private readonly RulesManager _rulesManager = default!;
         [Dependency] private readonly ViewportManager _viewportManager = default!;
         [Dependency] private readonly IUserInterfaceManager _userInterfaceManager = default!;
         [Dependency] private readonly IInputManager _inputManager = default!;
@@ -142,7 +141,6 @@ namespace Content.Client.Entry
             _stylesheetManager.Initialize();
             _screenshotHook.Initialize();
             _changelogManager.Initialize();
-            _rulesManager.Initialize();
             _viewportManager.Initialize();
             _ghostKick.Initialize();
             _extendedDisconnectInformation.Initialize();

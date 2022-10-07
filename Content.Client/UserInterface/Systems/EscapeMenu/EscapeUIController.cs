@@ -40,12 +40,6 @@ public sealed class EscapeUIController : UIController, IOnStateEntered<GameplayS
             // UIManager.GetUIController<ChangelogUIController>().ToggleWindow();
         };
 
-        _escapeWindow.RulesButton.OnPressed += _ =>
-        {
-            CloseEscapeWindow();
-            new RulesAndInfoWindow().Open();
-        };
-
         _escapeWindow.DisconnectButton.OnPressed += _ =>
         {
             CloseEscapeWindow();

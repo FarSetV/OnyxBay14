@@ -207,13 +207,6 @@ namespace Content.Server.Database
 
         #endregion
 
-        #region Rules
-
-        Task<DateTime?> GetLastReadRules(NetUserId player);
-        Task SetLastReadRules(NetUserId player, DateTime time);
-
-        #endregion
-
         #region Admin Notes
 
         Task<int> AddAdminNote(int? roundId, Guid player, string message, Guid createdBy, DateTime createdAt);
@@ -574,18 +567,6 @@ namespace Content.Server.Database
         {
             DbWriteOpsMetric.Inc();
             return _db.PurgeUploadedResourceLogAsync(days);
-        }
-
-        public Task<DateTime?> GetLastReadRules(NetUserId player)
-        {
-            DbReadOpsMetric.Inc();
-            return _db.GetLastReadRules(player);
-        }
-
-        public Task SetLastReadRules(NetUserId player, DateTime time)
-        {
-            DbWriteOpsMetric.Inc();
-            return _db.SetLastReadRules(player, time);
         }
 
         public Task<int> AddAdminNote(int? roundId, Guid player, string message, Guid createdBy, DateTime createdAt)

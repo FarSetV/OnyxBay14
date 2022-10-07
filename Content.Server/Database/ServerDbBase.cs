@@ -843,30 +843,6 @@ namespace Content.Server.Database
             await db.DbContext.SaveChangesAsync();
         }
 
-        public async Task<DateTime?> GetLastReadRules(NetUserId player)
-        {
-            await using var db = await GetDb();
-
-            return await db.DbContext.Player
-                .Where(dbPlayer => dbPlayer.UserId == player)
-                .Select(dbPlayer => dbPlayer.LastReadRules)
-                .SingleOrDefaultAsync();
-        }
-
-        public async Task SetLastReadRules(NetUserId player, DateTime date)
-        {
-            await using var db = await GetDb();
-
-            var dbPlayer = await db.DbContext.Player.Where(dbPlayer => dbPlayer.UserId == player).SingleOrDefaultAsync();
-            if (dbPlayer == null)
-            {
-                return;
-            }
-
-            dbPlayer.LastReadRules = date;
-            await db.DbContext.SaveChangesAsync();
-        }
-
         #endregion
 
         #region Uploaded Resources Logs
