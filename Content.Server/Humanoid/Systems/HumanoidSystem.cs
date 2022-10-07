@@ -144,6 +144,12 @@ public sealed partial class HumanoidSystem : SharedHumanoidSystem
         targetHumanoid.CustomBaseLayers = new(sourceHumanoid.CustomBaseLayers);
         targetHumanoid.CurrentMarkings = new(sourceHumanoid.CurrentMarkings);
 
+        targetHumanoid.Gender = sourceHumanoid.Gender;
+        if (TryComp<GrammarComponent>(target, out var grammar))
+        {
+            grammar.Gender = sourceHumanoid.Gender;
+        }
+
         Synchronize(target, targetHumanoid);
     }
 
