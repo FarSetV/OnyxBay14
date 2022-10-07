@@ -8,10 +8,11 @@ namespace Content.Shared.Shuttles.Components;
 [Access(typeof(SharedRadarConsoleSystem))]
 public sealed class RadarConsoleComponent : Component
 {
-    [DataField("maxRange")] private float _maxRange = 256f;
-    [DataField("rotation")] private Angle _rotation = Angle.Zero;
+    private float _maxRange = 256f;
+    private Angle _rotation = Angle.Zero;
 
     [ViewVariables(VVAccess.ReadWrite)]
+    [DataField("maxRange")]
     public float MaxRange
     {
         get => _maxRange;
@@ -23,6 +24,7 @@ public sealed class RadarConsoleComponent : Component
     }
 
     [ViewVariables(VVAccess.ReadWrite)]
+    [DataField("rotation")]
     public double Rotation
     {
         get => _rotation.Degrees;

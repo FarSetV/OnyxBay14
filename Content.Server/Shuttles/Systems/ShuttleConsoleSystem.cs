@@ -393,7 +393,7 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 
         _alertsSystem.ClearAlert(pilotComponent.Owner, AlertType.PilotingShuttle);
 
-        _popupSystem.PopupEntity(Loc.GetString("shuttle-pilot-end"), pilotComponent.Owner, Filter.Local());
+        _popupSystem.PopupEntity(Loc.GetString("shuttle-pilot-end"), pilotComponent.Owner, Filter.Entities(pilotComponent.Owner));
 
         if (pilotComponent.LifeStage < ComponentLifeStage.Stopping)
             EntityManager.RemoveComponent<PilotComponent>(pilotComponent.Owner);
