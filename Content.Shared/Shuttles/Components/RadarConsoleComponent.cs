@@ -3,19 +3,33 @@ using Robust.Shared.GameStates;
 
 namespace Content.Shared.Shuttles.Components;
 
-[RegisterComponent, NetworkedComponent, Access(typeof(SharedRadarConsoleSystem))]
+[RegisterComponent]
+[NetworkedComponent]
+[Access(typeof(SharedRadarConsoleSystem))]
 public sealed class RadarConsoleComponent : Component
 {
+    [DataField("maxRange")] private float _maxRange = 256f;
+    [DataField("rotation")] private Angle _rotation = Angle.Zero;
+
     [ViewVariables(VVAccess.ReadWrite)]
-    public float RangeVV
+    public float MaxRange
     {
-        get => MaxRange;
-        set => IoCManager
-            .Resolve<IEntitySystemManager>()
-            .GetEntitySystem<SharedRadarConsoleSystem>()
-            .SetRange(this, value);
+        get => _maxRange;
+        set
+        {
+            _maxRange = value;
+            Dirty();
+        }
     }
 
-    [ViewVariables, DataField("maxRange")]
-    public float MaxRange = 256f;
+    [ViewVariables(VVAccess.ReadWrite)]
+    public double Rotation
+    {
+        get => _rotation.Degrees;
+        set
+        {
+            _rotation = Angle.FromDegrees(value);
+            Dirty();
+        }
+    }
 }

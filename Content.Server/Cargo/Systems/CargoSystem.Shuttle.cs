@@ -17,6 +17,7 @@ using Content.Shared.CCVar;
 using Content.Shared.Dataset;
 using Content.Shared.GameTicking;
 using Content.Shared.MobState.Components;
+using Content.Shared.Shuttles.Components;
 using Robust.Server.Maps;
 using Robust.Shared.Audio;
 using Robust.Shared.Configuration;
