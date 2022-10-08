@@ -292,7 +292,7 @@ entities:
       -5,-3: 0
       -5,-2: 1
       -5,-1: 0
-      -4,-4: 1
+      -4,-4: 2
       -4,-3: 0
       -4,-2: 1
       -4,-1: 0
@@ -3131,7 +3131,7 @@ entities:
       -33,48: 0
       -33,49: 0
       -33,50: 0
-      -33,51: 2
+      -33,51: 3
       -33,52: 1
       -33,53: 1
       -33,54: 0
@@ -3157,8 +3157,8 @@ entities:
       -41,79: 0
       -40,70: 0
       -40,71: 0
-      -40,72: 3
-      -40,73: 4
+      -40,72: 4
+      -40,73: 5
       -40,74: 0
       -40,75: 0
       -40,76: 0
@@ -3289,12 +3289,12 @@ entities:
       -32,48: 0
       -32,49: 0
       -32,50: 0
-      -32,51: 5
+      -32,51: 6
       -32,52: 0
       -32,53: 0
       -32,54: 0
       -32,55: 0
-      -32,56: 6
+      -32,56: 7
       -32,57: 0
       -32,58: 0
       -32,59: 0
@@ -3305,12 +3305,12 @@ entities:
       -31,48: 0
       -31,49: 0
       -31,50: 0
-      -31,51: 7
+      -31,51: 8
       -31,52: 0
       -31,53: 0
       -31,54: 0
       -31,55: 0
-      -31,56: 8
+      -31,56: 9
       -31,57: 0
       -31,58: 0
       -31,59: 0
@@ -3326,7 +3326,7 @@ entities:
       -30,53: 0
       -30,54: 0
       -30,55: 0
-      -30,56: 9
+      -30,56: 10
       -30,57: 1
       -30,58: 0
       -30,59: 0
@@ -5847,7 +5847,7 @@ entities:
       0,-10: 0
       0,-9: 0
       0,-8: 0
-      0,-7: 10
+      0,-7: 11
       0,-6: 0
       0,-5: 0
       1,-16: 0
@@ -5868,10 +5868,10 @@ entities:
       2,-13: 0
       2,-12: 0
       2,-11: 0
-      2,-10: 11
+      2,-10: 12
       2,-9: 0
       2,-8: 0
-      2,-7: 11
+      2,-7: 12
       2,-6: 0
       2,-5: 0
       3,-16: 0
@@ -5880,10 +5880,10 @@ entities:
       3,-13: 0
       3,-12: 0
       3,-11: 0
-      3,-10: 11
+      3,-10: 12
       3,-9: 0
       3,-8: 0
-      3,-7: 11
+      3,-7: 12
       3,-6: 0
       3,-5: 0
       4,-16: 0
@@ -5892,10 +5892,10 @@ entities:
       4,-13: 0
       4,-12: 0
       4,-11: 0
-      4,-10: 11
+      4,-10: 12
       4,-9: 0
       4,-8: 0
-      4,-7: 11
+      4,-7: 12
       4,-6: 0
       4,-5: 0
       5,-16: 0
@@ -7196,7 +7196,7 @@ entities:
       26,50: 0
       26,51: 0
       26,52: 0
-      26,53: 12
+      26,53: 13
       26,54: 0
       26,55: 0
       26,56: 0
@@ -7659,17 +7659,17 @@ entities:
       -8,113: 0
       -8,114: 0
       -8,115: 0
-      -8,116: 13
+      -8,116: 14
       -7,112: 0
       -7,113: 0
       -7,114: 0
       -7,115: 0
-      -7,116: 14
+      -7,116: 15
       -6,112: 0
       -6,113: 0
       -6,114: 0
       -6,115: 0
-      -6,116: 15
+      -6,116: 16
       -5,112: 0
       -5,113: 0
       -5,114: 0
@@ -8241,7 +8241,7 @@ entities:
       24,45: 0
       24,46: 0
       24,47: 0
-      25,32: 16
+      25,32: 17
       25,33: 0
       25,34: 0
       25,35: 0
@@ -8257,7 +8257,7 @@ entities:
       25,45: 0
       25,46: 0
       25,47: 0
-      26,32: 17
+      26,32: 18
       26,33: 0
       26,34: 0
       26,35: 0
@@ -8273,7 +8273,7 @@ entities:
       26,45: 0
       26,46: 0
       26,47: 0
-      27,32: 6
+      27,32: 19
       27,33: 0
       27,34: 0
       27,35: 0
@@ -9785,8 +9785,8 @@ entities:
       8,-19: 0
       8,-18: 0
       8,-17: 0
-      9,-32: 18
-      9,-31: 19
+      9,-32: 20
+      9,-31: 21
       9,-30: 0
       9,-29: 0
       9,-28: 0
@@ -9802,7 +9802,7 @@ entities:
       9,-18: 0
       9,-17: 0
       10,-32: 1
-      10,-31: 20
+      10,-31: 22
       10,-30: 0
       10,-29: 0
       10,-28: 0
@@ -9818,7 +9818,7 @@ entities:
       10,-18: 0
       10,-17: 0
       11,-32: 0
-      11,-31: 21
+      11,-31: 23
       11,-30: 0
       11,-29: 0
       11,-28: 0
@@ -9834,7 +9834,7 @@ entities:
       11,-18: 0
       11,-17: 0
       12,-32: 0
-      12,-31: 22
+      12,-31: 24
       12,-30: 0
       12,-29: 0
       12,-28: 0
@@ -9850,7 +9850,7 @@ entities:
       12,-18: 0
       12,-17: 0
       13,-32: 0
-      13,-31: 23
+      13,-31: 25
       13,-30: 0
       13,-29: 0
       13,-28: 0
@@ -11697,11 +11697,11 @@ entities:
       9,-40: 0
       9,-39: 0
       9,-38: 0
-      9,-37: 24
-      9,-36: 25
-      9,-35: 26
-      9,-34: 27
-      9,-33: 28
+      9,-37: 26
+      9,-36: 27
+      9,-35: 28
+      9,-34: 29
+      9,-33: 30
       10,-48: 0
       10,-47: 0
       10,-46: 0
@@ -11713,7 +11713,7 @@ entities:
       10,-40: 0
       10,-39: 0
       10,-38: 0
-      10,-37: 29
+      10,-37: 31
       10,-36: 0
       10,-35: 0
       10,-34: 0
@@ -11729,7 +11729,7 @@ entities:
       11,-40: 0
       11,-39: 0
       11,-38: 0
-      11,-37: 30
+      11,-37: 32
       11,-36: 0
       11,-35: 0
       11,-34: 0
@@ -11745,7 +11745,7 @@ entities:
       12,-40: 0
       12,-39: 0
       12,-38: 0
-      12,-37: 31
+      12,-37: 33
       12,-36: 0
       12,-35: 0
       12,-34: 0
@@ -11761,7 +11761,7 @@ entities:
       13,-40: 0
       13,-39: 0
       13,-38: 0
-      13,-37: 0
+      13,-37: 34
       13,-36: 0
       13,-35: 0
       13,-34: 0
@@ -13860,33 +13860,33 @@ entities:
       1,-82: 0
       1,-81: 0
       2,-96: 0
-      2,-95: 32
-      2,-94: 32
-      2,-93: 32
+      2,-95: 35
+      2,-94: 35
+      2,-93: 35
       2,-92: 0
-      2,-91: 32
-      2,-90: 32
-      2,-89: 32
+      2,-91: 35
+      2,-90: 35
+      2,-89: 35
       2,-88: 0
-      2,-87: 32
-      2,-86: 32
-      2,-85: 32
+      2,-87: 35
+      2,-86: 35
+      2,-85: 35
       2,-84: 0
       2,-83: 0
       2,-82: 0
       2,-81: 0
       3,-96: 0
-      3,-95: 32
-      3,-94: 32
-      3,-93: 32
+      3,-95: 35
+      3,-94: 35
+      3,-93: 35
       3,-92: 0
-      3,-91: 32
-      3,-90: 32
-      3,-89: 32
+      3,-91: 35
+      3,-90: 35
+      3,-89: 35
       3,-88: 0
-      3,-87: 32
-      3,-86: 32
-      3,-85: 32
+      3,-87: 35
+      3,-86: 35
+      3,-85: 35
       3,-84: 0
       3,-83: 0
       3,-82: 0
@@ -14094,13 +14094,13 @@ entities:
       -16,-82: 0
       -16,-81: 0
       -15,-96: 0
-      -15,-95: 33
-      -15,-94: 33
-      -15,-93: 33
+      -15,-95: 36
+      -15,-94: 36
+      -15,-93: 36
       -15,-92: 0
-      -15,-91: 34
-      -15,-90: 34
-      -15,-89: 34
+      -15,-91: 37
+      -15,-90: 37
+      -15,-89: 37
       -15,-88: 0
       -15,-87: 0
       -15,-86: 0
@@ -14110,13 +14110,13 @@ entities:
       -15,-82: 0
       -15,-81: 0
       -14,-96: 0
-      -14,-95: 33
-      -14,-94: 33
-      -14,-93: 33
+      -14,-95: 36
+      -14,-94: 36
+      -14,-93: 36
       -14,-92: 0
-      -14,-91: 34
-      -14,-90: 34
-      -14,-89: 34
+      -14,-91: 37
+      -14,-90: 37
+      -14,-89: 37
       -14,-88: 0
       -14,-87: 0
       -14,-86: 0
@@ -14387,15 +14387,15 @@ entities:
       -15,-102: 0
       -15,-101: 0
       -15,-100: 0
-      -15,-99: 32
-      -15,-98: 32
-      -15,-97: 32
+      -15,-99: 35
+      -15,-98: 35
+      -15,-97: 35
       -14,-102: 0
       -14,-101: 0
       -14,-100: 0
-      -14,-99: 32
-      -14,-98: 32
-      -14,-97: 32
+      -14,-99: 35
+      -14,-98: 35
+      -14,-97: 35
       -13,-102: 0
       -13,-101: 0
       -13,-100: 0
@@ -14479,16 +14479,16 @@ entities:
       2,-102: 0
       2,-101: 0
       2,-100: 0
-      2,-99: 32
-      2,-98: 32
-      2,-97: 32
+      2,-99: 35
+      2,-98: 35
+      2,-97: 35
       3,-103: 0
       3,-102: 0
       3,-101: 0
       3,-100: 0
-      3,-99: 32
-      3,-98: 32
-      3,-97: 32
+      3,-99: 35
+      3,-98: 35
+      3,-97: 35
       4,-103: 0
       4,-102: 0
       4,-101: 0
@@ -15434,6 +15434,21 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
+      - 19.481253
+      - 73.28662
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    - volume: 2500
+      temperature: 293.15
+      moles:
       - 20.04244
       - 75.39776
       - 0
@@ -15449,8 +15464,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.358551
-      - 80.34885
+      - 21.207928
+      - 79.7822
       - 0
       - 0
       - 0
@@ -15462,10 +15477,10 @@ entities:
       - 0
       - 0
     - volume: 2500
-      temperature: 196.35698
+      temperature: 196.33482
       moles:
-      - 14.551695
-      - 54.742096
+      - 14.55003
+      - 54.735832
       - 0
       - 0
       - 0
@@ -15477,25 +15492,10 @@ entities:
       - 0
       - 0
     - volume: 2500
-      temperature: 196.42787
+      temperature: 196.33925
       moles:
-      - 14.557023
-      - 54.76214
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-    - volume: 2500
-      temperature: 293.15
-      moles:
-      - 21.703281
-      - 81.64568
+      - 14.550363
+      - 54.737083
       - 0
       - 0
       - 0
@@ -15509,8 +15509,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.804855
-      - 82.027794
+      - 21.66304
+      - 81.4943
       - 0
       - 0
       - 0
@@ -15524,8 +15524,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.79448
-      - 81.98876
+      - 21.794525
+      - 81.98893
       - 0
       - 0
       - 0
@@ -15539,8 +15539,128 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.703465
-      - 81.64637
+      - 21.78442
+      - 81.95091
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    - volume: 2500
+      temperature: 293.15
+      moles:
+      - 21.663225
+      - 81.494995
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    - volume: 2500
+      temperature: 293.15
+      moles:
+      - 21.208618
+      - 79.784805
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    - volume: 2500
+      temperature: 293.15
+      moles:
+      - 21.238972
+      - 79.898994
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    - volume: 2500
+      temperature: 293.15
+      moles:
+      - 17.389294
+      - 65.41687
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    - volume: 2500
+      temperature: 220.5375
+      moles:
+      - 16.36866
+      - 61.57734
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    - volume: 2500
+      temperature: 189.54956
+      moles:
+      - 14.0401745
+      - 52.817802
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    - volume: 2500
+      temperature: 168.73727
+      moles:
+      - 12.476307
+      - 46.934685
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    - volume: 2500
+      temperature: 189.43433
+      moles:
+      - 14.031516
+      - 52.785233
       - 0
       - 0
       - 0
@@ -15569,8 +15689,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.379269
-      - 80.42678
+      - 21.703465
+      - 81.64638
       - 0
       - 0
       - 0
@@ -15584,68 +15704,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 18.405577
-      - 69.24003
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-    - volume: 2500
-      temperature: 220.5375
-      moles:
-      - 16.36866
-      - 61.57734
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-    - volume: 2500
-      temperature: 190.47139
-      moles:
-      - 14.109443
-      - 53.078384
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-    - volume: 2500
-      temperature: 169.1982
-      moles:
-      - 12.5109415
-      - 47.064972
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-    - volume: 2500
-      temperature: 189.54955
-      moles:
-      - 14.0401745
-      - 52.817802
+      - 21.794525
+      - 81.98894
       - 0
       - 0
       - 0
@@ -15659,8 +15719,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.514057
-      - 80.933846
+      - 21.13065
+      - 79.49149
       - 0
       - 0
       - 0
@@ -15674,8 +15734,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.744785
-      - 81.80182
+      - 21.52723
+      - 80.98339
       - 0
       - 0
       - 0
@@ -15689,8 +15749,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.304913
-      - 80.14706
+      - 21.154247
+      - 79.58027
       - 0
       - 0
       - 0
@@ -15704,8 +15764,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.615383
-      - 81.31502
+      - 21.695477
+      - 81.61632
       - 0
       - 0
       - 0
@@ -15719,8 +15779,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.32848
-      - 80.235725
+      - 21.791203
+      - 81.976425
       - 0
       - 0
       - 0
@@ -15734,8 +15794,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.7424
-      - 81.79284
+      - 21.819576
+      - 82.08317
       - 0
       - 0
       - 0
@@ -15749,8 +15809,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.803663
-      - 82.02331
+      - 21.824013
+      - 82.09986
       - 0
       - 0
       - 0
@@ -15764,8 +15824,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.822493
-      - 82.09414
+      - 21.821579
+      - 82.090706
       - 0
       - 0
       - 0
@@ -15779,8 +15839,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.824253
-      - 82.10077
+      - 21.812302
+      - 82.05581
       - 0
       - 0
       - 0
@@ -15794,8 +15854,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.82248
-      - 82.09409
+      - 21.776974
+      - 81.92291
       - 0
       - 0
       - 0
@@ -15809,8 +15869,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.815662
-      - 82.06845
+      - 21.642479
+      - 81.416954
       - 0
       - 0
       - 0
@@ -15824,8 +15884,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.789513
-      - 81.97008
+      - 21.824715
+      - 82.10251
       - 0
       - 0
       - 0
@@ -15839,8 +15899,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.689232
-      - 81.592834
+      - 21.824856
+      - 82.10303
       - 0
       - 0
       - 0
@@ -15854,23 +15914,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 21.82478
-      - 82.10275
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-    - volume: 2500
-      temperature: 293.15
-      moles:
-      - 21.824871
-      - 82.10308
+      - 21.824875
+      - 82.103096
       - 0
       - 0
       - 0
@@ -26965,7 +27010,7 @@ entities:
   - pos: -27.5,47.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -7774.521
+  - SecondsUntilStateChange: -7897.418
     state: Closing
     type: Door
   - enabled: False
@@ -26989,7 +27034,7 @@ entities:
   - pos: -26.5,47.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -7774.521
+  - SecondsUntilStateChange: -7897.418
     state: Closing
     type: Door
   - enabled: False
@@ -33700,7 +33745,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -38142,7 +38186,7 @@ entities:
   - dockJointId: docking26807
     dockedWith: 6934
     type: Docking
-  - SecondsUntilStateChange: -61.562717
+  - SecondsUntilStateChange: -122.49712
     changeAirtight: False
     state: Opening
     type: Door
@@ -38165,7 +38209,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -38182,7 +38225,7 @@ entities:
   - dockJointId: docking26808
     dockedWith: 6935
     type: Docking
-  - SecondsUntilStateChange: -61.562717
+  - SecondsUntilStateChange: -122.49712
     changeAirtight: False
     state: Opening
     type: Door
@@ -38205,7 +38248,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -38405,7 +38447,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -38567,7 +38608,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -38734,7 +38774,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -38837,7 +38876,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -39037,7 +39075,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -40462,7 +40499,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -44787,6 +44823,55 @@ entities:
   - pos: -6.5,-0.5
     parent: 19088
     type: Transform
+- uid: 4615
+  type: SpawnPointCaptain
+  components:
+  - rot: 1.5707963267948966 rad
+    pos: -15.5,40.5
+    parent: 0
+    type: Transform
+- uid: 4616
+  type: SpawnPointChemist
+  components:
+  - rot: 1.5707963267948966 rad
+    pos: 2.5,-20.5
+    parent: 0
+    type: Transform
+- uid: 4617
+  type: SpawnPointMusician
+  components:
+  - rot: 1.5707963267948966 rad
+    pos: 3.5,77.5
+    parent: 0
+    type: Transform
+- uid: 4618
+  type: SpawnPointServiceWorker
+  components:
+  - rot: 1.5707963267948966 rad
+    pos: -3.5,81.5
+    parent: 0
+    type: Transform
+- uid: 4619
+  type: SpawnPointServiceWorker
+  components:
+  - rot: 1.5707963267948966 rad
+    pos: -3.5,80.5
+    parent: 0
+    type: Transform
+- uid: 4620
+  type: SpawnPointSecurityCadet
+  components:
+  - rot: 1.5707963267948966 rad
+    pos: -22.5,48.5
+    parent: 0
+    type: Transform
+- uid: 4621
+  type: SpawnPointSecurityCadet
+  components:
+  - rot: 1.5707963267948966 rad
+    pos: -22.5,49.5
+    parent: 0
+    type: Transform
 - uid: 4695
   type: BlastDoorOpen
   components:
@@ -44794,7 +44879,7 @@ entities:
     pos: -16.5,-16.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -3604.9175
+  - SecondsUntilStateChange: -3727.8147
     state: Closing
     type: Door
   - inputs:
@@ -44811,7 +44896,7 @@ entities:
     pos: -16.5,-12.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -3604.9175
+  - SecondsUntilStateChange: -3727.8147
     state: Closing
     type: Door
   - inputs:
@@ -45002,7 +45087,7 @@ entities:
     pos: -14.5,-12.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -3604.9175
+  - SecondsUntilStateChange: -3727.8147
     state: Closing
     type: Door
   - inputs:
@@ -45044,7 +45129,7 @@ entities:
     pos: -14.5,-16.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -3604.9175
+  - SecondsUntilStateChange: -3727.8147
     state: Closing
     type: Door
   - inputs:
@@ -45086,7 +45171,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -45119,7 +45203,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -46228,7 +46311,7 @@ entities:
   - dockJointId: docking64651
     dockedWith: 19095
     type: Docking
-  - SecondsUntilStateChange: -61.562717
+  - SecondsUntilStateChange: -122.49712
     changeAirtight: False
     state: Opening
     type: Door
@@ -46251,7 +46334,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -46346,7 +46428,7 @@ entities:
   - dockJointId: docking64665
     dockedWith: 19119
     type: Docking
-  - SecondsUntilStateChange: -61.562717
+  - SecondsUntilStateChange: -122.49712
     changeAirtight: False
     state: Opening
     type: Door
@@ -46369,7 +46451,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -58692,7 +58773,7 @@ entities:
   - dockJointId: docking26807
     dockedWith: 3667
     type: Docking
-  - SecondsUntilStateChange: -61.562717
+  - SecondsUntilStateChange: -122.49712
     changeAirtight: False
     state: Opening
     type: Door
@@ -58715,7 +58796,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -58731,7 +58811,7 @@ entities:
   - dockJointId: docking26808
     dockedWith: 3668
     type: Docking
-  - SecondsUntilStateChange: -61.562717
+  - SecondsUntilStateChange: -122.49712
     changeAirtight: False
     state: Opening
     type: Door
@@ -58754,7 +58834,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -60265,7 +60344,7 @@ entities:
   - pos: 26.5,53.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -11055.62
+  - SecondsUntilStateChange: -11178.518
     state: Closing
     type: Door
   - enabled: False
@@ -60289,7 +60368,7 @@ entities:
   - pos: 24.5,53.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -11055.62
+  - SecondsUntilStateChange: -11178.518
     state: Closing
     type: Door
   - enabled: False
@@ -91313,7 +91392,7 @@ entities:
   - pos: 26.5,-8.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -6141.462
+  - SecondsUntilStateChange: -6264.359
     state: Opening
     type: Door
   - inputs:
@@ -91567,7 +91646,7 @@ entities:
   - pos: 26.5,-7.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -6141.462
+  - SecondsUntilStateChange: -6264.359
     state: Opening
     type: Door
   - inputs:
@@ -94866,7 +94945,7 @@ entities:
   - pos: 26.5,-6.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -6141.462
+  - SecondsUntilStateChange: -6264.359
     state: Opening
     type: Door
   - inputs:
@@ -95253,7 +95332,7 @@ entities:
   - pos: 26.5,-5.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -6141.462
+  - SecondsUntilStateChange: -6264.359
     state: Opening
     type: Door
   - inputs:
@@ -96597,7 +96676,7 @@ entities:
   - pos: 25.5,-5.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -6141.462
+  - SecondsUntilStateChange: -6264.359
     state: Opening
     type: Door
   - inputs:
@@ -98761,7 +98840,7 @@ entities:
   - pos: 25.5,-4.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -6141.462
+  - SecondsUntilStateChange: -6264.359
     state: Opening
     type: Door
   - inputs:
@@ -100430,7 +100509,7 @@ entities:
   - pos: 13.5,-14.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -58078.21
+  - SecondsUntilStateChange: -58201.11
     state: Opening
     type: Door
 - uid: 12949
@@ -101372,7 +101451,7 @@ entities:
   - pos: 24.5,-4.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -6141.462
+  - SecondsUntilStateChange: -6264.359
     state: Opening
     type: Door
   - inputs:
@@ -106216,7 +106295,7 @@ entities:
   - pos: 23.5,-4.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -6141.462
+  - SecondsUntilStateChange: -6264.359
     state: Opening
     type: Door
   - inputs:
@@ -106234,7 +106313,7 @@ entities:
   - pos: 22.5,-4.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -6141.462
+  - SecondsUntilStateChange: -6264.359
     state: Opening
     type: Door
   - inputs:
@@ -145654,8 +145733,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 20.04244
-      - 75.39776
+      - 19.481253
+      - 73.28662
       - 0
       - 0
       - 0
@@ -145713,7 +145792,7 @@ entities:
   - dockJointId: docking64651
     dockedWith: 4908
     type: Docking
-  - SecondsUntilStateChange: -61.562717
+  - SecondsUntilStateChange: -122.49712
     changeAirtight: False
     state: Opening
     type: Door
@@ -145736,7 +145815,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -145827,7 +145905,7 @@ entities:
   - dockJointId: docking64665
     dockedWith: 4922
     type: Docking
-  - SecondsUntilStateChange: -61.562717
+  - SecondsUntilStateChange: -122.49712
     changeAirtight: False
     state: Opening
     type: Door
@@ -145850,7 +145928,6 @@ entities:
       - BulletImpassable
       - InteractImpassable
       - Opaque
-      mass: 100
     - shape: !type:PhysShapeCircle
         position: 0,-0.5
         radius: 0.2
@@ -146555,7 +146632,7 @@ entities:
   - pos: -12.5,34.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -7183.074
+  - SecondsUntilStateChange: -7305.971
     state: Opening
     type: Door
   - inputs:
@@ -146571,7 +146648,7 @@ entities:
   - pos: -12.5,33.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -7183.074
+  - SecondsUntilStateChange: -7305.971
     state: Opening
     type: Door
   - inputs:
@@ -146587,7 +146664,7 @@ entities:
   - pos: -12.5,32.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -7183.074
+  - SecondsUntilStateChange: -7305.971
     state: Opening
     type: Door
   - inputs:
@@ -146645,7 +146722,7 @@ entities:
   - pos: -9.5,23.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -7216.5405
+  - SecondsUntilStateChange: -7339.4375
     state: Opening
     type: Door
   - inputs:
@@ -146661,7 +146738,7 @@ entities:
   - pos: -9.5,24.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -7216.5405
+  - SecondsUntilStateChange: -7339.4375
     state: Opening
     type: Door
   - inputs:
@@ -146677,7 +146754,7 @@ entities:
   - pos: -8.5,24.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -7216.5405
+  - SecondsUntilStateChange: -7339.4375
     state: Opening
     type: Door
   - inputs:
@@ -146693,7 +146770,7 @@ entities:
   - pos: -8.5,25.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -7216.5405
+  - SecondsUntilStateChange: -7339.4375
     state: Opening
     type: Door
   - inputs:
@@ -146709,7 +146786,7 @@ entities:
   - pos: -8.5,26.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -7216.5405
+  - SecondsUntilStateChange: -7339.4375
     state: Opening
     type: Door
   - inputs:
@@ -146725,7 +146802,7 @@ entities:
   - pos: -8.5,27.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -7216.5405
+  - SecondsUntilStateChange: -7339.4375
     state: Opening
     type: Door
   - inputs:
@@ -146741,7 +146818,7 @@ entities:
   - pos: -8.5,28.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -7216.5405
+  - SecondsUntilStateChange: -7339.4375
     state: Opening
     type: Door
   - inputs:
@@ -146757,7 +146834,7 @@ entities:
   - pos: -9.5,28.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -7216.5405
+  - SecondsUntilStateChange: -7339.4375
     state: Opening
     type: Door
   - inputs:
@@ -146773,7 +146850,7 @@ entities:
   - pos: -9.5,29.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -7216.5405
+  - SecondsUntilStateChange: -7339.4375
     state: Opening
     type: Door
   - inputs:
@@ -147136,7 +147213,7 @@ entities:
   - pos: -31.5,82.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8140.6206
+  - SecondsUntilStateChange: -8263.518
     state: Opening
     type: Door
   - inputs:
@@ -147152,7 +147229,7 @@ entities:
   - pos: -31.5,81.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8140.6206
+  - SecondsUntilStateChange: -8263.518
     state: Opening
     type: Door
   - inputs:
@@ -147299,7 +147376,7 @@ entities:
   - pos: -8.5,88.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8614.251
+  - SecondsUntilStateChange: -8737.148
     state: Opening
     type: Door
   - inputs:
@@ -147315,7 +147392,7 @@ entities:
   - pos: -7.5,88.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8614.251
+  - SecondsUntilStateChange: -8737.148
     state: Opening
     type: Door
   - inputs:
@@ -147331,7 +147408,7 @@ entities:
   - pos: -6.5,88.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8614.251
+  - SecondsUntilStateChange: -8737.148
     state: Opening
     type: Door
   - inputs:
@@ -147347,7 +147424,7 @@ entities:
   - pos: 1.5,83.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8816.801
+  - SecondsUntilStateChange: -8939.698
     state: Opening
     type: Door
   - inputs:
@@ -147363,7 +147440,7 @@ entities:
   - pos: 0.5,83.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8816.801
+  - SecondsUntilStateChange: -8939.698
     state: Opening
     type: Door
   - inputs:
@@ -147379,7 +147456,7 @@ entities:
   - pos: -0.5,83.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8816.801
+  - SecondsUntilStateChange: -8939.698
     state: Opening
     type: Door
   - inputs:
@@ -147395,7 +147472,7 @@ entities:
   - pos: -0.5,82.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8816.801
+  - SecondsUntilStateChange: -8939.698
     state: Opening
     type: Door
   - inputs:
@@ -147411,7 +147488,7 @@ entities:
   - pos: -0.5,81.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8816.801
+  - SecondsUntilStateChange: -8939.698
     state: Opening
     type: Door
   - inputs:
@@ -147427,7 +147504,7 @@ entities:
   - pos: -0.5,80.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8816.801
+  - SecondsUntilStateChange: -8939.698
     state: Opening
     type: Door
   - inputs:
@@ -147443,7 +147520,7 @@ entities:
   - pos: -1.5,80.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8816.801
+  - SecondsUntilStateChange: -8939.698
     state: Opening
     type: Door
   - inputs:
@@ -147483,7 +147560,7 @@ entities:
   - pos: -6.5,81.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8596.135
+  - SecondsUntilStateChange: -8719.032
     state: Opening
     type: Door
   - inputs:
@@ -147499,7 +147576,7 @@ entities:
   - pos: -6.5,80.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8596.135
+  - SecondsUntilStateChange: -8719.032
     state: Opening
     type: Door
   - inputs:
@@ -148535,7 +148612,7 @@ entities:
   - pos: -29.5,83.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8140.6206
+  - SecondsUntilStateChange: -8263.518
     state: Opening
     type: Door
   - inputs:
@@ -148551,7 +148628,7 @@ entities:
   - pos: -30.5,83.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8140.6206
+  - SecondsUntilStateChange: -8263.518
     state: Opening
     type: Door
   - inputs:
@@ -148567,7 +148644,7 @@ entities:
   - pos: -31.5,83.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8140.6206
+  - SecondsUntilStateChange: -8263.518
     state: Opening
     type: Door
   - inputs:
@@ -148583,7 +148660,7 @@ entities:
   - pos: -2.5,80.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8816.801
+  - SecondsUntilStateChange: -8939.698
     state: Opening
     type: Door
   - inputs:
@@ -148599,7 +148676,7 @@ entities:
   - pos: -2.5,81.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8816.801
+  - SecondsUntilStateChange: -8939.698
     state: Opening
     type: Door
   - inputs:
@@ -148615,7 +148692,7 @@ entities:
   - pos: -2.5,82.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8816.801
+  - SecondsUntilStateChange: -8939.698
     state: Opening
     type: Door
   - inputs:
@@ -148631,7 +148708,7 @@ entities:
   - pos: -2.5,83.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8816.801
+  - SecondsUntilStateChange: -8939.698
     state: Opening
     type: Door
   - inputs:
@@ -148647,7 +148724,7 @@ entities:
   - pos: -3.5,83.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8816.801
+  - SecondsUntilStateChange: -8939.698
     state: Opening
     type: Door
   - inputs:
@@ -148663,7 +148740,7 @@ entities:
   - pos: -4.5,83.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8816.801
+  - SecondsUntilStateChange: -8939.698
     state: Opening
     type: Door
   - inputs:
@@ -148697,7 +148774,7 @@ entities:
   - pos: -8.5,70.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8596.135
+  - SecondsUntilStateChange: -8719.032
     state: Opening
     type: Door
   - inputs:
@@ -148713,7 +148790,7 @@ entities:
   - pos: -10.5,70.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8596.135
+  - SecondsUntilStateChange: -8719.032
     state: Opening
     type: Door
   - inputs:
@@ -148729,7 +148806,7 @@ entities:
   - pos: -11.5,78.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8596.135
+  - SecondsUntilStateChange: -8719.032
     state: Opening
     type: Door
   - inputs:
@@ -148745,7 +148822,7 @@ entities:
   - pos: -11.5,79.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8596.135
+  - SecondsUntilStateChange: -8719.032
     state: Opening
     type: Door
   - inputs:
@@ -148761,7 +148838,7 @@ entities:
   - pos: -11.5,77.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8596.135
+  - SecondsUntilStateChange: -8719.032
     state: Opening
     type: Door
   - inputs:
@@ -148805,7 +148882,7 @@ entities:
   - pos: -6.5,76.5
     parent: 0
     type: Transform
-  - SecondsUntilStateChange: -8596.135
+  - SecondsUntilStateChange: -8719.032
     state: Opening
     type: Door
   - inputs:
