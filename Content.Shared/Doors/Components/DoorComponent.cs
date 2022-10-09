@@ -141,34 +141,6 @@ public sealed class DoorComponent : Component, ISerializationHooks
     public HashSet<EntityUid> CurrentlyCrushing = new();
     #endregion
 
-    #region Serialization
-    /// <summary>
-    ///     Time until next state change. Because apparently <see cref="IGameTiming.CurTime"/> might not get saved/restored.
-    /// </summary>
-    [DataField("SecondsUntilStateChange")]
-    private float? _secondsUntilStateChange;
-
-    void ISerializationHooks.BeforeSerialization()
-    {
-        if (NextStateChange == null)
-        {
-            _secondsUntilStateChange = null;
-            return;
-        };
-
-        var curTime = IoCManager.Resolve<IGameTiming>().CurTime;
-        _secondsUntilStateChange = (float) (NextStateChange.Value - curTime).TotalSeconds;
-    }
-
-    void ISerializationHooks.AfterDeserialization()
-    {
-        if (_secondsUntilStateChange == null || _secondsUntilStateChange.Value > 0)
-            return;
-
-        NextStateChange = IoCManager.Resolve<IGameTiming>().CurTime + TimeSpan.FromSeconds(_secondsUntilStateChange.Value);
-    }
-    #endregion
-
     [DataField("board", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
     public string? BoardPrototype;
 

@@ -78,7 +78,7 @@ namespace Content.IntegrationTests.Tests
         ///     Loads the default map, runs it for 5 ticks, then assert that it did not change.
         /// </summary>
         [Test]
-        public async Task LoadSaveTicksSaveSaltern()
+        public async Task LoadSaveTicksSaveBox()
         {
             await using var pairTracker = await PoolManager.GetServerClient(new PoolSettings{NoClient = true});
             var server = pairTracker.Pair.Server;
@@ -87,13 +87,13 @@ namespace Content.IntegrationTests.Tests
 
             MapId mapId = default;
 
-            // Load saltern.yml as uninitialized map, and save it to ensure it's up to date.
+            // Load box.yml as uninitialized map, and save it to ensure it's up to date.
             server.Post(() =>
             {
                 mapId = mapManager.CreateMap();
                 mapManager.AddUninitializedMap(mapId);
                 mapManager.SetMapPaused(mapId, true);
-                mapLoader.LoadMap(mapId, "Maps/saltern.yml");
+                mapLoader.LoadMap(mapId, "Maps/box.yml");
                 mapLoader.SaveMap(mapId, "load save ticks save 1.yml");
             });
 
