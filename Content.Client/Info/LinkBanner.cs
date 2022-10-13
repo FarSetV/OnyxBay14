@@ -1,5 +1,6 @@
 ﻿using Content.Client.Changelog;
 using Content.Client.Links;
+using Content.Client.UserInterface.Systems.EscapeMenu;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 
