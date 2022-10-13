@@ -64,7 +64,8 @@ tilemap:
   57: Lattice
   58: Plating
 grids:
-- settings:
+- uid: 0
+  settings:
     chunksize: 16
     tilesize: 1
   chunks:
@@ -129,10 +130,12 @@ grids:
 entities:
 - uid: 0
   components:
-  - parent: 76
+  - type: MetaData
+  - parent: null
     type: Transform
-  - index: 0
-    type: MapGrid
+  - type: MapGrid
+  - type: EntityLookup
+  - type: Broadphase
   - id: centcomm
     type: BecomesStation
   - angularDamping: 0.05
@@ -8506,8 +8509,8 @@ entities:
     - volume: 2500
       temperature: 293.15
       moles:
-      - 20.619795
-      - 77.56971
+      - 21.213781
+      - 79.80423
       - 0
       - 0
       - 0
@@ -8519,6 +8522,9 @@ entities:
       - 0
       - 0
     type: GridAtmosphere
+  - type: OccluderTree
+  - type: Shuttle
+  - type: GridPathfinding
 - uid: 1
   type: WallRiveted
   components:
@@ -8969,10 +8975,6 @@ entities:
   - pos: -2.5,2.5
     parent: 0
     type: Transform
-- uid: 76
-  components:
-  - index: 3
-    type: Map
 - uid: 77
   type: ReinforcedWindow
   components:
