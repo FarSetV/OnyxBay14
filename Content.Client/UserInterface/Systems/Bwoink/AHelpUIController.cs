@@ -5,7 +5,6 @@ using Content.Client.Administration.UI;
 using Content.Client.Administration.UI.CustomControls;
 using Content.Client.Gameplay;
 using Content.Client.UserInterface.Controls;
-using Content.Client.UserInterface.Systems.Info;
 using Content.Shared.Administration;
 using Content.Shared.Input;
 using JetBrains.Annotations;
