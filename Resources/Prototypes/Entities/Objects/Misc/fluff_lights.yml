@@ -22,7 +22,7 @@
     netsync: false
     enabled: false
     radius: 3
-    energy: 2
+    energy: 0.6
   - type: ToggleableLightVisuals
   - type: Appearance
     visuals:

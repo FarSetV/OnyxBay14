@@ -7,5 +7,5 @@ changelog-yesterday = Yesterday
 changelog-new-changes = new changes
 changelog-version-tag = version v{ $version }
 
-changelog-button = Changelog
-changelog-button-new-entries = Changelog (new!)
+changelog-button = CHANGELOG
+changelog-button-new-entries = CHANGELOG [NEW!]

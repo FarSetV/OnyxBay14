@@ -1,4 +1,5 @@
 ﻿using Content.Client.Administration.Managers;
+using Content.Client.Audio;
 using Content.Client.Changelog;
 using Content.Client.Chat.Managers;
 using Content.Client.Clickable;
@@ -43,6 +44,7 @@ namespace Content.Client.IoC
             IoCManager.Register<GhostKickManager>();
             IoCManager.Register<ExtendedDisconnectInformationManager>();
             IoCManager.Register<PlayTimeTrackingManager>();
+            IoCManager.Register<UIAudioManager>();
         }
     }
 }

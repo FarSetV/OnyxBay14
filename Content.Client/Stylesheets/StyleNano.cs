@@ -489,7 +489,9 @@ namespace Content.Client.Stylesheets
             var directionIconQuestionTex = resCache.GetTexture("/Textures/Interface/VerbIcons/information.svg.192dpi.png");
             var directionIconHereTex = resCache.GetTexture("/Textures/Interface/VerbIcons/dot.svg.192dpi.png");
 
-            Stylesheet = new Stylesheet(BaseRules.Concat(new[]
+            var styleBase = new StyleBase(resCache);
+
+            Stylesheet = new Stylesheet(styleBase.Stylesheet.Rules.Concat(new[]
             {
                 // Window title.
                 new StyleRule(
@@ -760,15 +762,6 @@ namespace Content.Client.Stylesheets
                 Element<ContainerButton>().Class(ListContainer.StyleClassListContainerButton)
                     .Pseudo(ContainerButton.StylePseudoClassDisabled)
                     .Prop(Control.StylePropertyModulateSelf, new Color(10, 10, 12)),
-
-                // Main menu: Make those buttons bigger.
-                new StyleRule(new SelectorChild(
-                    new SelectorElement(typeof(Button), null, "mainMenu", null),
-                    new SelectorElement(typeof(Label), null, null, null)),
-                    new[]
-                    {
-                        new StyleProperty("font", notoSansBold16),
-                    }),
 
                 // Main menu: also make those buttons slightly more separated.
                 new StyleRule(new SelectorElement(typeof(BoxContainer), null, "mainMenuVBox", null),

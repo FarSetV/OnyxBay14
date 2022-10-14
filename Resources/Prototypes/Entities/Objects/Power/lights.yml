@@ -75,8 +75,8 @@
   - type: LightBulb
     bulb: Bulb
     color: "#FFD1A3" # 4000K color temp
-    lightEnergy: 1.0
-    lightRadius: 6
+    lightEnergy: 0.6
+    lightRadius: 3
     lightSoftness: 1.1
   - type: Sprite
     sprite: Objects/Power/light_bulb.rsi
@@ -91,8 +91,8 @@
   - type: LightBulb
     bulb: Tube
     color: "#FFE4CE" # 5000K color temp
-    lightEnergy: 0.8
-    lightRadius: 10
+    lightEnergy: 1
+    lightRadius: 4
     lightSoftness: 1
     PowerUse: 25
   - type: Sprite
@@ -108,8 +108,8 @@
   - type: LightBulb
     bulb: Tube
     color: "#EEEEFF"
-    lightEnergy: 2.5
-    lightRadius: 10
+    lightEnergy: 2.0
+    lightRadius: 8
     lightSoftness: 0.9
     BurningTemperature: 350
     PowerUse: 12
@@ -126,7 +126,7 @@
   - type: LightBulb
     bulb: Tube
     color: "#B4FCF0"
-    lightEnergy: 4.5
+    lightEnergy: 3.5
     lightRadius: 12
     lightSoftness: 0.5
     BurningTemperature: 350

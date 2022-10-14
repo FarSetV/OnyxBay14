@@ -24,6 +24,7 @@ ui-options-station-ambience = Station Ambience
 ui-options-space-ambience = Space Ambience
 ui-options-volume-label = Volume
 ui-options-volume-percent = { TOSTRING($volume, "P0") }
+ui-options-volume-ui = UI Volume:
 
 ## Graphics menu
 

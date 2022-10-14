@@ -1,9 +1,9 @@
 ﻿using Content.Client.Stylesheets;
-using Robust.Client.UserInterface.Controls;
+using Content.Client.UserInterface.Controls;
 
 namespace Content.Client.Changelog
 {
-    public sealed class ChangelogButton : Button
+    public sealed class ChangelogButton : CommonButton
     {
         [Dependency] private readonly ChangelogManager _changelogManager = default!;
 
