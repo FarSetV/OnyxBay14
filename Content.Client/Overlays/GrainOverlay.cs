@@ -1,4 +1,5 @@
 ﻿using Robust.Client.Graphics;
+using Robust.Client.UserInterface;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 
@@ -7,6 +8,7 @@ namespace Content.Client.Overlays;
 public sealed class GrainOverlay : Overlay
 {
     [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly IUserInterfaceManager _interface = default!;
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
     public override bool RequestScreenTexture => true;
 
@@ -26,7 +28,7 @@ public sealed class GrainOverlay : Overlay
         var screenHandle = args.WorldHandle;
 
         _shader.SetParameter("SCREEN_TEXTURE", ScreenTexture);
-        _shader.SetParameter("strength", 50.0f);
+        _shader.SetParameter("strength", _interface.RootControl.UIScale * 15.0f);
 
         screenHandle.UseShader(_shader);
         screenHandle.DrawRect(args.WorldBounds, Color.White);
