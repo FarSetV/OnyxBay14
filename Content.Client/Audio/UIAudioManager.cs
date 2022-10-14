@@ -26,22 +26,8 @@ public sealed class UIAudioManager
     /// <returns></returns>
     private SharedAudioSystem? GetAudioSystem()
     {
-        SharedAudioSystem? audio;
-
-        try
-        {
-            audio = IoCManager.Resolve<IEntitySystemManager>().GetEntitySystemOrNull<SharedAudioSystem>();
-        }
-        catch (UnregisteredTypeException)
-        {
-            // In integration tests we don't have initialized IEntitySystemManager and we have no reasons to have that.
-            if (_refl.IsInIntegrationTest())
-                return null;
-
-            throw;
-        }
-
-        return audio;
+        // In integration tests we don't have initialized IEntitySystemManager and we have no reasons to have that.
+        return _refl.IsInIntegrationTest() ? null : IoCManager.Resolve<IEntitySystemManager>().GetEntitySystemOrNull<SharedAudioSystem>();
     }
 
     public AudioSystem.PlayingStream? Play(string filename, AudioParams? audioParams = null)
