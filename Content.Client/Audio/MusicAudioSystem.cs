@@ -22,20 +22,20 @@ namespace Content.Client.Audio;
 [UsedImplicitly]
 public sealed class MusicAudioSystem : EntitySystem
 {
-    private readonly AudioParams _ambientParams = new(-10f, 1, "Master", 0, 0, 0, true, 0f);
+    private readonly AudioParams _ambientParams = new(-10f, 1, "Master", 0, 0, 0, false, 0f);
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly IBaseClient _client = default!;
     [Dependency] private readonly IConfigurationManager _configManager = default!;
     [Dependency] private readonly ClientGameTicker _gameTicker = default!;
-    private readonly AudioParams _lobbyParams = new(-5f, 1, "Master", 0, 0, 0, true, 0f);
+    private readonly AudioParams _lobbyParams = new(-5f, 1, "Master", 0, 0, 0, false, 0f);
     [Dependency] private readonly IPlayerManager _playMan = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IRobustRandom _robustRandom = default!;
     [Dependency] private readonly IStateManager _stateManager = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
 
-    private IPlayingAudioStream? _ambientStream;
-    private IPlayingAudioStream? _lobbyStream;
+    private AudioSystem.PlayingStream? _ambientStream;
+    private AudioSystem.PlayingStream? _lobbyStream;
 
     /// <summary>
     ///     What the ambience has been set to.
@@ -62,6 +62,10 @@ public sealed class MusicAudioSystem : EntitySystem
         _stationAmbience = _prototypeManager.Index<SoundCollectionPrototype>("StationAmbienceBase");
         _spaceAmbience = _prototypeManager.Index<SoundCollectionPrototype>("SpaceAmbienceBase");
         _currentCollection = _stationAmbience;
+
+        _ambienceMusicEnabled = _configManager.GetCVar(CCVars.AmbienceMusicEnabled);
+        _ambienceMusicVolume = _configManager.GetCVar(CCVars.AmbienceMusicVolume);
+        _lobbyMusicEnabled = _configManager.GetCVar(CCVars.LobbyMusicEnabled);
 
         // TOOD: Ideally audio loading streamed better / we have more robust audio but this is quite annoying
         var cache = IoCManager.Resolve<IResourceCache>();
@@ -90,6 +94,24 @@ public sealed class MusicAudioSystem : EntitySystem
         _client.PlayerLeaveServer += OnLeave;
 
         _gameTicker.LobbyStatusUpdated += LobbySongReceived;
+    }
+
+    // I wish an audio stream had OnDone event.
+    public override void Update(float frameTime)
+    {
+        switch (_stateManager.CurrentState)
+        {
+            case GameplayState:
+                if (_ambientStream is null || _ambientStream.Done)
+                    StartAmbience();
+                break;
+            case LobbyState:
+                if (_lobbyStream is null || _lobbyStream.Done)
+                    StartLobbyMusic();
+                break;
+            default:
+                return;
+        }
     }
 
     private void OnPlayerAttached(PlayerAttachedEvent ev)
@@ -221,7 +243,7 @@ public sealed class MusicAudioSystem : EntitySystem
 
         var file = _robustRandom.Pick(_currentCollection.PickFiles).ToString();
         _ambientStream = _audio.PlayGlobal(file, Filter.Local(),
-            _ambientParams.WithVolume(_ambientParams.Volume + _ambienceMusicVolume));
+            _ambientParams.WithVolume(_ambientParams.Volume + _ambienceMusicVolume)) as AudioSystem.PlayingStream;
     }
 
     private void EndAmbience()
@@ -274,7 +296,7 @@ public sealed class MusicAudioSystem : EntitySystem
         if (file == null) // We have not received the lobby song yet.
             return;
 
-        _lobbyStream = _audio.PlayGlobal(file, Filter.Local(), _lobbyParams);
+        _lobbyStream = _audio.PlayGlobal(file, Filter.Local(), _lobbyParams) as AudioSystem.PlayingStream;
     }
 
     private void EndLobbyMusic()
