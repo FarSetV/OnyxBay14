@@ -78,16 +78,16 @@ namespace Content.Shared.CCVar
             CVarDef.Create("ui.volume", 0.0f, CVar.ARCHIVE | CVar.CLIENTONLY);
 
         /// <summary>
-        /// Whether to play the station ambience (humming) sound
+        ///     Whether to play the ambience music.
         /// </summary>
-        public static readonly CVarDef<bool> StationAmbienceEnabled =
-            CVarDef.Create("ambience.station_ambience", true, CVar.ARCHIVE | CVar.CLIENTONLY);
+        public static readonly CVarDef<bool> AmbienceMusicEnabled =
+            CVarDef.Create("ambience.music", true, CVar.ARCHIVE | CVar.CLIENTONLY);
 
         /// <summary>
-        /// Whether to play the space ambience
+        /// Ambience music volume.
         /// </summary>
-        public static readonly CVarDef<bool> SpaceAmbienceEnabled =
-            CVarDef.Create("ambience.space_ambience", true, CVar.ARCHIVE | CVar.CLIENTONLY);
+        public static readonly CVarDef<float> AmbienceMusicVolume =
+            CVarDef.Create("ambience.music_volume", 0.0f, CVar.ARCHIVE | CVar.CLIENTONLY);
 
         /*
          * Status
