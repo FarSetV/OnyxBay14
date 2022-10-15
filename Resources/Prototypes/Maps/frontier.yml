@@ -2,7 +2,7 @@
   id: Frontier
   mapName: 'Frontier'
   mapPath: /Maps/frontier.yml
-  minPlayers: 0
+  minPlayers: 100
   stations:
     Frontier:
       mapNameTemplate: '{0} Frontier {1}'

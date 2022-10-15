@@ -11,10 +11,10 @@
     - state: closed
       map: ["enum.DoorVisualLayers.Base"]
   - type: Door
-    closeTimeOne: 0.4
-    closeTimeTwo: 0.4
-    openTimeOne: 0.4
-    openTimeTwo: 0.4
+    closeTimeOne: 1
+    closeTimeTwo: 1
+    openTimeOne: 1
+    openTimeTwo: 1
     pryTime: -1
     crushDamage:
       types:
@@ -24,7 +24,7 @@
     visuals:
     - type: AirlockVisualizer
       simpleVisuals: true
-      animationTime: 1.0
+      animationTime: 2
   - type: RadiationBlocker
     resistance: 8
 

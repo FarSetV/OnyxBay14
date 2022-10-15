@@ -423,6 +423,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/solid.rsi
+    color: '#666666'
   - type: Icon
     sprite: Structures/Walls/solid.rsi
     state: rgeneric
@@ -663,6 +664,7 @@
       - RCDDeconstructWhitelist
   - type: Sprite
     sprite: Structures/Walls/solid.rsi
+    color: '#666666'
   - type: Construction
     graph: Girder
     node: wall
@@ -701,6 +703,7 @@
   components:
   - type: Sprite
     sprite: Structures/Walls/solidrust.rsi
+    color: '#666666'
   - type: Icon
     sprite: Structures/Walls/solidrust.rsi
     state: full
