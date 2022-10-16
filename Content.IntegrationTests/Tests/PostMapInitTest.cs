@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.GameTicking;
@@ -144,77 +143,60 @@ public sealed class PostMapInitTest
 
             // Test shuttle can dock.
             // This is done inside gamemap test because loading the map takes ages and we already have it.
+            var shuttleMap = mapManager.CreateMap();
+            var largest = 0f;
+            EntityUid? targetGrid = null;
+            var memberQuery = entManager.GetEntityQuery<StationMemberComponent>();
+
+            var grids = mapManager.GetAllMapGrids(mapId);
+
+            foreach (var grid in grids)
             {
-                var shuttleMap = mapManager.CreateMap();
-                var largest = 0f;
-                EntityUid? targetGrid = null;
-                var memberQuery = entManager.GetEntityQuery<StationMemberComponent>();
+                if (!memberQuery.HasComponent(grid.GridEntityId))
+                    continue;
 
-                var grids = mapManager.GetAllMapGrids(mapId);
+                var area = grid.LocalAABB.Width * grid.LocalAABB.Height;
 
-                foreach (var grid in grids)
-                {
-                    if (!memberQuery.HasComponent(grid.GridEntityId))
-                        continue;
+                if (!(area > largest))
+                    continue;
 
-                    var area = grid.LocalAABB.Width * grid.LocalAABB.Height;
-
-                    if (!(area > largest))
-                        continue;
-
-                    largest = area;
-                    targetGrid = grid.GridEntityId;
-                }
-
-                var station = entManager.GetComponent<StationMemberComponent>(targetGrid!.Value).Station;
-                var shuttlePath = entManager.GetComponent<StationDataComponent>(station).EmergencyShuttlePath
-                    .ToString();
-                var shuttle = mapLoader.LoadGrid(shuttleMap,
-                    entManager.GetComponent<StationDataComponent>(station).EmergencyShuttlePath.ToString());
-
-                Assert.That(
-                    shuttleSystem.TryFTLDock(entManager.GetComponent<ShuttleComponent>(shuttle.gridId!.Value),
-                        targetGrid.Value), $"Unable to dock {shuttlePath} to {mapProtoId}");
-
-                mapManager.DeleteMap(shuttleMap);
+                largest = area;
+                targetGrid = grid.GridEntityId;
             }
+
+            var station = entManager.GetComponent<StationMemberComponent>(targetGrid!.Value).Station;
+            var shuttlePath = entManager.GetComponent<StationDataComponent>(station).EmergencyShuttlePath
+                .ToString();
+            var shuttle = mapLoader.LoadGrid(shuttleMap,
+                entManager.GetComponent<StationDataComponent>(station).EmergencyShuttlePath.ToString());
+
+            Assert.That(
+                shuttleSystem.TryFTLDock(entManager.GetComponent<ShuttleComponent>(shuttle.gridId!.Value),
+                    targetGrid.Value), $"Unable to dock {shuttlePath} to {mapProtoId}");
+
+            mapManager.DeleteMap(shuttleMap);
 
             // Test jobs spawn points.
+            // Test all availableJobs have spawnPoints
+            // This is done inside gamemap test because loading the map takes ages and we already have it.
+            var jobList = entManager.GetComponent<StationJobsComponent>(station).RoundStartJobList
+                .Where(x => x.Value != 0)
+                .Select(x => x.Key);
+            var spawnPoints = entManager.EntityQuery<SpawnPointComponent>()
+                .Where(spawnpoint => spawnpoint.SpawnType == SpawnPointType.Job)
+                .Select(spawnpoint => spawnpoint.Job.ID)
+                .Distinct();
+
+            List<string> missingSpawnPoints = new();
+
+            foreach (var spawnpoint in jobList.Except(spawnPoints))
             {
-                var jobIds = new Dictionary<string, bool>();
-
-                foreach (var stationCfg in gameMap.Stations)
-                {
-                    var jobProtos = stationCfg.Value.AvailableJobs.Keys.Select(jobProto =>
-                        protoManager.Index<JobPrototype>(jobProto));
-
-                    foreach (var jobProto in jobProtos)
-                    {
-                        jobIds[jobProto.ID] = false;
-                    }
-                }
-
-                var spawnPoints = entManager.EntityQuery<SpawnPointComponent>();
-
-                foreach (var (jobId, _) in jobIds)
-                {
-                    if (spawnPoints.Any(p => p.Job?.ID == jobId))
-                        jobIds[jobId] = true;
-                }
-
-                Assert.That(jobIds.All(kvp => kvp.Value), Is.True, () =>
-                {
-                    var sb = new StringBuilder($"Jobs without spawn points on {mapProtoId}: ");
-
-                    foreach (var (jobId, hasPoint) in jobIds)
-                    {
-                        if (!hasPoint)
-                            sb.Append($"{jobId}, ");
-                    }
-
-                    return sb.ToString();
-                });
+                if (protoManager.Index<JobPrototype>(spawnpoint).SetPreference)
+                    missingSpawnPoints.Add(spawnpoint);
             }
+
+            Assert.That(missingSpawnPoints.Count() == 0,
+                $"There is no spawnpoint for {string.Join(", ", missingSpawnPoints)} on {mapProtoId}.");
 
             try
             {
