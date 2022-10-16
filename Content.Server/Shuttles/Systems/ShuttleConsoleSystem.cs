@@ -158,7 +158,7 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         UpdateState(component);
     }
 
-    private void OnConsolePowerChange(EntityUid uid, ShuttleConsoleComponent component, PowerChangedEvent args)
+    private void OnConsolePowerChange(EntityUid uid, ShuttleConsoleComponent component, ref PowerChangedEvent args)
     {
         UpdateState(component);
     }
