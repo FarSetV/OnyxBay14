@@ -284,7 +284,7 @@ namespace Content.Server.Preferences.Managers
 
                         if (!prototypeManager.TryIndex<BodyTypePrototype>(hp.BodyType, out var selectedBodyType) || !SharedHumanoidSystem.IsBodyTypeValid(selectedBodyType, selectedSpecies, hp.Sex))
                         {
-                            selectedBodyType = prototypeManager.Index<BodyTypePrototype>(SharedHumanoidSystem.DefaultSpecies);
+                            selectedBodyType = prototypeManager.Index<BodyTypePrototype>(SharedHumanoidSystem.DefaultBodyType);
                         }
 
                         newProf = hp
