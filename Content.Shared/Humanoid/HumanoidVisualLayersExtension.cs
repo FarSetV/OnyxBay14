@@ -5,16 +5,6 @@ namespace Content.Shared.Humanoid
 {
     public static class HumanoidVisualLayersExtension
     {
-        public static bool HasSexMorph(HumanoidVisualLayers layer)
-        {
-            return layer switch
-            {
-                HumanoidVisualLayers.Chest => true,
-                HumanoidVisualLayers.Head => true,
-                _ => false
-            };
-        }
-
         /// <summary>
         ///     Sublayers. Any other layers that may visually depend on this layer existing.
         ///     For example, the head has layers such as eyes, hair, etc. depending on it.

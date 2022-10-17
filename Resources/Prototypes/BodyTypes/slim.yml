@@ -1,6 +1,6 @@
 ﻿- type: bodyType
   id: SlimHuman
-  name: body-types-slim-alt
+  name: body-types-slim
   sexRestrictions:
     - Male
   sprites:

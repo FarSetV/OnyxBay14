@@ -352,14 +352,7 @@ public sealed class HumanoidVisualizerSystem : VisualizerSystem<HumanoidComponen
 
         foreach (var (key, id) in baseSprites)
         {
-            var sexMorph = humanoid.Sex switch
-            {
-                Sex.Male when HumanoidVisualLayersExtension.HasSexMorph(key) => $"{id}Male",
-                Sex.Female when HumanoidVisualLayersExtension.HasSexMorph(key) => $"{id}Female",
-                _ => id
-            };
-
-            if (!_prototypeManager.TryIndex(sexMorph, out HumanoidSpeciesSpriteLayer? baseLayer))
+            if (!_prototypeManager.TryIndex(id, out HumanoidSpeciesSpriteLayer? baseLayer))
             {
                 continue;
             }

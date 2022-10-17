@@ -724,6 +724,7 @@ public sealed partial class HumanoidProfileEditor : Control
     {
         Profile = Profile?.WithBodyType(newBodyType);
         IsDirty = true;
+        NeedsDummyRebuild = true;
     }
 
     private void SetSpecies(string newSpecies)
@@ -793,7 +794,7 @@ public sealed partial class HumanoidProfileEditor : Control
         if (!_bodyTypesList.Select(proto => proto.ID).Contains(Profile.BodyType))
         {
             // Then replace it with a first valid body type.
-            Profile = Profile.WithBodyType(species.BodyTypes.First());
+            SetBodyType(_bodyTypesList.First().ID);
         }
 
         IsDirty = true;

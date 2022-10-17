@@ -60,37 +60,13 @@
   id: MobHumanHead
   baseSprite:
     sprite: Mobs/Species/Human/parts.rsi
-    state: head_m
-
-- type: humanoidBaseSprite
-  id: MobHumanHeadMale
-  baseSprite:
-    sprite: Mobs/Species/Human/parts.rsi
-    state: head_m
-
-- type: humanoidBaseSprite
-  id: MobHumanHeadFemale
-  baseSprite:
-    sprite: Mobs/Species/Human/parts.rsi
-    state: head_f
+    state: head
 
 - type: humanoidBaseSprite
   id: MobHumanTorso
   baseSprite:
     sprite: Mobs/Species/Human/parts.rsi
-    state: torso_m
-
-- type: humanoidBaseSprite
-  id: MobHumanTorsoMale
-  baseSprite:
-    sprite: Mobs/Species/Human/parts.rsi
-    state: torso_m
-
-- type: humanoidBaseSprite
-  id: MobHumanTorsoFemale
-  baseSprite:
-    sprite: Mobs/Species/Human/parts.rsi
-    state: torso_f
+    state: torso
 
 - type: humanoidBaseSprite
   id: MobHumanLLeg
@@ -140,25 +116,19 @@
     sprite: Mobs/Species/Human/parts.rsi
     state: r_foot
 
-# Slim alt body type sprites
+# Slim body type sprites
 
 - type: humanoidBaseSprite
   id: MobHumanSlimHead
   baseSprite:
     sprite: Mobs/Species/Human/parts.rsi
-    state: head_m
+    state: head_slim
 
 - type: humanoidBaseSprite
-  id: MobHumanSlimHeadFemale
+  id: MobHumanSlimTorso
   baseSprite:
     sprite: Mobs/Species/Human/parts.rsi
-    state: head_f_slim
-
-- type: humanoidBaseSprite
-  id: MobHumanSlimTorsoFemale
-  baseSprite:
-    sprite: Mobs/Species/Human/parts.rsi
-    state: torso_f_slim
+    state: torso_slim
 
 - type: humanoidBaseSprite
   id: MobHumanSlimLLeg
