@@ -28,6 +28,12 @@ public sealed class PostMapInitTest
     private const bool SkipTestMaps = true;
     private const string TestMapsPath = "/Maps/Test/";
 
+    private static readonly string[] NoSpawnMaps =
+    {
+        "CentComm",
+        "Dart",
+    };
+
     private static string[] Grids =
     {
         "/Maps/centcomm.yml",
@@ -175,6 +181,7 @@ public sealed class PostMapInitTest
         var ticker = entManager.EntitySysManager.GetEntitySystem<GameTicker>();
         var shuttleSystem = entManager.EntitySysManager.GetEntitySystem<ShuttleSystem>();
         var gameMap = protoManager.Index<GameMapPrototype>(mapProtoId);
+        var xformQuery = entManager.GetEntityQuery<TransformComponent>();
 
         await server.WaitPost(() =>
         {
@@ -195,7 +202,8 @@ public sealed class PostMapInitTest
             EntityUid? targetGrid = null;
             var memberQuery = entManager.GetEntityQuery<StationMemberComponent>();
 
-            var grids = mapManager.GetAllMapGrids(mapId);
+            var grids = mapManager.GetAllMapGrids(mapId).ToList();
+            var gridUids = grids.Select(o => o.GridEntityId).ToList();
 
             foreach (var grid in grids)
             {
@@ -223,7 +231,27 @@ public sealed class PostMapInitTest
 
             mapManager.DeleteMap(shuttleMap);
 
-            // Test jobs spawn points.
+            // Test that the map has valid latejoin spawn points
+            if (!NoSpawnMaps.Contains(mapProtoId))
+            {
+                var lateSpawns = 0;
+
+                foreach (var comp in entManager.EntityQuery<SpawnPointComponent>(true))
+                {
+                    if (comp.SpawnType != SpawnPointType.LateJoin ||
+                        !xformQuery.TryGetComponent(comp.Owner, out var xform) ||
+                        xform.GridUid == null ||
+                        !gridUids.Contains(xform.GridUid.Value))
+                    {
+                        continue;
+                    }
+
+                    lateSpawns++;
+                    break;
+                }
+
+                Assert.That(lateSpawns, Is.GreaterThan(0), $"Found no latejoin spawn points on {mapProtoId}");
+            }
             // Test all availableJobs have spawnPoints
             // This is done inside gamemap test because loading the map takes ages and we already have it.
             var jobList = entManager.GetComponent<StationJobsComponent>(station).RoundStartJobList
