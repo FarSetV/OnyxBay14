@@ -1,5 +1,4 @@
 using Content.Shared.Clothing.Components;
-using Robust.Shared.GameStates;
 
 namespace Content.Client.Clothing
 {
