@@ -1077,6 +1077,16 @@ namespace Content.Shared.CCVar
             CVarDef.Create("viewport.scale_render", true, CVar.CLIENTONLY | CVar.ARCHIVE);
 
         /*
+         * GRAPHICS
+         */
+
+        public static readonly CVarDef<bool> Shaders =
+            CVarDef.Create("graphics.shaders", true, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+        public static readonly CVarDef<bool> FilmGrain =
+            CVarDef.Create("graphics.film_grain", true, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+        /*
          * CHAT
          */
 
@@ -1170,23 +1180,6 @@ namespace Content.Shared.CCVar
         /// </summary>
         public static readonly CVarDef<string>
             AutosaveDirectory = CVarDef.Create("mapping.autosave_dir", "Autosaves", CVar.SERVERONLY);
-
-
-        /*
-         * Rules
-         */
-
-        /// <summary>
-        /// Time that players have to wait before rules can be accepted.
-        /// </summary>
-        public static readonly CVarDef<float> RulesWaitTime =
-            CVarDef.Create("rules.time", 45f, CVar.SERVER | CVar.REPLICATED);
-
-        /// <summary>
-        /// Don't show rules to localhost/loopback interface.
-        /// </summary>
-        public static readonly CVarDef<bool> RulesExemptLocal =
-            CVarDef.Create("rules.exempt_local", true, CVar.SERVERONLY);
 
 
         /*
