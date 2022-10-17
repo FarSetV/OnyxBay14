@@ -12,7 +12,7 @@ namespace Content.Shared.Light;
 public abstract class SharedHandheldLightSystem : EntitySystem
 {
     [Dependency] private readonly SharedItemSystem _itemSys = default!;
-    [Dependency] private readonly ClothingSystem _clothingSys = default!;
+    [Dependency] private readonly SharedClothingSystem _sharedClothingSys = default!;
     [Dependency] private readonly SharedActionsSystem _actionSystem = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
@@ -70,7 +70,7 @@ public abstract class SharedHandheldLightSystem : EntitySystem
         {
             var prefix = component.Activated ? "on" : "off";
             _itemSys.SetHeldPrefix(uid, prefix);
-            _clothingSys.SetEquippedPrefix(uid, prefix);
+            _sharedClothingSys.SetEquippedPrefix(uid, prefix);
         }
 
         if (component.ToggleAction != null)

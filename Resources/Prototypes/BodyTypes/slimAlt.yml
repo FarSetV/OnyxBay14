@@ -1,0 +1,19 @@
+﻿- type: bodyType
+  id: SlimHuman
+  name: body-types-slim-alt
+  sexRestrictions:
+    - Male
+  sprites:
+    Head: MobHumanSlimHead
+    Hair: MobHumanoidAnyMarking
+    FacialHair: MobHumanoidAnyMarking
+    Chest: MobHumanSlimTorso
+    Eyes: MobHumanoidEyes
+    LArm: MobHumanSlimLArm
+    RArm: MobHumanSlimRArm
+    LHand: MobHumanSlimLHand
+    RHand: MobHumanSlimRHand
+    LLeg: MobHumanSlimLLeg
+    RLeg: MobHumanSlimRLeg
+    LFoot: MobHumanSlimLFoot
+    RFoot: MobHumanSlimRFoot

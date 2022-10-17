@@ -1,5 +1,6 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
 
 namespace Content.Shared.Humanoid.Prototypes;
 
@@ -18,6 +19,9 @@ public sealed class SpeciesPrototype : IPrototype
     [DataField("name", required: true)]
     public string Name { get; } = default!;
 
+    [DataField("bodyTypes", required: true, customTypeSerializer: typeof(PrototypeIdListSerializer<BodyTypePrototype>))]
+    public List<string> BodyTypes { get; } = default!;
+
     /// <summary>
     ///     Descriptor. Unused...? This is intended
     ///     for an eventual integration into IdentitySystem
@@ -31,18 +35,6 @@ public sealed class SpeciesPrototype : IPrototype
     /// </summary>
     [DataField("roundStart", required: true)]
     public bool RoundStart { get; } = false;
-
-    // The below two are to avoid fetching information about the species from the entity
-    // prototype.
-
-    // This one here is a utility field, and is meant to *avoid* having to duplicate
-    // the massive SpriteComponent found in every species.
-    // Species implementors can just override SpriteComponent if they want a custom
-    // sprite layout, and leave this null. Keep in mind that this will disable
-    // sprite accessories.
-
-    [DataField("sprites")]
-    public string SpriteSet { get; } = default!;
 
     /// <summary>
     ///     Default skin tone for this species. This applies for non-human skin tones.

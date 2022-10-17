@@ -1,12 +1,13 @@
 using Content.Server.Humanoid;
 using Content.Shared.Clothing.Components;
+using Content.Shared.Clothing.EntitySystems;
 using Content.Shared.Humanoid;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Tag;
 
 namespace Content.Server.Clothing;
 
-public sealed class ServerClothingSystem : EntitySystem
+public sealed class ClothingSystem : SharedClothingSystem
 {
     [Dependency] private readonly HumanoidSystem _humanoidSystem = default!;
     [Dependency] private readonly TagSystem _tagSystem = default!;

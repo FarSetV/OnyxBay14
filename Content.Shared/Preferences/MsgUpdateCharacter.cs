@@ -13,7 +13,7 @@ namespace Content.Shared.Preferences
         public override MsgGroups MsgGroup => MsgGroups.Command;
 
         public int Slot;
-        public ICharacterProfile Profile = default!;
+        public ICharacterProfile? Profile;
 
         public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
         {
@@ -26,13 +26,11 @@ namespace Content.Shared.Preferences
         public override void WriteToBuffer(NetOutgoingMessage buffer, IRobustSerializer serializer)
         {
             buffer.Write(Slot);
-            using (var stream = new MemoryStream())
-            {
-                serializer.Serialize(stream, Profile);
-                buffer.WriteVariableInt32((int) stream.Length);
-                stream.TryGetBuffer(out var segment);
-                buffer.Write(segment);
-            }
+            using var stream = new MemoryStream();
+            serializer.Serialize(stream, Profile!);
+            buffer.WriteVariableInt32((int) stream.Length);
+            stream.TryGetBuffer(out var segment);
+            buffer.Write(segment);
         }
     }
 }

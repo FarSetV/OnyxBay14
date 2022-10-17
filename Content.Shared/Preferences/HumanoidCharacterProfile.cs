@@ -39,6 +39,7 @@ namespace Content.Shared.Preferences
             string species,
             int age,
             Sex sex,
+            string bodyType,
             HumanoidCharacterAppearance appearance,
             ClothingPreference clothing,
             BackpackPreference backpack,
@@ -52,6 +53,7 @@ namespace Content.Shared.Preferences
             Species = species;
             Age = age;
             Sex = sex;
+            BodyType = bodyType;
             Appearance = appearance;
             Clothing = clothing;
             Backpack = backpack;
@@ -67,7 +69,7 @@ namespace Content.Shared.Preferences
             Dictionary<string, JobPriority> jobPriorities,
             List<string> antagPreferences,
             List<string> traitPreferences)
-            : this(other.Name, other.FlavorText, other.Species, other.Age, other.Sex, other.Appearance, other.Clothing, other.Backpack,
+            : this(other.Name, other.FlavorText, other.Species, other.Age, other.Sex, other.BodyType, other.Appearance, other.Clothing, other.Backpack,
                 jobPriorities, other.PreferenceUnavailable, antagPreferences, traitPreferences)
         {
         }
@@ -84,6 +86,7 @@ namespace Content.Shared.Preferences
             string species,
             int age,
             Sex sex,
+            string bodyType,
             HumanoidCharacterAppearance appearance,
             ClothingPreference clothing,
             BackpackPreference backpack,
@@ -91,7 +94,7 @@ namespace Content.Shared.Preferences
             PreferenceUnavailableMode preferenceUnavailable,
             IReadOnlyList<string> antagPreferences,
             IReadOnlyList<string> traitPreferences)
-            : this(name, flavortext, species, age, sex, appearance, clothing, backpack, new Dictionary<string, JobPriority>(jobPriorities),
+            : this(name, flavortext, species, age, sex, bodyType, appearance, clothing, backpack, new Dictionary<string, JobPriority>(jobPriorities),
                 preferenceUnavailable, new List<string>(antagPreferences), new List<string>(traitPreferences))
         {
         }
@@ -109,6 +112,7 @@ namespace Content.Shared.Preferences
                 SharedHumanoidSystem.DefaultSpecies,
                 MinimumAge,
                 Sex.Male,
+                SharedHumanoidSystem.DefaultBodyType,
                 HumanoidCharacterAppearance.Default(),
                 ClothingPreference.Jumpsuit,
                 BackpackPreference.Backpack,
@@ -134,6 +138,7 @@ namespace Content.Shared.Preferences
                 species,
                 MinimumAge,
                 Sex.Male,
+                SharedHumanoidSystem.DefaultBodyType,
                 HumanoidCharacterAppearance.DefaultWithSpecies(species),
                 ClothingPreference.Jumpsuit,
                 BackpackPreference.Backpack,
@@ -167,11 +172,12 @@ namespace Content.Shared.Preferences
             var random = IoCManager.Resolve<IRobustRandom>();
 
             var sex = random.Prob(0.5f) ? Sex.Male : Sex.Female;
+            var bodyType = SharedHumanoidSystem.DefaultBodyType;
 
             var name = sex.GetName(species, prototypeManager, random);
             var age = random.Next(MinimumAge, MaximumAge);
 
-            return new HumanoidCharacterProfile(name, "", species, age, sex, HumanoidCharacterAppearance.Random(species, sex), ClothingPreference.Jumpsuit, BackpackPreference.Backpack,
+            return new HumanoidCharacterProfile(name, "", species, age, sex, bodyType, HumanoidCharacterAppearance.Random(species, sex), ClothingPreference.Jumpsuit, BackpackPreference.Backpack,
                 new Dictionary<string, JobPriority>
                 {
                     {SharedGameTicker.FallbackOverflowJob, JobPriority.High},
@@ -187,16 +193,15 @@ namespace Content.Shared.Preferences
 
         [DataField("sex")]
         public Sex Sex { get; private set; }
+        public string BodyType { get; private set; }
 
-        public Gender GetGender()
-        {
-            return this.Sex switch
+        public Gender Gender =>
+            Sex switch
             {
-                Sex.Male => Gender.Male,
-                Sex.Female => Gender.Female,
+                Sex.Male => Robust.Shared.Enums.Gender.Male,
+                Sex.Female => Robust.Shared.Enums.Gender.Female,
                 _ => throw new ArgumentOutOfRangeException(nameof(this.Sex))
             };
-        }
 
         public ICharacterAppearance CharacterAppearance => Appearance;
 
@@ -227,6 +232,11 @@ namespace Content.Shared.Preferences
         public HumanoidCharacterProfile WithSex(Sex sex)
         {
             return new(this) { Sex = sex };
+        }
+
+        public HumanoidCharacterProfile WithBodyType(string bodyType)
+        {
+            return new(this) { BodyType = bodyType };
         }
 
         public HumanoidCharacterProfile WithSpecies(string species)
@@ -323,7 +333,7 @@ namespace Content.Shared.Preferences
             Loc.GetString(
                 "humanoid-character-profile-summary",
                 ("name", Name),
-                ("gender", GetGender().ToString().ToLowerInvariant()),
+                ("gender", Gender.ToString().ToLowerInvariant()),
                 ("age", Age)
             );
 
@@ -449,6 +459,19 @@ namespace Content.Shared.Preferences
             Appearance = appearance;
             Clothing = clothing;
             Backpack = backpack;
+
+            if (!prototypeManager.TryIndex<SpeciesPrototype>(Species, out var species))
+            {
+                species = prototypeManager.Index<SpeciesPrototype>(SharedHumanoidSystem.DefaultSpecies);
+            }
+
+            Species = species.ID;
+
+            if (!prototypeManager.TryIndex<BodyTypePrototype>(BodyType, out var bodyType) ||
+                !SharedHumanoidSystem.IsBodyTypeValid(bodyType, species, Sex))
+            {
+                BodyType = prototypeManager.Index<BodyTypePrototype>(SharedHumanoidSystem.DefaultBodyType).ID;
+            }
 
             _jobPriorities.Clear();
 

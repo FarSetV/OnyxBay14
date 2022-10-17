@@ -29,8 +29,6 @@
     contents:
       - id: FlashlightSeclite
         prob: 0.8
-      - id: ClothingUniformJumpsuitSecGrey
-        prob: 0.3
       - id: ClothingHeadHelmetHelmet
       - id: ClothingOuterArmorBulletproof
       - id: ClothingBeltSecurityFilled

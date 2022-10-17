@@ -1,8 +1,4 @@
-using System.Linq;
 using Content.Shared.Humanoid.Prototypes;
-using Content.Shared.Preferences;
-using Robust.Shared.Enums;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
@@ -10,6 +6,20 @@ namespace Content.Shared.Humanoid;
 
 public abstract class SharedHumanoidComponent : Component
 {
+    /// <summary>
+    ///     Visual layers currently hidden. This will affect the base sprite
+    ///     on this humanoid layer, and any markings that sit above it.
+    /// </summary>
+    [ViewVariables] public readonly HashSet<HumanoidVisualLayers> HiddenLayers = new();
+
+    /// <summary>
+    ///     Current body type.
+    /// </summary>
+    [DataField("bodyType", customTypeSerializer: typeof(PrototypeIdSerializer<BodyTypePrototype>))]
+    public string BodyType = default!;
+
+    [DataField("sex")] public Sex Sex = Sex.Male;
+
     /// <summary>
     ///     Current species. Dictates things like base body sprites,
     ///     base humanoid to spawn, etc.
@@ -27,19 +37,12 @@ public abstract class SharedHumanoidComponent : Component
     ///     Skin color of this humanoid.
     /// </summary>
     [DataField("skinColor")]
-    public Color SkinColor { get; set;  } = Color.FromHex("#C0967F");
-
-    /// <summary>
-    ///     Visual layers currently hidden. This will affect the base sprite
-    ///     on this humanoid layer, and any markings that sit above it.
-    /// </summary>
-    [ViewVariables] public readonly HashSet<HumanoidVisualLayers> HiddenLayers = new();
-
-    [DataField("sex")] public Sex Sex = Sex.Male;
+    public Color SkinColor { get; set; } = Color.FromHex("#C0967F");
 }
 
 [DataDefinition]
-[Serializable, NetSerializable]
+[Serializable]
+[NetSerializable]
 public sealed class CustomBaseLayerInfo
 {
     public CustomBaseLayerInfo(string id, Color color)
@@ -49,7 +52,7 @@ public sealed class CustomBaseLayerInfo
     }
 
     /// <summary>
-    ///     ID of this custom base layer. Must be a <see cref="HumanoidSpeciesSpriteLayer"/>.
+    ///     ID of this custom base layer. Must be a <see cref="HumanoidSpeciesSpriteLayer" />.
     /// </summary>
     [DataField("id")]
     public string ID { get; }

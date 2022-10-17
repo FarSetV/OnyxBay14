@@ -30,22 +30,23 @@ public sealed class HumanoidVisualizerSystem : VisualizerSystem<HumanoidComponen
             return;
         }
 
-        if (!_prototypeManager.TryIndex(data.Species, out SpeciesPrototype? speciesProto)
-            || !_prototypeManager.TryIndex(speciesProto.SpriteSet, out HumanoidSpeciesBaseSpritesPrototype? baseSprites))
+
+        if (!_prototypeManager.TryIndex(data.BodyType, out BodyTypePrototype? bodyTypeProto))
         {
             return;
         }
 
-        var dirty = data.SkinColor != component.SkinColor || data.Sex != component.Sex;
+        var dirty = data.SkinColor != component.SkinColor || data.Sex != component.Sex || data.BodyType != component.BodyType;
         component.Sex = data.Sex;
+        component.BodyType = data.BodyType;
 
         if (data.CustomBaseLayerInfo.Count != 0)
         {
-            dirty |= MergeCustomBaseSprites(uid, baseSprites.Sprites, data.CustomBaseLayerInfo, component);
+            dirty |= MergeCustomBaseSprites(uid, bodyTypeProto.Sprites, data.CustomBaseLayerInfo, component);
         }
         else
         {
-            dirty |= MergeCustomBaseSprites(uid, baseSprites.Sprites, null, component);
+            dirty |= MergeCustomBaseSprites(uid, bodyTypeProto.Sprites, null, component);
         }
 
         if (dirty)

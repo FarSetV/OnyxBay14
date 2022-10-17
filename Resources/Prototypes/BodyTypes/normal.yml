@@ -1,0 +1,91 @@
+﻿- type: bodyType
+  id: NormalHuman
+  name: body-types-normal
+  sprites:
+    Head: MobHumanHead
+    Hair: MobHumanoidAnyMarking
+    FacialHair: MobHumanoidAnyMarking
+    Chest: MobHumanTorso
+    Eyes: MobHumanoidEyes
+    LArm: MobHumanLArm
+    RArm: MobHumanRArm
+    LHand: MobHumanLHand
+    RHand: MobHumanRHand
+    LLeg: MobHumanLLeg
+    RLeg: MobHumanRLeg
+    LFoot: MobHumanLFoot
+    RFoot: MobHumanRFoot
+
+- type: bodyType
+  id: NormalReptilian
+  name: body-types-normal
+  sprites:
+    Head: MobReptilianHead
+    Snout: MobHumanoidAnyMarking
+    Chest: MobReptilianTorso
+    HeadTop: MobHumanoidAnyMarking
+    HeadSide: MobHumanoidAnyMarking
+    Tail: MobHumanoidAnyMarking
+    Eyes: MobHumanoidEyes
+    LArm: MobReptilianLArm
+    RArm: MobReptilianRArm
+    LHand: MobReptilianLHand
+    RHand: MobReptilianRHand
+    LLeg: MobReptilianLLeg
+    RLeg: MobReptilianRLeg
+    LFoot: MobReptilianLFoot
+    RFoot: MobReptilianRFoot
+
+- type: bodyType
+  id: NormalSkeleton
+  name: body-types-normal
+  sprites:
+    Head: MobSkeletonHead
+    Hair: MobHumanoidAnyMarking
+    FacialHair: MobHumanoidAnyMarking
+    Chest: MobSkeletonTorso
+    Eyes: MobHumanoidEyes
+    LArm: MobSkeletonLArm
+    RArm: MobSkeletonRArm
+    LHand: MobSkeletonLHand
+    RHand: MobSkeletonRHand
+    LLeg: MobSkeletonLLeg
+    RLeg: MobSkeletonRLeg
+    LFoot: MobSkeletonLFoot
+    RFoot: MobSkeletonRFoot
+
+- type: bodyType
+  id: NormalSlime
+  name: body-types-normal
+  sprites:
+    Head: MobSlimeHead
+    Hair: MobSlimeMarkingFollowSkin
+    FacialHair: MobSlimeMarkingFollowSkin
+    Chest: MobSlimeTorso
+    Eyes: MobHumanoidEyes
+    LArm: MobSlimeLArm
+    RArm: MobSlimeRArm
+    LHand: MobSlimeLHand
+    RHand: MobSlimeRHand
+    LLeg: MobSlimeLLeg
+    RLeg: MobSlimeRLeg
+    LFoot: MobSlimeLFoot
+    RFoot: MobSlimeRFoot
+
+- type: bodyType
+  id: NormalVox
+  name: body-types-normal
+  sprites:
+    Head: MobVoxHead
+    Hair: MobHumanoidAnyMarking
+    FacialHair: MobHumanoidAnyMarking
+    Chest: MobVoxTorso
+    Eyes: MobVoxEyes
+    LArm: MobVoxLArm
+    RArm: MobVoxRArm
+    LHand: MobVoxLHand
+    RHand: MobVoxRHand
+    LLeg: MobVoxLLeg
+    RLeg: MobVoxRLeg
+    LFoot: MobVoxLFoot
+    RFoot: MobVoxRFoot

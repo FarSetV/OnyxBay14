@@ -29533,30 +29533,6 @@ entities:
     pos: -2.5,32.5
     parent: 0
     type: Transform
-- uid: 3247
-  type: ClothingUniformJumpsuitSecGrey
-  components:
-  - pos: 3.300664,32.693604
-    parent: 0
-    type: Transform
-- uid: 3248
-  type: ClothingUniformJumpsuitSecGrey
-  components:
-  - pos: 3.425664,32.818604
-    parent: 0
-    type: Transform
-- uid: 3249
-  type: ClothingUniformJumpsuitSecGrey
-  components:
-  - pos: 15.331914,32.724854
-    parent: 0
-    type: Transform
-- uid: 3250
-  type: ClothingUniformJumpsuitSecGrey
-  components:
-  - pos: 15.472539,32.787354
-    parent: 0
-    type: Transform
 - uid: 3251
   type: Catwalk
   components:

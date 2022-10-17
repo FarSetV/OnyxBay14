@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Content.Server.Database;
-using Content.Server.Humanoid;
 using Content.Shared.CCVar;
+using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
@@ -276,11 +276,15 @@ namespace Content.Server.Preferences.Managers
                     case HumanoidCharacterProfile hp:
                     {
                         var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
-                        var selectedSpecies = HumanoidSystem.DefaultSpecies;
 
-                        if (prototypeManager.TryIndex<SpeciesPrototype>(hp.Species, out var species) && species.RoundStart)
+                        if (!prototypeManager.TryIndex<SpeciesPrototype>(hp.Species, out var selectedSpecies) || selectedSpecies.RoundStart)
                         {
-                            selectedSpecies = hp.Species;
+                            selectedSpecies = prototypeManager.Index<SpeciesPrototype>(SharedHumanoidSystem.DefaultSpecies);
+                        }
+
+                        if (!prototypeManager.TryIndex<BodyTypePrototype>(hp.BodyType, out var selectedBodyType) || !SharedHumanoidSystem.IsBodyTypeValid(selectedBodyType, selectedSpecies, hp.Sex))
+                        {
+                            selectedBodyType = prototypeManager.Index<BodyTypePrototype>(SharedHumanoidSystem.DefaultSpecies);
                         }
 
                         newProf = hp
@@ -290,7 +294,8 @@ namespace Content.Server.Preferences.Managers
                             .WithAntagPreferences(
                                 hp.AntagPreferences.Where(antag =>
                                     _protos.HasIndex<AntagPrototype>(antag)))
-                            .WithSpecies(selectedSpecies);
+                            .WithSpecies(selectedSpecies.ID)
+                            .WithBodyType(selectedBodyType.ID);
                         break;
                     }
                     default:

@@ -3,28 +3,13 @@
   name: Skeleton
   roundStart: false
   prototype: MobSkeletonPerson
-  sprites: MobSkeletonSprites
+  bodyTypes:
+    - NormalSkeleton
   markingLimits: MobHumanMarkingLimits
   maleFirstNames: skeletonNamesFirst
   femaleFirstNames: skeletonNamesFirst
   dollPrototype: MobSkeletonPersonDummy
   skinColoration: TintedHues
-
-- type: speciesBaseSprites
-  id: MobSkeletonSprites
-  sprites:
-    Head: MobSkeletonHead
-    Hair: MobHumanoidAnyMarking
-    FacialHair: MobHumanoidAnyMarking
-    Chest: MobSkeletonTorso
-    LArm: MobSkeletonLArm
-    RArm: MobSkeletonRArm
-    LHand: MobSkeletonLHand
-    RHand: MobSkeletonRHand
-    LLeg: MobSkeletonLLeg
-    RLeg: MobSkeletonRLeg
-    LFoot: MobSkeletonLFoot
-    RFoot: MobSkeletonRFoot
 
 - type: humanoidBaseSprite
   id: MobSkeletonHead

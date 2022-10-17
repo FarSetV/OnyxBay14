@@ -40,6 +40,7 @@ public sealed partial class HumanoidSystem : SharedHumanoidSystem
             component.CustomBaseLayers,
             component.SkinColor,
             component.Sex,
+            component.BodyType,
             component.AllHiddenLayers.ToList(),
             component.CurrentMarkings.GetForwardEnumerator().ToList());
     }
@@ -91,6 +92,7 @@ public sealed partial class HumanoidSystem : SharedHumanoidSystem
 
         SetSpecies(uid, profile.Species, false, humanoid);
         humanoid.Sex = profile.Sex;
+        SetBodyType(uid, profile.BodyType, false, humanoid);
 
         SetSkinColor(uid, profile.Appearance.SkinColor, false);
         SetBaseLayerColor(uid, HumanoidVisualLayers.Eyes, profile.Appearance.EyeColor, false);
@@ -109,11 +111,11 @@ public sealed partial class HumanoidSystem : SharedHumanoidSystem
 
         EnsureDefaultMarkings(uid, humanoid);
 
-        humanoid.Gender = profile.GetGender();
+        humanoid.Gender = profile.Gender;
 
         if (TryComp<GrammarComponent>(uid, out var grammar))
         {
-            grammar.Gender = profile.GetGender();
+            grammar.Gender = profile.Gender;
         }
 
         humanoid.Age = profile.Age;
@@ -141,6 +143,7 @@ public sealed partial class HumanoidSystem : SharedHumanoidSystem
         targetHumanoid.Species = sourceHumanoid.Species;
         targetHumanoid.SkinColor = sourceHumanoid.SkinColor;
         targetHumanoid.Sex = sourceHumanoid.Sex;
+        targetHumanoid.BodyType = sourceHumanoid.BodyType;
         targetHumanoid.CustomBaseLayers = new(sourceHumanoid.CustomBaseLayers);
         targetHumanoid.CurrentMarkings = new(sourceHumanoid.CurrentMarkings);
 
@@ -172,6 +175,28 @@ public sealed partial class HumanoidSystem : SharedHumanoidSystem
         humanoid.CurrentMarkings.FilterSpecies(species, _markingManager);
         var oldMarkings = humanoid.CurrentMarkings.GetForwardEnumerator().ToList();
         humanoid.CurrentMarkings = new(oldMarkings, prototype.MarkingPoints, _markingManager, _prototypeManager);
+
+        if (sync)
+        {
+            Synchronize(uid, humanoid);
+        }
+    }
+
+    /// <summary>
+    ///     Set a humanoid mob's body yupe. This will change their base sprites.
+    /// </summary>
+    /// <param name="uid">The humanoid mob's UID.</param>
+    /// <param name="bodyType">The body type to set the mob to. Will return if the body type prototype was invalid.</param>
+    /// <param name="sync">Whether to immediately synchronize this to the humanoid mob, or not.</param>
+    /// <param name="humanoid">Humanoid component of the entity</param>
+    public void SetBodyType(EntityUid uid, string bodyType, bool sync = true, HumanoidComponent? humanoid = null)
+    {
+        if (!Resolve(uid, ref humanoid) || !_prototypeManager.TryIndex<BodyTypePrototype>(bodyType, out var prototype))
+        {
+            return;
+        }
+
+        humanoid.BodyType = bodyType;
 
         if (sync)
         {

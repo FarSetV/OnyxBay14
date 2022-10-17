@@ -13,12 +13,12 @@ public sealed class GenderTest : ContentUnitTest
     [Test]
     public void TestFemaleSexReturnsFemaleGender()
     {
-        Assert.That(ProfileWithSex(Sex.Female).GetGender() == Gender.Female);
+        Assert.That(ProfileWithSex(Sex.Female).Gender == Gender.Female);
     }
 
     [Test]
     public void TestMaleSexReturnsMaleGender()
     {
-        Assert.That(ProfileWithSex(Sex.Male).GetGender() == Gender.Male);
+        Assert.That(ProfileWithSex(Sex.Male).Gender == Gender.Male);
     }
 }

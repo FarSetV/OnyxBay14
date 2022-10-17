@@ -26,7 +26,7 @@ namespace Content.Server.Nutrition.EntitySystems
         [Dependency] private readonly AtmosphereSystem _atmos = default!;
         [Dependency] private readonly TransformSystem _transformSystem = default!;
         [Dependency] private readonly InventorySystem _inventorySystem = default!;
-        [Dependency] private readonly ClothingSystem _clothing = default!;
+        [Dependency] private readonly SharedClothingSystem _sharedClothing = default!;
         [Dependency] private readonly SharedItemSystem _items = default!;
 
         private const float UpdateTimer = 3f;
@@ -63,7 +63,7 @@ namespace Content.Server.Nutrition.EntitySystems
                 _ => smokable.UnlitPrefix
             };
 
-            _clothing.SetEquippedPrefix(uid, newState, clothing);
+            _sharedClothing.SetEquippedPrefix(uid, newState, clothing);
             _items.SetHeldPrefix(uid, newState);
 
             if (state == SmokableState.Lit)

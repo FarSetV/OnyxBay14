@@ -28,7 +28,7 @@ namespace Content.Server.Clothing
         [Dependency] private readonly InventorySystem _inventorySystem = default!;
         [Dependency] private readonly PopupSystem _popupSystem = default!;
         [Dependency] private readonly IdentitySystem _identity = default!;
-        [Dependency] private readonly ClothingSystem _clothing = default!;
+        [Dependency] private readonly SharedClothingSystem _sharedClothing = default!;
 
         public override void Initialize()
         {
@@ -85,7 +85,7 @@ namespace Content.Server.Clothing
             if (TryComp<ClothingComponent>(mask.Owner, out var clothing))
             {
                 //TODO: sprites for 'pulled down' state. defaults to invisible due to no sprite with this prefix
-                _clothing.SetEquippedPrefix(uid, mask.IsToggled ? "toggled" : null, clothing);
+                _sharedClothing.SetEquippedPrefix(uid, mask.IsToggled ? "toggled" : null, clothing);
             }
 
             // shouldn't this be an event?

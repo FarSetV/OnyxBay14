@@ -62,6 +62,13 @@
                                         <Button Name="CSexFemale" Text="{Loc 'humanoid-profile-editor-sex-female-button'}" />
                                     </BoxContainer>
                                 </prefUi:HighlightedContainer>
+                                <!-- Body Type -->
+                                <prefUi:HighlightedContainer>
+                                    <BoxContainer Orientation="Horizontal">
+                                        <Label Text="{Loc 'humanoid-profile-editor-body-type-label'}"></Label>
+                                        <OptionButton Name="CBodyTypesButton" />
+                                    </BoxContainer>
+                                </prefUi:HighlightedContainer>
                                 <!-- Age -->
                                 <prefUi:HighlightedContainer>
                                     <BoxContainer Orientation="Horizontal">

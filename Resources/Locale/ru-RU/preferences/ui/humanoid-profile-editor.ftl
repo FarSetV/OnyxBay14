@@ -5,6 +5,7 @@ humanoid-profile-editor-appearance-tab = Appearance
 humanoid-profile-editor-sex-label = Sex:
 humanoid-profile-editor-sex-male-button = Male
 humanoid-profile-editor-sex-female-button = Female
+humanoid-profile-editor-body-type-label = Body Type:
 humanoid-profile-editor-age-label = Age:
 humanoid-profile-editor-skin-color-label = Skin color:
 humanoid-profile-editor-species-label = Species:

@@ -3,6 +3,7 @@ using Content.Server.Administration.Logs;
 using Content.Server.Humanoid;
 using Content.Shared.Database;
 using Content.Shared.Hands;
+using Content.Shared.Humanoid;
 using Content.Shared.IdentityManagement;
 using Content.Shared.IdentityManagement.Components;
 using Content.Shared.Inventory;
@@ -121,8 +122,8 @@ public class IdentitySystem : SharedIdentitySystem
         InventoryComponent? inventory=null,
         HumanoidComponent? appearance=null)
     {
-        int age = HumanoidCharacterProfile.MinimumAge;
-        Gender gender = Gender.Neuter;
+        var age = HumanoidCharacterProfile.MinimumAge;
+        var gender = Gender.Neuter;
 
         // Always use their actual age and gender, since that can't really be changed by an ID.
         if (Resolve(target, ref appearance, false))

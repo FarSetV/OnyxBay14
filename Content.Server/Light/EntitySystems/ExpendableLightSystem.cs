@@ -17,7 +17,7 @@ namespace Content.Server.Light.EntitySystems
     public sealed class ExpendableLightSystem : EntitySystem
     {
         [Dependency] private readonly SharedItemSystem _item = default!;
-        [Dependency] private readonly ClothingSystem _clothing = default!;
+        [Dependency] private readonly SharedClothingSystem _sharedClothing = default!;
         [Dependency] private readonly TagSystem _tagSystem = default!;
 
         public override void Initialize()
@@ -162,7 +162,7 @@ namespace Content.Server.Light.EntitySystems
 
             if (TryComp<ClothingComponent>(component.Owner, out var clothing))
             {
-                _clothing.SetEquippedPrefix(component.Owner, component.Activated ? "Activated" : string.Empty, clothing);
+                _sharedClothing.SetEquippedPrefix(component.Owner, component.Activated ? "Activated" : string.Empty, clothing);
             }
         }
 

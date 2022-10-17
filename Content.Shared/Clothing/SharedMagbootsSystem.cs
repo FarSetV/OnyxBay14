@@ -12,7 +12,7 @@ namespace Content.Shared.Clothing;
 public abstract class SharedMagbootsSystem : EntitySystem
 {
     [Dependency] private readonly ClothingSpeedModifierSystem _clothingSpeedModifier = default!;
-    [Dependency] private readonly ClothingSystem _clothing = default!;
+    [Dependency] private readonly SharedClothingSystem _sharedClothing = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly SharedActionsSystem _sharedActions = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
@@ -44,7 +44,7 @@ public abstract class SharedMagbootsSystem : EntitySystem
         if (TryComp<ItemComponent>(uid, out var item))
         {
             _item.SetHeldPrefix(uid, component.On ? "on" : null, item);
-            _clothing.SetEquippedPrefix(uid, component.On ? "on" : null);
+            _sharedClothing.SetEquippedPrefix(uid, component.On ? "on" : null);
         }
 
         _appearance.SetData(uid, ToggleVisuals.Toggled, component.Owner);

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Content.Client.Humanoid;
 using Content.Client.Inventory;
 using Content.Shared.Clothing;
 using Content.Shared.Clothing.Components;
@@ -61,20 +62,19 @@ public sealed class ClothingVisualsSystem : EntitySystem
 
     private void OnGetVisuals(EntityUid uid, ClothingComponent item, GetEquipmentVisualsEvent args)
     {
-        if (!TryComp(args.Equipee, out ClientInventoryComponent? inventory))
-            return;
+        TryComp(args.Equipee, out HumanoidComponent? humanoid);
 
         List<PrototypeLayerData>? layers = null;
 
         // first attempt to get species specific data.
-        if (inventory.SpeciesId != null)
-            item.ClothingVisuals.TryGetValue($"{args.Slot}-{inventory.SpeciesId}", out layers);
+        if (humanoid?.Species != null)
+            item.ClothingVisuals.TryGetValue($"{args.Slot}-{humanoid.Species}", out layers);
 
         // if that returned nothing, attempt to find generic data
         if (layers == null && !item.ClothingVisuals.TryGetValue(args.Slot, out layers))
         {
             // No generic data either. Attempt to generate defaults from the item's RSI & item-prefixes
-            if (!TryGetDefaultVisuals(uid, item, args.Slot, inventory.SpeciesId, out layers))
+            if (!TryGetDefaultVisuals(uid, item, args.Slot, humanoid?.Species, humanoid?.BodyType, out layers))
                 return;
         }
 
@@ -100,8 +100,8 @@ public sealed class ClothingVisualsSystem : EntitySystem
     /// <remarks>
     ///     Useful for lazily adding clothing sprites without modifying yaml. And for backwards compatibility.
     /// </remarks>
-    private bool TryGetDefaultVisuals(EntityUid uid, ClothingComponent clothing, string slot, string? speciesId,
-        [NotNullWhen(true)] out List<PrototypeLayerData>? layers)
+    private bool TryGetDefaultVisuals(EntityUid uid, ClothingComponent clothing, string slot, string? species,
+        string? bodyType, [NotNullWhen(true)] out List<PrototypeLayerData>? layers)
     {
         layers = null;
 
@@ -122,10 +122,15 @@ public sealed class ClothingVisualsSystem : EntitySystem
             ? $"equipped-{correctedSlot}"
             : $"{clothing.EquippedPrefix}-equipped-{correctedSlot}";
 
-        // species specific
-        if (speciesId != null && rsi.TryGetState($"{state}-{speciesId}", out _))
+        // body type specific
+        if (bodyType != null && rsi.TryGetState($"{state}-{bodyType}", out _))
         {
-            state = $"{state}-{speciesId}";
+            state = $"{state}-{bodyType}";
+        }
+        // species specific
+        else if (species != null && rsi.TryGetState($"{state}-{species}", out _))
+        {
+            state = $"{state}-{species}";
         }
         else if (!rsi.TryGetState(state, out _))
         {

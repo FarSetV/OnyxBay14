@@ -71,7 +71,7 @@ public sealed class StationRecordsSystem : EntitySystem
             return;
         }
 
-        CreateGeneralRecord(station, idUid.Value, profile.Name, profile.Age, profile.Species, profile.GetGender(), jobId, profile, records);
+        CreateGeneralRecord(station, idUid.Value, profile.Name, profile.Age, profile.Species, profile.Gender, jobId, profile, records);
     }
 
 
