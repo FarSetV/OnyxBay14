@@ -33,16 +33,17 @@ public sealed class PostMapInitTest
         "/Maps/centcomm.yml",
         "/Maps/Shuttles/cargo.yml",
         "/Maps/Shuttles/emergency.yml",
-        "/Maps/infiltrator.yml",
+        "/Maps/infiltrator.yml"
     };
 
     /// <summary>
-    /// Asserts that specific files have been saved as grids and not maps.
+    ///     Asserts that specific files have been saved as grids and not maps.
     /// </summary>
-    [Test, TestCaseSource(nameof(Grids))]
+    [Test]
+    [TestCaseSource(nameof(Grids))]
     public async Task GridsLoadableTest(string mapFile)
     {
-        await using var pairTracker = await PoolManager.GetServerClient(new PoolSettings{NoClient = true});
+        await using var pairTracker = await PoolManager.GetServerClient(new PoolSettings { NoClient = true });
         var server = pairTracker.Pair.Server;
 
         var mapLoader = server.ResolveDependency<IMapLoader>();
