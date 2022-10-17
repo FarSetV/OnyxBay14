@@ -177,8 +177,8 @@ public sealed class MusicAudioSystem : EntitySystem
         _timerCancelTokenSource = new CancellationTokenSource();
         Timer.Spawn(1500, () =>
         {
-            // If we traverse a few times then don't interrupt an existing song.
-            if (_playingCollection == _currentCollection)
+            // If we are not in gameplay, don't call StartAmbience because of player movement
+            if (_playingCollection == _currentCollection || _stateManager.CurrentState is not GameplayState)
                 return;
             EndAmbience();
             StartAmbience();
