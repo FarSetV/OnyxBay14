@@ -4,7 +4,7 @@
   roundStart: false
   prototype: MobSkeletonPerson
   bodyTypes:
-    - NormalSkeleton
+    - SkeletonNormal
   markingLimits: MobHumanMarkingLimits
   maleFirstNames: skeletonNamesFirst
   femaleFirstNames: skeletonNamesFirst

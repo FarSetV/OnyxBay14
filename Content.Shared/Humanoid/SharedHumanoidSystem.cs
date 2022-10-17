@@ -16,7 +16,7 @@ namespace Content.Shared.Humanoid;
 public abstract class SharedHumanoidSystem : EntitySystem
 {
     public const string DefaultSpecies = "Human";
-    public const string DefaultBodyType = "NormalHuman";
+    public const string DefaultBodyType = "HumanNormal";
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 

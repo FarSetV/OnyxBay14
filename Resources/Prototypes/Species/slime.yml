@@ -4,7 +4,7 @@
   roundStart: false
   prototype: MobSlimePerson
   bodyTypes:
-    - NormalSlime
+    - SlimeNormal
   defaultSkinTone: "#b8b8b8"
   markingLimits: MobSlimeMarkingLimits
   dollPrototype: MobSlimePersonDummy

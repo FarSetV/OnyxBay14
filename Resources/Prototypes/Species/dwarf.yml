@@ -4,7 +4,7 @@
   roundStart: false
   prototype: MobDwarf
   bodyTypes:
-    - NormalHuman
+    - HumanNormal
   markingLimits: MobHumanMarkingLimits
   dollPrototype: MobDwarfDummy
   skinColoration: HumanToned

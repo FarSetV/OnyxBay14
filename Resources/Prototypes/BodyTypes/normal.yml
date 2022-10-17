@@ -1,5 +1,5 @@
 ﻿- type: bodyType
-  id: NormalHuman
+  id: HumanNormal
   sexRestrictions:
     - Female
   name: body-types-normal
@@ -19,7 +19,7 @@
     RFoot: MobHumanRFoot
 
 - type: bodyType
-  id: NormalReptilian
+  id: ReptilianNormal
   name: body-types-normal
   sprites:
     Head: MobReptilianHead
@@ -39,7 +39,7 @@
     RFoot: MobReptilianRFoot
 
 - type: bodyType
-  id: NormalSkeleton
+  id: SkeletonNormal
   name: body-types-normal
   sprites:
     Head: MobSkeletonHead
@@ -57,7 +57,7 @@
     RFoot: MobSkeletonRFoot
 
 - type: bodyType
-  id: NormalSlime
+  id: SlimeNormal
   name: body-types-normal
   sprites:
     Head: MobSlimeHead
@@ -75,7 +75,7 @@
     RFoot: MobSlimeRFoot
 
 - type: bodyType
-  id: NormalVox
+  id: VoxNormal
   name: body-types-normal
   sprites:
     Head: MobVoxHead

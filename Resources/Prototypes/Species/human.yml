@@ -3,8 +3,8 @@
   name: species-name-human
   roundStart: true
   bodyTypes:
-    - NormalHuman
-    - SlimHuman
+    - HumanNormal
+    - HumanSlim
   prototype: MobHuman
   markingLimits: MobHumanMarkingLimits
   dollPrototype: MobHumanDummy

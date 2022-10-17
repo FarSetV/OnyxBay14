@@ -4,7 +4,7 @@
   roundStart: false # sad...
   prototype: MobVox
   bodyTypes:
-    - NormalVox
+    - VoxNormal
   markingLimits: MobVoxMarkingLimits
   dollPrototype: MobVoxDummy
   skinColoration: Hues
