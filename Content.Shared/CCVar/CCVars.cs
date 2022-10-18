@@ -74,8 +74,6 @@ namespace Content.Shared.CCVar
         public static readonly CVarDef<float> AmbienceVolume =
             CVarDef.Create("ambience.volume", 0.0f, CVar.ARCHIVE | CVar.CLIENTONLY);
 
-        public static readonly CVarDef<float> UIVolume =
-            CVarDef.Create("ui.volume", 0.0f, CVar.ARCHIVE | CVar.CLIENTONLY);
 
         /// <summary>
         ///     Whether to play the ambience music.
@@ -1076,6 +1074,24 @@ namespace Content.Shared.CCVar
         public static readonly CVarDef<bool> ViewportScaleRender =
             CVarDef.Create("viewport.scale_render", true, CVar.CLIENTONLY | CVar.ARCHIVE);
 
+        public static readonly CVarDef<int> ViewportMinimumWidth =
+            CVarDef.Create("viewport.minimum_width", 15, CVar.REPLICATED);
+
+        public static readonly CVarDef<int> ViewportMaximumWidth =
+            CVarDef.Create("viewport.maximum_width", 21, CVar.REPLICATED);
+
+        public static readonly CVarDef<int> ViewportWidth =
+            CVarDef.Create("viewport.width", 21, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+        /*
+         * UI
+         */
+
+        public static readonly CVarDef<string> UILayout =
+            CVarDef.Create("ui.layout", "Default", CVar.CLIENTONLY | CVar.ARCHIVE);
+
+        public static readonly CVarDef<float> UIVolume =
+            CVarDef.Create("ui.volume", 0.0f, CVar.ARCHIVE | CVar.CLIENTONLY);
         /*
          * GRAPHICS
          */

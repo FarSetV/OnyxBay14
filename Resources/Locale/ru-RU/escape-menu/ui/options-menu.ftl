@@ -60,6 +60,8 @@ ui-options-parallax-low-quality = Low-quality Parallax (background)
 ui-options-fps-counter = Show FPS counter
 ui-options-film-grain = Film grain
 ui-options-shaders = Shaders
+ui-options-vp-width = Viewport width: { $width }
+ui-options-hud-layout = HUD layout:
 
 ## Controls menu
 
