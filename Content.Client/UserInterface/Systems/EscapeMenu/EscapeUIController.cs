@@ -34,15 +34,7 @@ public sealed class EscapeUIController : UIController, IOnStateEntered<GameplayS
         }
 
         EscapeButton.Pressed = false;
-        EscapeButton.OnPressed += EscapeButtonOnOnPressed;
-
-        if (_escapeWindow == null)
-        {
-            return;
-        }
-
-        _escapeWindow.OnClose -= DeactivateButton;
-        _escapeWindow.OnOpen -= ActivateButton;
+        EscapeButton.OnPressed -= EscapeButtonOnOnPressed;
     }
 
     public void LoadButton()
@@ -53,14 +45,6 @@ public sealed class EscapeUIController : UIController, IOnStateEntered<GameplayS
         }
 
         EscapeButton.OnPressed += EscapeButtonOnOnPressed;
-
-        if (_escapeWindow == null)
-        {
-            return;
-        }
-
-        _escapeWindow.OnClose += DeactivateButton;
-        _escapeWindow.OnOpen += ActivateButton;
     }
 
     private void ActivateButton() => EscapeButton!.Pressed = true;
@@ -71,6 +55,9 @@ public sealed class EscapeUIController : UIController, IOnStateEntered<GameplayS
         DebugTools.Assert(_escapeWindow == null);
 
         _escapeWindow = UIManager.CreateWindow<Options.UI.EscapeMenu>();
+
+        _escapeWindow.OnClose += DeactivateButton;
+        _escapeWindow.OnOpen += ActivateButton;
 
         _escapeWindow.ChangelogButton.OnPressed += _ =>
         {
@@ -136,6 +123,7 @@ public sealed class EscapeUIController : UIController, IOnStateEntered<GameplayS
         if (_escapeWindow.IsOpen)
         {
             CloseEscapeWindow();
+            EscapeButton!.Pressed = false;
         }
         else
         {
