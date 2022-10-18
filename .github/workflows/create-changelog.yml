@@ -1,0 +1,39 @@
+on:
+  workflow_dispatch
+
+name: Create Changelog
+
+jobs:
+  Main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup submodule
+        run: |
+          git submodule update --init --recursive
+      - name: Pull engine updates
+        uses: space-wizards/submodule-dependency@v0.1.5
+      - name: Update Engine Submodules
+        run: |
+          cd RobustToolbox/
+          git submodule update --init --recursive
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.100
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Run ChangeMaster
+        run: dotnet run --project ChangeMaster/ChangeMaster.csproj fetch
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Pull Request
+        if: success()
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: changelog
+          branch-suffix: timestamp
+          delete-branch: true
+          title: "update: changelog"
+          body: Automatic changelog generation.

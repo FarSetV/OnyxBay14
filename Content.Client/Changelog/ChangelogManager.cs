@@ -81,7 +81,7 @@ namespace Content.Client.Changelog
                     return new List<ChangelogEntry>();
 
                 var node = (MappingDataNode)yamlData.Documents[0].RootNode.ToDataNode();
-                return _serialization.Read<List<ChangelogEntry>>(node["Entries"]);
+                return _serialization.Read<List<ChangelogEntry>>(node["entries"]);
             });
         }
 
@@ -89,17 +89,17 @@ namespace Content.Client.Changelog
         public sealed class ChangelogEntry : ISerializationHooks
         {
             [DataField("id")]
-            public int Id { get; private set; }
+            public int Id { get; set; }
 
             [DataField("author")]
-            public string Author { get; } = "";
+            public string Author { get; set; } = "";
 
             [DataField("time")] private string _time = default!;
 
-            public DateTime Time { get; private set; }
+            public DateTime Time { get; set; }
 
             [DataField("changes")]
-            public List<ChangelogChange> Changes { get; } = default!;
+            public List<ChangelogChange> Changes { get; set; } = default!;
 
             void ISerializationHooks.AfterDeserialization()
             {
@@ -111,10 +111,10 @@ namespace Content.Client.Changelog
         public sealed class ChangelogChange : ISerializationHooks
         {
             [DataField("type")]
-            public ChangelogLineType Type { get; private set; }
+            public ChangelogLineType Type { get; set; }
 
             [DataField("message")]
-            public string Message { get; private set; } = "";
+            public string Message { get; set; } = "";
         }
 
         public enum ChangelogLineType

@@ -8,8 +8,12 @@ namespace Content.Client.Info;
 
 public sealed class LinkBanner : BoxContainer
 {
+    [Dependency] private readonly IUserInterfaceManager _userInterfaceManager = default!;
+
     public LinkBanner()
     {
+        IoCManager.InjectDependencies(this);
+
         var buttons = new BoxContainer
         {
             Orientation = LayoutOrientation.Horizontal
@@ -34,6 +38,7 @@ public sealed class LinkBanner : BoxContainer
         donateButton.OnPressed += _ => uriOpener.OpenUri(UILinks.Donate);
 
         var changelogButton = new ChangelogButton();
+        changelogButton.OnPressed += _ => _userInterfaceManager.GetUIController<ChangelogUIController>().ToggleWindow();
 
         buttons.AddChild(changelogButton);
         buttons.AddChild(rulesButton);
