@@ -1,2 +1,78 @@
-entries: []
-lastChangelog: 2022-01-01T19:11:05.0000000Z
+entries:
+- id: 0
+  author: igorsaux
+  time: 2022-10-17T00:00:07.0000000Z
+  changes:
+  - type: Add
+    message: Добавлены ХУДы шлемам хардсюитов.
+  - type: Add
+    message: Некоторые шлемы скафандров имеют оверлей при надевании.
+  - type: Fix
+    message: Исправлено слишком маленькое потребление энергии встроенных фонариков в шлемах хардсюитов.
+- id: 1
+  author: igorsaux
+  time: 2022-10-15T20:06:31.0000000Z
+  changes:
+  - type: Add
+    message: Добавлена эмбиентовая музыка с ониксбея.
+- id: 2
+  author: Zert0X
+  time: 2022-10-15T20:06:13.0000000Z
+  changes:
+  - type: Add
+    message: Обновил стены, окна, бластдоры до текущих в билде OnyxBay.
+  - type: Add
+    message: Повысил яркость лампочкам и понизил аварийным.
+- id: 3
+  author: igorsaux
+  time: 2022-10-14T23:20:15.0000000Z
+  changes:
+  - type: Add
+    message: Портированы спрайты некоторых тайлов с ониксбея.
+- id: 4
+  author: igorsaux
+  time: 2022-10-14T22:31:02.0000000Z
+  changes:
+  - type: Add
+    message: Новое главное меню.
+  - type: Add
+    message: Корректировки освещения.
+  - type: Add
+    message: Эффект старого дисплея в консоли камеры (возможно нужно будет поиграться с настройками).
+- id: 5
+  author: igorsaux
+  time: 2022-10-09T13:15:22.0000000Z
+  changes:
+  - type: Fix
+    message: Убрано ограничение в минимальное количество игроков для коробки.
+- id: 6
+  author: igorsaux
+  time: 2022-10-17T19:11:05.0000000Z
+  changes:
+  - type: Add
+    message: Добавлено телосложение "Slim" для женщин.
+- id: 7
+  author: igorsaux
+  time: 2022-10-08T14:16:54.0000000Z
+  changes:
+  - type: Remove
+    message: Удалены все карты кроме Фронтира и коробки
+- id: 8
+  author: igorsaux
+  time: 2022-10-08T09:58:26.0000000Z
+  changes:
+  - type: Fix
+    message: Добавлены отсутствующие метки спавна для некоторых професси на Фронтире.
+- id: 9
+  author: igorsaux
+  time: 2022-10-03T16:39:47.0000000Z
+  changes:
+  - type: Remove
+    message: Убрана возможность выбирать гендер персонажу.
+- id: 10
+  author: igorsaux
+  time: 2022-10-05T13:14:33.0000000Z
+  changes:
+  - type: Add
+    message: Порт карты Фронтир
+lastChangelog: 2022-10-17T19:11:05.0000000Z
