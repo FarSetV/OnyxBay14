@@ -113,14 +113,6 @@
     job_id: SecurityCadet
 
 - type: entity
-  id: SpawnPointServiceWorker
-  parent: SpawnPointAssistant
-  name: service worker
-  components:
-  - type: SpawnPoint
-    job_id: ServiceWorker
-
-- type: entity
   id: SpawnPointBartender
   parent: SpawnPointJobBase
   name: bartender
@@ -227,18 +219,6 @@
     layers:
       - state: green
       - state: janitor
-
-- type: entity
-  id: SpawnPointMusician
-  parent: SpawnPointJobBase
-  name: musician
-  components:
-    - type: SpawnPoint
-      job_id: Musician
-    - type: Sprite
-      layers:
-        - state: green
-        - state: musician
 
 # Command
 
@@ -431,7 +411,7 @@
     layers:
       - state: green
       - state: ertleader
-      
+
 - type: entity
   id: SpawnPointERTEngineer
   parent: SpawnPointJobBase
@@ -443,7 +423,7 @@
     layers:
       - state: green
       - state: ertengineer
-      
+
 - type: entity
   id: SpawnPointERTMedical
   parent: SpawnPointJobBase
@@ -455,7 +435,7 @@
     layers:
       - state: green
       - state: ertmedical
-      
+
 - type: entity
   id: SpawnPointERTSecurity
   parent: SpawnPointJobBase
@@ -467,7 +447,7 @@
     layers:
       - state: green
       - state: ertsecurity
-      
+
 - type: entity
   id: SpawnPointERTJanitor
   parent: SpawnPointJobBase
@@ -481,18 +461,6 @@
       - state: ertjanitor
 
 # STATION SPECIFIC
-
-- type: entity
-  id: SpawnPointReporter
-  parent: SpawnPointJobBase
-  name: reporter
-  components:
-  - type: SpawnPoint
-    job_id: Reporter
-  - type: Sprite
-    layers:
-      - state: green
-      - state: reporter
 
 - type: entity
   id: SpawnPointPsychologist

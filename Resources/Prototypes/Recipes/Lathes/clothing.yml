@@ -401,16 +401,6 @@
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitMusician
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/musician.rsi
-    state: icon
-  result: ClothingUniformJumpsuitMusician
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
   id: ClothingUniformJumpsuitParamedic
   icon:
     sprite: Clothing/Uniforms/Jumpsuit/paramedic.rsi
@@ -624,17 +614,6 @@
     sprite: Clothing/OuterClothing/WinterCoats/coatrd.rsi
     state: icon
   result: ClothingOuterWinterRD
-  completetime: 3.2
-  materials:
-    Cloth: 300
-    Durathread: 300
-
-- type: latheRecipe
-  id: ClothingOuterWinterMusician
-  icon:
-    sprite: Clothing/OuterClothing/WinterCoats/coatnomi.rsi
-    state: icon
-  result: ClothingOuterWinterMusician
   completetime: 3.2
   materials:
     Cloth: 300

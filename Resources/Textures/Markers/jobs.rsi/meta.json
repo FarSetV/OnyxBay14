@@ -116,9 +116,6 @@
       "name": "mime"
     },
     {
-      "name": "reporter"
-    },
-    {
       "name": "paramedic"
     },
     {
@@ -156,9 +153,6 @@
     },
     {
       "name": "warden"
-    },
-    {
-      "name": "musician"
     }
   ]
 }

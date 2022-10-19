@@ -110,9 +110,6 @@
       "name": "idpsychologist"
     },
     {
-      "name": "idreporter"
-    },
-    {
       "name": "idprisoner"
     },
     {
@@ -144,9 +141,6 @@
     },
     {
       "name": "idwarden"
-    },
-    {
-      "name": "idmusician"
     },
     {
       "name": "idintern-cadet"

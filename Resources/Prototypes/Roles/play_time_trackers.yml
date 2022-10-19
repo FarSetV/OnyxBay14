@@ -83,9 +83,6 @@
   id: JobMime
 
 - type: playTimeTracker
-  id: JobMusician
-
-- type: playTimeTracker
   id: JobPassenger
 
 - type: playTimeTracker
@@ -93,9 +90,6 @@
 
 - type: playTimeTracker
   id: JobQuartermaster
-
-- type: playTimeTracker
-  id: JobReporter
 
 - type: playTimeTracker
   id: JobResearchDirector
@@ -111,9 +105,6 @@
 
 - type: playTimeTracker
   id: JobSecurityOfficer
-
-- type: playTimeTracker
-  id: JobServiceWorker
 
 - type: playTimeTracker
   id: JobStationEngineer
