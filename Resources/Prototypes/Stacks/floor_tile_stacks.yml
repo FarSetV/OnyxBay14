@@ -2,7 +2,7 @@
   id: FloorTileSteel
   name: steel tile
   spawn: FloorTileItemSteel
-  
+
 - type: stack
   id: FloorTileMetalDiamond
   name: steel tile
@@ -25,8 +25,23 @@
 
 - type: stack
   id: FloorTileTechmaint
-  name: techmaint floor
+  name: tech maint floor
   spawn: FloorTileItemTechmaint
+
+- type: stack
+  id: FloorTileTechGrid
+  name: tech grid floor
+  spawn: FloorTileItemTechGrid
+
+- type: stack
+  id: FloorTileTechFloor
+  name: tech floor
+  spawn: FloorTileItemTechFloor
+
+- type: stack
+  id: FloorTileTechRidge
+  name: tech ridge floor
+  spawn: FloorTileItemTechRidge
 
 - type: stack
   id: FloorTileFreezer
@@ -107,7 +122,7 @@
   id: FloorTileStackArcadeBlue
   name: blue arcade tile
   spawn: FloorTileItemArcadeBlue
-  
+
 - type: stack
   id: FloorTileStackArcadeBlue2
   name: blue arcade tile
@@ -157,7 +172,7 @@
   id: FloorCarpetPink
   name: pink carpet tile
   spawn: FloorCarpetItemPink
-  
+
 - type: stack
   id: FloorTileStackCarpetClown
   name: clown carpet tile
@@ -167,12 +182,12 @@
   id: FloorTileStackCarpetOffice
   name: office carpet tile
   spawn: FloorTileItemCarpetOffice
-  
+
 - type: stack
   id: FloorTileStackBoxing
   name: boxing ring tile
   spawn: FloorTileItemBoxing
-  
+
 - type: stack
   id: FloorTileStackGym
   name: gym floor tile

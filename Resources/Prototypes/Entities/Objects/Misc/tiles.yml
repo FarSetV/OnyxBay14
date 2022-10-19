@@ -136,7 +136,7 @@
   id: FloorTileItemTechmaint
   components:
   - type: Sprite
-    state: techfloor
+    state: techmaint
   - type: Item
     heldPrefix: dark
   - type: FloorTile
@@ -145,6 +145,54 @@
       - FloorTechMaint
   - type: Stack
     stackType: FloorTileTechmaint
+
+- type: entity
+  name: techgrid floor
+  parent: FloorTileItemBase
+  id: FloorTileItemTechGrid
+  components:
+    - type: Sprite
+      state: techgrid
+    - type: Item
+      heldPrefix: dark
+    - type: FloorTile
+      outputs:
+        - Plating
+        - FloorTechGrid
+    - type: Stack
+      stackType: FloorTileTechGrid
+
+- type: entity
+  name: tech floor
+  parent: FloorTileItemBase
+  id: FloorTileItemTechFloor
+  components:
+    - type: Sprite
+      state: techfloor
+    - type: Item
+      heldPrefix: dark
+    - type: FloorTile
+      outputs:
+        - Plating
+        - FloorTechFloor
+    - type: Stack
+      stackType: FloorTileTechFloor
+
+- type: entity
+  name: tech ridge
+  parent: FloorTileItemBase
+  id: FloorTileItemTechRidge
+  components:
+    - type: Sprite
+      state: techridge
+    - type: Item
+      heldPrefix: dark
+    - type: FloorTile
+      outputs:
+        - Plating
+        - FloorTechRidge
+    - type: Stack
+      stackType: FloorTileTechRidge
 
 - type: entity
   name: reinforced tile
