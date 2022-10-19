@@ -1,12 +1,12 @@
-﻿"Changes: Sprites":
+﻿"🎨 спрайты":
 - '**/*.rsi/*.png'
 
-"Changes: Map":
+"🗺️ карта":
 - 'Resources/Maps/*.yml'
 - 'Resources/Prototypes/Maps/*.yml'
 
-"Changes: UI":
+":iphone: UX/UI":
 - '**/*.xaml*'
 
-"No C#":
+":musical_note: Без C#":
 - all: ["!**/*.cs"]

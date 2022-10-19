@@ -1,28 +1,36 @@
-<!-- The text between the arrows are comments - they will not be visible on your PR. -->
-<!-- Please read these guidelines before opening your PR: https://docs.spacestation14.io/en/getting-started/pr-guideline -->
+ЭТО ШАБЛОН PULL REQUEST. Внимательно прочитайте его и напишите описание Pull Request в соответствии с ним. Каждое отклонение от шаблона увеличивает время приема Pull Request-а вплоть до бесконечности!
+Подробнее про то, как создавать Pull Request-ы смотрите в нашем [Guide to Contribute](https://github.com/ChaoticOnyx/OnyxBay/blob/dev/docs/contributing.md).
 
-## About the PR <!-- Describe the Pull Request here. What does it change? What other things could this impact? -->
+ТЕКСТ ВЫШЕ НУЖНО УДАЛИТЬ.
 
-**Screenshots**
-<!-- If applicable, add screenshots to showcase your PR. If your PR is a visual change, add
-screenshots or it's liable to be closed by maintainers. -->
+ЗДЕСЬ должно быть **подробное описание** того, что происходит в Pull Request и зачем это нужно. Pull Request не должен содержать изменений, о которых здесь ничего не сказано. ЭТОТ ПУНКТ НАДО ЗАМЕНИТЬ ОПИСАНИЕМ, А ЕГО УДАЛИТЬ.
 
-**Changelog**
-<!--
-Here you can fill out a changelog that will automatically be added to the game when your PR is merged
-There are 4 icons for changelog entries: add, remove, tweak, fix. I trust you can figure out the rest.
+ЗДЕСЬ нужно **привязать иссуи**, которые относятся к Pull Request-у в формате `close #1234`, `fix #1234` или что-то типа `Затрагивает #1234, но не фиксит его`, если вы просто хотите упоминуть иссуи, но не закрывать его вместе с ПРом. ЭТОТ ПУНКТ НАДО ЗАМЕНИТЬ ЛИНКАМИ НА ИССУИ, А ЕГО УДАЛИТЬ.
 
-You can put your name after the :cl: symbol to change the name that shows in the changelog (otherwise it takes your GitHub username)
-Like so: :cl: PJB
+ЗДЕСЬ нужно **расписать изменения** которые попадут в **чейнджлог**, формат - `prefix: description`, пример:
 
-Generally, only put things in changelogs that players actually care about. Stuff like "Refactored X system, no changes should be visible" shouldn't be on a changelog.
+<details>
+<summary>Чейнджлог</summary>
 
-For writing actual entries, don't consider the entry type suffix (e.g. add) to be "part" of the sentence:
-bad: - add: a new tool for engineers
-good: - add: added a new tool for engineers
--->
+```yml
+🆑
+prefix: A summary of changes made.
+/🆑
+```
 
-:cl:
-- add: Added fun!
-- remove: Removed fun!
+</details>
 
+После символа 🆑 на той же строке можно написать никнейм, который будет отображён в чейнджлогах вместо никнейма автора ПРа.
+
+Вместо `prefix` подставляете одну из доступных строк:
+
+-   fix
+-   add
+-   remove
+-   tweak
+
+Далее честно заполняем галочки. Чем больше галочек, тем быстрее проверять Pull Request, соответственно он быстрее будет принят. Чтобы отметить - ставим x внутри квадратных скобочек вот так: `- [x] ...`. Галочки можно доставлять позже по мере окончания работы над ПРом. ЭТУ СТРОЧКУ НУЖНО УДАЛИТЬ.
+
+-   [ ] Pull Request полностью завершен, мне не нужна помощь чтобы его закончить.
+-   [ ] Я внимательно прочитал все свои изменения и багов в них не нашел.
+-   [ ] Я запускал сервер со своими изменениями локально и все протестировал.
