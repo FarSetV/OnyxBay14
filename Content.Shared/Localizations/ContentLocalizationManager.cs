@@ -1,12 +1,14 @@
 ﻿using System.Globalization;
-using Robust.Shared.ContentPack;
 
 namespace Content.Shared.Localizations
 {
-    public static class Localization
+    public sealed class ContentLocalizationManager
     {
+        [Dependency] private readonly ILocalizationManager _loc = default!;
+        [Dependency] private readonly IEntityManager _ent = default!;
+
         // If you want to change your codebase's language, do it here.
-        private const string Culture = "ru-RU";
+        private const string Culture = "en-US";
 
         /// <summary>
         /// Custom format strings used for parsing and displaying minutes:seconds timespans.
@@ -19,20 +21,17 @@ namespace Content.Shared.Localizations
             @"mm"
         };
 
-        public static void Init()
+        public void Initialize()
         {
-            var loc = IoCManager.Resolve<ILocalizationManager>();
-            var res = IoCManager.Resolve<IResourceManager>();
-
             var culture = new CultureInfo(Culture);
 
-            loc.LoadCulture(culture);
-            loc.AddFunction(culture, "PRESSURE", FormatPressure);
-            loc.AddFunction(culture, "POWERWATTS", FormatPowerWatts);
-            loc.AddFunction(culture, "POWERJOULES", FormatPowerJoules);
-            loc.AddFunction(culture, "UNITS", FormatUnits);
-            loc.AddFunction(culture, "TOSTRING", args => FormatToString(culture, args));
-            loc.AddFunction(culture, "LOC", FormatLoc);
+            _loc.LoadCulture(culture);
+            _loc.AddFunction(culture, "PRESSURE", FormatPressure);
+            _loc.AddFunction(culture, "POWERWATTS", FormatPowerWatts);
+            _loc.AddFunction(culture, "POWERJOULES", FormatPowerJoules);
+            _loc.AddFunction(culture, "UNITS", FormatUnits);
+            _loc.AddFunction(culture, "TOSTRING", args => FormatToString(culture, args));
+            _loc.AddFunction(culture, "LOC", FormatLoc);
         }
 
         private static ILocValue FormatLoc(LocArgs args)
