@@ -138,6 +138,21 @@
 
 - type: entity
   parent: BasePDA
+  id: ServiceWorkerPDA
+  name: service worker PDA
+  description: Why isn't it gray?
+  components:
+  - type: PDA
+    id: ServiceWorkerIDCard
+  - type: Appearance
+    visuals:
+    - type: PDAVisualizer
+      state: pda-internservice
+  - type: Icon
+    state: pda-internservice
+
+- type: entity
+  parent: BasePDA
   id: ChefPDA
   name: chef PDA
   description: Covered in grease and flour.
@@ -559,6 +574,24 @@
 
 - type: entity
   parent: BasePDA
+  id: MusicianPDA
+  name: musician PDA
+  description: It fills you with inspiration.
+  components:
+  - type: PDA
+    id: MusicianIDCard
+  - type: Appearance
+    visuals:
+    - type: PDAVisualizer
+      state: pda-musician
+  - type: Instrument
+    allowPercussion: false
+    handheld: true
+    bank: 1
+    program: 2
+
+- type: entity
+  parent: BasePDA
   id: AtmosPDA
   name: atmos PDA
   description: Still smells like plasma.
@@ -640,6 +673,21 @@
         state: pda-medical
   - type: Icon
     state: pda-medical
+
+- type: entity
+  parent: BasePDA
+  id: ReporterPDA
+  name: reporter PDA
+  description: Smells like freshly printed press.
+  components:
+  - type: PDA
+    id: ReporterIDCard
+  - type: Appearance
+    visuals:
+      - type: PDAVisualizer
+        state: pda-reporter
+  - type: Icon
+    state: pda-reporter
 
 - type: entity
   parent: BasePDA

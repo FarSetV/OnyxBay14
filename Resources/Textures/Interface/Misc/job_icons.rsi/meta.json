@@ -113,6 +113,12 @@
             "name": "Mime"
         },
         {
+            "name": "Musician"
+        },
+        {
+            "name": "Reporter"
+        },
+        {
             "name": "Psychologist"
         },
         {
@@ -120,6 +126,9 @@
         },
         {
             "name": "TechnicalAssistant"
+        },
+        {
+            "name": "ServiceWorker"
         },
         {
             "name": "SecurityCadet"

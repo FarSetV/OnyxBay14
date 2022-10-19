@@ -107,6 +107,17 @@
 - type: entity
   noSpawn: true
   parent: ClothingBackpackDuffel
+  id: ClothingBackpackDuffelMusicianFilled
+  components:
+    - type: StorageFill
+      contents:
+        - id: BoxSurvival
+        - id: AcousticGuitarInstrument
+        - id: SaxophoneInstrument
+
+- type: entity
+  noSpawn: true
+  parent: ClothingBackpackDuffel
   id: ClothingBackpackDuffelDetectiveFilled
   components:
     - type: StorageFill

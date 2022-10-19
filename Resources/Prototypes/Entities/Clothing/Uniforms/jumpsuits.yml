@@ -726,6 +726,28 @@
 
 - type: entity
   parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitReporter
+  name: reporter suit
+  description: A good reporter remains a skeptic all their life.
+  components:
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuit/reporter.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuit/reporter.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitJournalist
+  name: journalist suit
+  description: If journalism is good, it is controversial, by nature.
+  components:
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuit/journalist.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuit/journalist.rsi
+
+- type: entity
+  parent: ClothingUniformBase
   id: ClothingUniformJumpsuitMonasticRobeDark
   name: dark monastic robe
   description: It's a dark robe, often worn by religious folk.
@@ -745,3 +767,14 @@
       sprite: Clothing/Uniforms/Jumpsuit/monastic_robe_light.rsi
     - type: Clothing
       sprite: Clothing/Uniforms/Jumpsuit/monastic_robe_light.rsi
+
+- type: entity
+  parent: ClothingUniformBase
+  id: ClothingUniformJumpsuitMusician
+  name: musician's tuxedo
+  description: A fancy tuxedo for the musically inclined.  Perfect for any lounge act!
+  components:
+  - type: Sprite
+    sprite: Clothing/Uniforms/Jumpsuit/musician.rsi
+  - type: Clothing
+    sprite: Clothing/Uniforms/Jumpsuit/musician.rsi
