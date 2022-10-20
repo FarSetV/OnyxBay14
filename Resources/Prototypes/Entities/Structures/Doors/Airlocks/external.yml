@@ -10,11 +10,11 @@
       types:
         Blunt: 15
     openSound:
-      path: /Audio/Machines/airlock_ext_open.ogg
+      path: /Audio/Machines/Airlock/airlock_open_exterior_2.ogg
     closeSound:
-      path: /Audio/Machines/airlock_ext_close.ogg
+      path: /Audio/Machines/Airlock/airlock_close_1.ogg
     denySound:
-      path: /Audio/Machines/airlock_deny.ogg
+      path: /Audio/Machines/Airlock/airlock_deny_1.ogg
   - type: Sprite
     sprite: Structures/Doors/Airlocks/Standard/external.rsi
   - type: Appearance

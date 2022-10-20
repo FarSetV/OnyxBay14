@@ -26,8 +26,6 @@ public sealed class VocalComponent : Component
     [DataField("wilhelmProbability")]
     public float WilhelmProbability = 0.01f;
 
-    public const float Variation = 0.125f;
-
     [DataField("actionId", customTypeSerializer:typeof(PrototypeIdSerializer<InstantActionPrototype>))]
     public string ActionId = "Scream";
 

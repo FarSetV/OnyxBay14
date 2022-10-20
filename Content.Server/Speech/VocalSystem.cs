@@ -23,6 +23,7 @@ public sealed class VocalSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly SharedActionsSystem _actions = default!;
     [Dependency] private readonly ActionBlockerSystem _blocker = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!;
 
     public override void Initialize()
     {
@@ -77,19 +78,16 @@ public sealed class VocalSystem : EntitySystem
             return true;
         }
 
-        var scale = (float) _random.NextGaussian(1, VocalComponent.Variation);
-        var pitchedParams = component.AudioParams.WithPitchScale(scale);
-
         switch (sex)
         {
             case Sex.Male:
-                SoundSystem.Play(component.MaleScream.GetSound(), Filter.Pvs(uid), uid, pitchedParams);
+                _audio.Play(component.MaleScream, Filter.Pvs(uid), uid);
                 break;
             case Sex.Female:
-                SoundSystem.Play(component.FemaleScream.GetSound(), Filter.Pvs(uid), uid, pitchedParams);
+                _audio.Play(component.FemaleScream, Filter.Pvs(uid), uid);
                 break;
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(sex));
         }
 
         return true;

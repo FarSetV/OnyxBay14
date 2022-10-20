@@ -100,6 +100,10 @@
           "/Audio/Effects/glass_hit.ogg"
   - type: Door
     occludes: false
+    openSound:
+      path: /Audio/Machines/Airlock/airlock_glass_open_1.ogg
+    closeSound:
+      path: /Audio/Machines/Airlock/airlock_glass_close_1.ogg
   - type: Occluder
     enabled: false
   - type: Sprite

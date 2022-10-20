@@ -22,13 +22,13 @@ namespace Content.Server.Doors.Components
         /// Sound to play when the bolts on the airlock go up.
         /// </summary>
         [DataField("boltUpSound")]
-        public SoundSpecifier BoltUpSound = new SoundPathSpecifier("/Audio/Machines/boltsup.ogg");
+        public SoundSpecifier BoltUpSound = new SoundPathSpecifier("/Audio/Machines/bolts_up.ogg");
 
         /// <summary>
         /// Sound to play when the bolts on the airlock go down.
         /// </summary>
         [DataField("boltDownSound")]
-        public SoundSpecifier BoltDownSound = new SoundPathSpecifier("/Audio/Machines/boltsdown.ogg");
+        public SoundSpecifier BoltDownSound = new SoundPathSpecifier("/Audio/Machines/bolts_down.ogg");
 
         /// <summary>
         /// Duration for which power will be disabled after pulsing either power wire.

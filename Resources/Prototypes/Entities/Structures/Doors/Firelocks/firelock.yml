@@ -66,11 +66,11 @@
         types:
           Blunt: 15
       openSound:
-        path: /Audio/Machines/airlock_open.ogg
+        path: /Audio/Machines/Airlock/airlock_open_exterior_4.ogg
       closeSound:
-        path: /Audio/Machines/airlock_close.ogg
+        path: /Audio/Machines/Airlock/airlock_close_1.ogg
       denySound:
-        path: /Audio/Machines/airlock_deny.ogg
+        path: /Audio/Machines/Airlock/airlock_deny_3.ogg
     - type: Weldable
       fuel: 3
       time: 3
@@ -118,7 +118,7 @@
   - type: ContainerFill
     containers:
       board: [ FirelockElectronics ]
-        
+
 - type: entity
   id: FirelockGlass
   parent: Firelock

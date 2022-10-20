@@ -41,9 +41,9 @@
       types:
         Blunt: 5 # getting shutters closed on you probably doesn't hurt that much
     openSound:
-      path: /Audio/Machines/blastdoor.ogg
+      path: /Audio/Machines/shutters_open.ogg
     closeSound:
-      path: /Audio/Machines/blastdoor.ogg
+      path: /Audio/Machines/shutters_close.ogg
   - type: Weldable
     fuel: 3
     time: 3
