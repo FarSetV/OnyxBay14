@@ -65,6 +65,20 @@
     texture: "/Textures/Interface/Overlays/helmet_overlay.png"
 
 - type: entity
+  parent: ClothingHeadEVAHelmetBase
+  id: ClothingHeadHelmetEmergency
+  name: Emergency helmet
+  description: A basic helmet designed for extravehicular activies.
+  components:
+    - type: Sprite
+      sprite: Clothing/Head/Helmets/emergency.rsi
+    - type: Clothing
+      sprite: Clothing/Head/Helmets/emergency.rsi
+    - type: IngestionBlocker
+    - type: HelmetOverlay
+      texture: "/Textures/Interface/Overlays/helmet_overlay.png"
+
+- type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHelmetHelmet
   name: helmet
