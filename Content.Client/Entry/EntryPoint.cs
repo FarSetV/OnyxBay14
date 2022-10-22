@@ -23,6 +23,7 @@ using Content.Client.Voting;
 using Content.Shared.Administration;
 using Content.Shared.AME;
 using Content.Shared.Gravity;
+using Content.Shared.Localizations;
 using Content.Shared.Markers;
 using Robust.Client;
 using Robust.Client.Graphics;
@@ -71,6 +72,7 @@ public sealed class EntryPoint : GameClient
     [Dependency] private readonly IVoteManager _voteManager = default!;
     [Dependency] private readonly IReflectionManager _refl = default!;
     [Dependency] private readonly UIAudioManager _uiAudio = default!;
+    [Dependency] private readonly ContentLocalizationManager _contentLoc = default!;
 
     public override void Init()
     {
@@ -90,6 +92,7 @@ public sealed class EntryPoint : GameClient
             IoCManager.Resolve<IConfigurationManager>().OverrideDefault(CVars.NetBufferSize, NetBufferSizeOverride);
 #endif
 
+        _contentLoc.Initialize();
         _componentFactory.DoAutoRegistrations();
         _componentFactory.IgnoreMissingComponents();
 
