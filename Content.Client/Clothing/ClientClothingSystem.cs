@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Content.Client.Humanoid;
 using Content.Client.Inventory;
 using Content.Shared.Clothing;
 using Content.Shared.Clothing.Components;
+using Content.Shared.Clothing.EntitySystems;
 using Content.Shared.Humanoid;
 using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Item;
-using Content.Shared.Tag;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
@@ -18,7 +17,7 @@ using static Robust.Shared.GameObjects.SharedSpriteComponent;
 
 namespace Content.Client.Clothing;
 
-public sealed class ClothingVisualsSystem : EntitySystem
+public sealed class ClientClothingSystem : ClothingSystem
 {
     /// <summary>
     /// This is a shitty hotfix written by me (Paul) to save me from renaming all files.
@@ -45,14 +44,10 @@ public sealed class ClothingVisualsSystem : EntitySystem
 
     [Dependency] private IResourceCache _cache = default!;
     [Dependency] private InventorySystem _inventorySystem = default!;
-    [Dependency] private TagSystem _tagSystem = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-
-        SubscribeLocalEvent<ClothingComponent, GotEquippedEvent>(OnGotEquipped);
-        SubscribeLocalEvent<ClothingComponent, GotUnequippedEvent>(OnGotUnequipped);
 
         SubscribeLocalEvent<ClothingComponent, GetEquipmentVisualsEvent>(OnGetVisuals);
 
@@ -62,19 +57,20 @@ public sealed class ClothingVisualsSystem : EntitySystem
 
     private void OnGetVisuals(EntityUid uid, ClothingComponent item, GetEquipmentVisualsEvent args)
     {
-        TryComp(args.Equipee, out HumanoidComponent? humanoid);
+        if (!TryComp(args.Equipee, out ClientInventoryComponent? inventory))
+            return;
 
         List<PrototypeLayerData>? layers = null;
 
         // first attempt to get species specific data.
-        if (humanoid?.Species != null)
-            item.ClothingVisuals.TryGetValue($"{args.Slot}-{humanoid.Species}", out layers);
+        if (inventory.SpeciesId != null)
+            item.ClothingVisuals.TryGetValue($"{args.Slot}-{inventory.SpeciesId}", out layers);
 
         // if that returned nothing, attempt to find generic data
         if (layers == null && !item.ClothingVisuals.TryGetValue(args.Slot, out layers))
         {
             // No generic data either. Attempt to generate defaults from the item's RSI & item-prefixes
-            if (!TryGetDefaultVisuals(uid, item, args.Slot, humanoid?.Species, humanoid?.BodyType, out layers))
+            if (!TryGetDefaultVisuals(uid, item, args.Slot, inventory.SpeciesId, out layers))
                 return;
         }
 
@@ -100,8 +96,8 @@ public sealed class ClothingVisualsSystem : EntitySystem
     /// <remarks>
     ///     Useful for lazily adding clothing sprites without modifying yaml. And for backwards compatibility.
     /// </remarks>
-    private bool TryGetDefaultVisuals(EntityUid uid, ClothingComponent clothing, string slot, string? species,
-        string? bodyType, [NotNullWhen(true)] out List<PrototypeLayerData>? layers)
+    private bool TryGetDefaultVisuals(EntityUid uid, ClothingComponent clothing, string slot, string? speciesId,
+        [NotNullWhen(true)] out List<PrototypeLayerData>? layers)
     {
         layers = null;
 
@@ -122,15 +118,10 @@ public sealed class ClothingVisualsSystem : EntitySystem
             ? $"equipped-{correctedSlot}"
             : $"{clothing.EquippedPrefix}-equipped-{correctedSlot}";
 
-        // body type specific
-        if (bodyType != null && rsi.TryGetState($"{state}-{bodyType}", out _))
-        {
-            state = $"{state}-{bodyType}";
-        }
         // species specific
-        else if (species != null && rsi.TryGetState($"{state}-{species}", out _))
+        if (speciesId != null && rsi.TryGetState($"{state}-{speciesId}", out _))
         {
-            state = $"{state}-{species}";
+            state = $"{state}-{speciesId}";
         }
         else if (!rsi.TryGetState(state, out _))
         {
@@ -151,11 +142,6 @@ public sealed class ClothingVisualsSystem : EntitySystem
             return;
 
         RenderEquipment(uid, args.Item, clothing.InSlot, component, null, clothing);
-    }
-
-    private void OnGotUnequipped(EntityUid uid, ClothingComponent component, GotUnequippedEvent args)
-    {
-        component.InSlot = null;
     }
 
     private void OnDidUnequip(EntityUid uid, SpriteComponent component, DidUnequipEvent args)
@@ -189,9 +175,9 @@ public sealed class ClothingVisualsSystem : EntitySystem
         }
     }
 
-    private void OnGotEquipped(EntityUid uid, ClothingComponent component, GotEquippedEvent args)
+    protected override void OnGotEquipped(EntityUid uid, ClothingComponent component, GotEquippedEvent args)
     {
-        component.InSlot = args.Slot;
+        base.OnGotEquipped(uid, component, args);
 
         RenderEquipment(args.Equipee, uid, args.Slot, clothingComponent: component);
     }
