@@ -1,4 +1,5 @@
 using Content.Client.Clothing;
+using Content.Client.Clothing.Systems;
 using Content.Client.Examine;
 using Content.Client.Storage;
 using Content.Client.UserInterface.Controls;
@@ -24,7 +25,7 @@ namespace Content.Client.Inventory
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly IPlayerManager _playerManager = default!;
 
-        [Dependency] private readonly ClientClothingSystem _clothingVisualsSystem = default!;
+        [Dependency] private readonly ClothingSystem _clothingVisualsSystem = default!;
         [Dependency] private readonly ExamineSystem _examine = default!;
         [Dependency] private readonly VerbSystem _verbs = default!;
 

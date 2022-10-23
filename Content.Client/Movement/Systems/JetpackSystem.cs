@@ -1,5 +1,5 @@
+using Content.Client.Clothing.Systems;
 using Content.Shared.Clothing.Components;
-using Content.Shared.Clothing.EntitySystems;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Systems;
 using Robust.Client.GameObjects;

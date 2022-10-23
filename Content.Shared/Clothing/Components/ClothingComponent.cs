@@ -11,11 +11,11 @@ namespace Content.Shared.Clothing.Components;
 /// </summary>
 [NetworkedComponent]
 [RegisterComponent]
-[Access(typeof(ClothingSystem), typeof(InventorySystem))]
+[Access(typeof(SharedClothingSystem), typeof(InventorySystem))]
 public sealed class ClothingComponent : Component
 {
     [DataField("clothingVisuals")]
-    [Access(typeof(ClothingSystem), typeof(InventorySystem), Other = AccessPermissions.ReadExecute)] // TODO remove execute permissions.
+    [Access(typeof(SharedClothingSystem), typeof(InventorySystem), Other = AccessPermissions.ReadExecute)] // TODO remove execute permissions.
     public Dictionary<string, List<SharedSpriteComponent.PrototypeLayerData>> ClothingVisuals = new();
 
     [ViewVariables(VVAccess.ReadWrite)]
@@ -24,7 +24,7 @@ public sealed class ClothingComponent : Component
 
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("slots", required: true)]
-    [Access(typeof(ClothingSystem), typeof(InventorySystem), Other = AccessPermissions.ReadExecute)]
+    [Access(typeof(SharedClothingSystem), typeof(InventorySystem), Other = AccessPermissions.ReadExecute)]
     public SlotFlags Slots = SlotFlags.NONE;
 
     [ViewVariables(VVAccess.ReadWrite)]
@@ -35,7 +35,7 @@ public sealed class ClothingComponent : Component
     [DataField("unequipSound")]
     public SoundSpecifier? UnequipSound;
 
-    [Access(typeof(ClothingSystem))]
+    [Access(typeof(SharedClothingSystem))]
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("equippedPrefix")]
     public string? EquippedPrefix;

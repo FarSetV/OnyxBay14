@@ -7,6 +7,7 @@ using Content.Shared.Toggleable;
 using Robust.Client.GameObjects;
 using Robust.Shared.Utility;
 using System.Linq;
+using Content.Client.Clothing.Systems;
 
 namespace Content.Client.Toggleable;
 
@@ -18,7 +19,7 @@ public sealed class ToggleableLightVisualsSystem : VisualizerSystem<ToggleableLi
     {
         base.Initialize();
         SubscribeLocalEvent<ToggleableLightVisualsComponent, GetInhandVisualsEvent>(OnGetHeldVisuals, after: new[] { typeof(ItemSystem) });
-        SubscribeLocalEvent<ToggleableLightVisualsComponent, GetEquipmentVisualsEvent>(OnGetEquipmentVisuals, after: new[] { typeof(ClientClothingSystem) });
+        SubscribeLocalEvent<ToggleableLightVisualsComponent, GetEquipmentVisualsEvent>(OnGetEquipmentVisuals, after: new[] { typeof(ClothingSystem) });
     }
 
     protected override void OnAppearanceChange(EntityUid uid, ToggleableLightVisualsComponent component, ref AppearanceChangeEvent args)

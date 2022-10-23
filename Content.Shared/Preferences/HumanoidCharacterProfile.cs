@@ -172,13 +172,15 @@ namespace Content.Shared.Preferences
             var sex = random.Prob(0.5f) ? Sex.Male : Sex.Female;
             var bodyType = SharedHumanoidSystem.DefaultBodyType;
             var age = 18;
+
             if (prototypeManager.TryIndex<SpeciesPrototype>(species, out var speciesPrototype))
             {
                 sex = random.Pick(speciesPrototype.Sexes);
                 age = random.Next(speciesPrototype.MinAge, speciesPrototype.OldAge); // people don't look and keep making 119 year old characters with zero rp, cap it at middle aged
+                bodyType = random.Pick(speciesPrototype.BodyTypes);
             }
 
-            var name = GetName(species, gender);
+            var name = sex.GetName(species, prototypeManager, random);
 
             return new HumanoidCharacterProfile(name, "", species, age, sex, bodyType, HumanoidCharacterAppearance.Random(species, sex), ClothingPreference.Jumpsuit, BackpackPreference.Backpack,
                 new Dictionary<string, JobPriority>
@@ -446,8 +448,6 @@ namespace Content.Shared.Preferences
                 BackpackPreference.Duffelbag => BackpackPreference.Duffelbag,
                 _ => BackpackPreference.Backpack // Invalid enum values.
             };
-
-            var prototypeManager = IoCManager.Resolve<IPrototypeManager>();
 
             var priorities = new Dictionary<string, JobPriority>(JobPriorities
                 .Where(p => prototypeManager.HasIndex<JobPrototype>(p.Key) && p.Value switch

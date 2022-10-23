@@ -7,7 +7,7 @@ using Content.Shared.Tag;
 
 namespace Content.Server.Clothing;
 
-public sealed class ServerClothingSystem : ClothingSystem
+public sealed class ServerClothingSystem : SharedClothingSystem
 {
     [Dependency] private readonly HumanoidSystem _humanoidSystem = default!;
     [Dependency] private readonly TagSystem _tagSystem = default!;
