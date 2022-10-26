@@ -1043,6 +1043,7 @@ public sealed partial class HumanoidProfileEditor : Control
         private readonly StripeBack _lockStripe;
         private readonly RadioOptions<int> _optionButton;
         private readonly Label _requirementsLabel;
+        private Label _jobTitle;
 
         public JobPrioritySelector(JobPrototype job)
         {
@@ -1103,13 +1104,25 @@ public sealed partial class HumanoidProfileEditor : Control
                 }
             };
 
+            _jobTitle = new Label()
+            {
+                Text = job.LocalizedName,
+                MinSize = (175, 0)
+            };
+
+            if (job.LocalizedDescription != null)
+            {
+                _jobTitle.ToolTip = job.LocalizedDescription;
+                _jobTitle.TooltipDelay = 0.2f;
+            }
+
             AddChild(new BoxContainer
             {
                 Orientation = LayoutOrientation.Horizontal,
                 Children =
                 {
                     icon,
-                    new Label { Text = job.LocalizedName, MinSize = (175, 0) },
+                    _jobTitle,
                     _optionButton,
                     _lockStripe
                 }
@@ -1153,6 +1166,12 @@ public sealed partial class HumanoidProfileEditor : Control
             _checkBox = new CheckBox { Text = $"{antag.Name}" };
             _checkBox.OnToggled += OnCheckBoxToggled;
 
+            if (antag.Description != null)
+            {
+                _checkBox.ToolTip = antag.Description;
+                _checkBox.TooltipDelay = 0.2f;
+            }
+
             AddChild(new BoxContainer
             {
                 Orientation = LayoutOrientation.Horizontal,
@@ -1189,6 +1208,12 @@ public sealed partial class HumanoidProfileEditor : Control
 
             _checkBox = new CheckBox { Text = $"{trait.Name}" };
             _checkBox.OnToggled += OnCheckBoxToggled;
+
+            if (trait.Description != null)
+            {
+                _checkBox.ToolTip = trait.Description;
+                _checkBox.TooltipDelay = 0.2f;
+            }
 
             AddChild(new BoxContainer
             {
