@@ -1,4 +1,4 @@
-### EscapeMenu.xaml
+﻿### EscapeMenu.xaml
 
 ui-escape-title = Esc Menu
 ui-escape-options = Options
