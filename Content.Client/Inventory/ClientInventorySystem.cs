@@ -40,6 +40,7 @@ namespace Content.Client.Inventory
 
         public override void Initialize()
         {
+            UpdatesOutsidePrediction = true;
             base.Initialize();
 
             SubscribeLocalEvent<ClientInventoryComponent, PlayerAttachedEvent>(OnPlayerAttached);
