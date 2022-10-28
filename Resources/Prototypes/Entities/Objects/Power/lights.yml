@@ -91,7 +91,7 @@
   - type: LightBulb
     bulb: Tube
     color: "#FFE4CE" # 5000K color temp
-    lightEnergy: 1.5
+    lightEnergy: 1
     lightRadius: 5
     lightSoftness: 1
     PowerUse: 25

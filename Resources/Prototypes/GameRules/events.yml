@@ -25,7 +25,7 @@
     !type:StationEventRuleConfiguration
     startAnnouncement: station-event-disease-outbreak-announcement
     startAudio:
-      path: /Audio/Announcements/outbreak7.ogg
+      path: /Audio/Announcements/outbreak.ogg
     id: DiseaseOutbreak
     weight: 5
     endAfter: 1
@@ -70,7 +70,7 @@
     id: GasLeak
     startAnnouncement: station-event-gas-leak-start-announcement
     startAudio:
-      path: /Audio/Announcements/attention.ogg
+      path: /Audio/Announcements/gas_leak.ogg
     endAnnouncement: station-event-gas-leak-end-announcement
     earliestStart: 10
     minimumPlayers: 5
@@ -146,7 +146,7 @@
     id: VentClog
     startAnnouncement: station-event-vent-clog-start-announcement
     startAudio:
-      path: /Audio/Announcements/attention.ogg
+      path: /Audio/Announcements/vent_clog.ogg
     earliestStart: 15
     minimumPlayers: 15
     weight: 5

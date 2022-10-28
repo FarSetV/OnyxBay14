@@ -1,0 +1,12 @@
+﻿- type: entity
+  id: CryoDecorative
+  parent: BaseStructure
+  name: cryochamber
+  description: Cryochamber for maintaining life in the body for a long time.
+  placement:
+    mode: SnapgridCenter
+  components:
+    - type: Sprite
+      sprite: Structures/Specific/cryo.rsi
+      state: icon
+      netsync: false
