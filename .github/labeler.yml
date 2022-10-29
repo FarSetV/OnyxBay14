@@ -10,3 +10,6 @@
 
 ":musical_note: Без C#":
 - all: ["!**/*.cs"]
+
+":robot: Тесты":
+- "Content.*Tests/**/*"

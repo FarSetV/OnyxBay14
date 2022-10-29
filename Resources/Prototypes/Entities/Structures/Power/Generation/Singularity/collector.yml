@@ -41,6 +41,7 @@
         !type:CableDeviceNode
         nodeGroupID: HVPower
   - type: RadiationCollector
+    tankSlot: tankSlot
     gasMultiplier:
       - 0.0
       - 0.0

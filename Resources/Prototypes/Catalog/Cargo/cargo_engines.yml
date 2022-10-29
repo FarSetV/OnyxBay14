@@ -64,7 +64,7 @@
   id: EngineSingularityCollector
   icon:
     sprite: Structures/Power/Generation/Singularity/collector.rsi
-    state: ca_on
+    state: ca_active
   product: CrateEngineeringSingularityCollector
   cost: 1000
   category: Engineering

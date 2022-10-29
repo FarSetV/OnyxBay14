@@ -58,6 +58,9 @@ namespace Content.Server.Singularity.Components
         [ViewVariables(VVAccess.ReadWrite)]
         public float[] GasMultiplier = new float[Atmospherics.AdjustedNumberOfGases];
 
+        [DataField("tankSlot", required: true)]
+        public string TankSlot = "tankSlot";
+
         /// <summary>
         ///     Was machine activated by user?
         /// </summary>
@@ -77,7 +80,5 @@ namespace Content.Server.Singularity.Components
         ///     How much kelvins did produced the last time.
         /// </summary>
         public float LastProducedHeat = 0.0f;
-
-        [ViewVariables(VVAccess.ReadOnly)] public const string TankSlotId = "tankSlot";
     }
 }

@@ -234,7 +234,7 @@ public sealed class RadiationCollectorSystem : EntitySystem
         if (!Resolve(uid, ref component))
             return null;
 
-        var tank = _itemSlotsSystem.GetItemOrNull(uid, RadiationCollectorComponent.TankSlotId);
+        var tank = _itemSlotsSystem.GetItemOrNull(uid, component.TankSlot);
 
         return tank is null ? null : CompOrNull<GasTankComponent>(tank.Value);
     }
