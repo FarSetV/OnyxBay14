@@ -1,7 +1,7 @@
 - type: entity
   id: RadiationCollector
   name: radiation collector
-  description: A machine that collects Radiation and turns it into power.
+  description: "A machine that collects Radiation and turns it into power. WARNING: Working with temperature 100C and higher can break the device."
   placement:
     mode: SnapgridCenter
   components:
@@ -27,11 +27,13 @@
     netsync: false
     snapCardinals: true
     layers:
-      - state: ca_on
+      - state: ca_active
         map: ["enum.RadiationCollectorVisualLayers.Main"]
+      - state: tank
+        map: ["enum.RadiationCollectorVisualLayers.TankSlot"]
+        visible: false
   - type: Appearance
-    visuals:
-      - type: RadiationCollectorVisualizer
+  - type: RadiationCollectorVisuals
   - type: NodeContainer
     examinable: true
     nodes:
@@ -39,6 +41,11 @@
         !type:CableDeviceNode
         nodeGroupID: HVPower
   - type: RadiationCollector
+    gasMultiplier:
+      - 0.0
+      - 0.0
+      - 0.0
+      - 4.0 # plasma
     # Note that this doesn't matter too much (see next comment)
     # However it does act as a cap on power receivable via the collector.
   - type: Battery
@@ -54,3 +61,18 @@
   - type: PowerNetworkBattery
     maxSupply: 1000000000
     supplyRampTolerance: 1000000000
+  - type: ItemSlots
+    slots:
+      tankSlot:
+        whitelist:
+          components:
+            - GasTank
+  - type: ContainerContainer
+    containers:
+      tankSlot: !type:ContainerSlot
+  - type: Explosive
+    explosionType: Default
+    maxIntensity: 10
+    intensitySlope: 3
+    totalIntensity: 120 # about a ~4 tile radius
+    canCreateVacuum: false

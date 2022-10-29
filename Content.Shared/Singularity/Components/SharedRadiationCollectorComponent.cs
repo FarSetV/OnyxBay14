@@ -9,11 +9,22 @@ namespace Content.Shared.Singularity.Components
     }
 
     [NetSerializable, Serializable]
+    public enum RadiationCollectorSlotVisuals
+    {
+        VisualState
+    }
+
+    [NetSerializable, Serializable]
     public enum RadiationCollectorVisualState
     {
         Active,
-        Activating,
-        Deactivating,
-        Deactive
+        Inactive
+    }
+
+    [NetSerializable, Serializable]
+    public enum RadiationCollectorSlotVisualState
+    {
+        Occupied,
+        Free
     }
 }
