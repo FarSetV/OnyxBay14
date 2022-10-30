@@ -4,41 +4,47 @@
     - texture:
         !type:ImageParallaxTextureSource
         path: "/Textures/Parallaxes/layer1.png"
-      slowness: 0.998046875
+      slowness: 0.999
       scale: "1, 1"
     - texture:
         !type:GeneratedParallaxTextureSource
         id: "hq_wizard_stars"
         configPath: "/Prototypes/Parallaxes/parallax_config_stars.toml"
-      slowness: 0.996625
+      slowness: 0.999
     - texture:
         !type:GeneratedParallaxTextureSource
         id: "hq_wizard_stars_dim"
         configPath: "/Prototypes/Parallaxes/parallax_config_stars_dim.toml"
-      slowness: 0.989375
+      slowness: 0.999
     - texture:
         !type:GeneratedParallaxTextureSource
         id: "hq_wizard_stars_faster"
         configPath: "/Prototypes/Parallaxes/parallax_config_stars-2.toml"
-      slowness: 0.987265625
+      slowness: 0.999
     - texture:
         !type:GeneratedParallaxTextureSource
         id: "hq_wizard_stars_dim_faster"
         configPath: "/Prototypes/Parallaxes/parallax_config_stars_dim-2.toml"
-      slowness: 0.984352
+      slowness: 0.999
     - texture:
         !type:ImageParallaxTextureSource
         path: "/Textures/Parallaxes/planet.png"
-      slowness: 0.998046875
+      slowness: 0.999
       scale: "2, 2"
       tiled: false
 
   layersLQ:
     - texture:
-        !type:GeneratedParallaxTextureSource
-        id: ""
-        configPath: "/Prototypes/Parallaxes/parallax_config.toml"
-        slowness: 0.875
+        !type:ImageParallaxTextureSource
+        path: "/Textures/Parallaxes/layer1.png"
+      slowness: 0.999
+      scale: "1, 1"
+    - texture:
+        !type:ImageParallaxTextureSource
+        path: "/Textures/Parallaxes/planet.png"
+      slowness: 0.999
+      scale: "2, 2"
+      tiled: false
   layersLQUseHQ: false
 
 # Because hyperspace and the menu need their own.
