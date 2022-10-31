@@ -15,7 +15,7 @@ public sealed class DamageOverlay : Overlay
     [Dependency] private readonly IEntityManager _entityManager = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
 
-    public override OverlaySpace Space => OverlaySpace.ScreenSpace;
+    public override OverlaySpace Space => OverlaySpace.WorldSpace;
 
     private readonly ShaderInstance _critShader;
     private readonly ShaderInstance _oxygenShader;
@@ -71,8 +71,7 @@ public sealed class DamageOverlay : Overlay
          * The crit overlay also occasionally reduces its alpha as a "blink"
          */
 
-        var viewport = args.ViewportBounds;
-        var handle = args.ScreenHandle;
+        var handle = args.WorldHandle;
         var distance = args.ViewportBounds.Width;
 
         var time = (float) _timing.RealTime.TotalSeconds;
@@ -162,7 +161,7 @@ public sealed class DamageOverlay : Overlay
             _bruteShader.SetParameter("innerCircleRadius", innerRadius);
             _bruteShader.SetParameter("innerCircleMaxRadius", innerRadius + 0.02f * distance);
             handle.UseShader(_bruteShader);
-            handle.DrawRect(viewport, Color.White);
+            handle.DrawRect(args.WorldBounds, Color.White);
         }
         else
         {
@@ -212,7 +211,7 @@ public sealed class DamageOverlay : Overlay
             _oxygenShader.SetParameter("outerCircleRadius", outerRadius);
             _oxygenShader.SetParameter("outerCircleMaxRadius", outerRadius + 0.2f * distance);
             handle.UseShader(_oxygenShader);
-            handle.DrawRect(viewport, Color.White);
+            handle.DrawRect(args.WorldBounds, Color.White);
         }
 
         level = State != DamageState.Dead ? _oldCritLevel : DeadLevel;
@@ -238,7 +237,7 @@ public sealed class DamageOverlay : Overlay
             _critShader.SetParameter("outerCircleRadius", outerRadius);
             _critShader.SetParameter("outerCircleMaxRadius", outerRadius + 0.2f * distance);
             handle.UseShader(_critShader);
-            handle.DrawRect(viewport, Color.White);
+            handle.DrawRect(args.WorldBounds, Color.White);
         }
 
         handle.UseShader(null);
