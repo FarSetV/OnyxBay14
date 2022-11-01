@@ -1,14 +1,14 @@
 ﻿- type: trait
   id: Blindness
-  name: Blindness
-  description: You lack vision
+  name: Слепота
+  description: У вас отсутствует зрение
   components:
     - type: PermanentBlindness
 
 - type: trait
   id: Narcolepsy
-  name: Narcolepsy
-  description: You fall asleep randomly
+  name: Нарколепсия
+  description: Вы иногда можете внезапно уснуть
   components:
     - type: Narcolepsy
       timeBetweenIncidents: 300, 600
@@ -16,6 +16,6 @@
 
 - type: trait
   id: Pacifist
-  name: Pacifist
+  name: Пацифист
   components:
     - type: Pacifist

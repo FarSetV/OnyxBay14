@@ -1,7 +1,7 @@
-server-info-rules-button = Rules
+server-info-rules-button = Правила
 server-info-discord-button = Discord
-server-info-website-button = Website
+server-info-website-button = Сайт
 server-info-wiki-button = Wiki
-server-info-report-button = Report Bugs
-server-info-credits-button = Credits
-server-info-donate-button = Donate
+server-info-report-button = Сообщить о баге
+server-info-credits-button = Зал славы
+server-info-donate-button = Пожертвования

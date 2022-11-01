@@ -91,7 +91,6 @@ public sealed partial class HumanoidProfileEditor : Control
         NameEdit.OnTextChanged += args => { SetName(args.Text); };
         NameRandomButton.OnPressed += _ => RandomizeName();
         RandomizeEverythingButton.OnPressed += _ => { RandomizeEverything(); };
-        WarningLabel.SetMarkup($"[color=red]{Loc.GetString("humanoid-profile-editor-naming-rules-warning")}[/color]");
 
         #endregion Name
 
@@ -564,7 +563,6 @@ public sealed partial class HumanoidProfileEditor : Control
     private LineEdit NameEdit => CNameEdit;
     private Button NameRandomButton => CNameRandomize;
     private Button RandomizeEverythingButton => CRandomizeEverything;
-    private RichTextLabel WarningLabel => CWarningLabel;
     private Button SaveButton => CSaveButton;
     private Button SexFemaleButton => CSexFemale;
     private Button SexMaleButton => CSexMale;

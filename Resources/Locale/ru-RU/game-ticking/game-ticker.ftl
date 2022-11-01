@@ -1,26 +1,29 @@
-game-ticker-restart-round = Restarting round...
-game-ticker-start-round = The round is starting now...
-game-ticker-start-round-cannot-start-game-mode-fallback = Failed to start {$failedGameMode} mode! Defaulting to {$fallbackMode}...
-game-ticker-start-round-cannot-start-game-mode-restart = Failed to start {$failedGameMode} mode! Restarting round...
+game-ticker-restart-round = Перезапуск раунда...
+game-ticker-start-round = Раунд начинается СЕЙЧАС...
+game-ticker-start-round-cannot-start-game-mode-fallback = Ошибка при запуске {$failedGameMode}! Выбор запасного варианта: {$fallbackMode}...
+game-ticker-start-round-cannot-start-game-mode-restart = Ошибка при запуске {$failedGameMode}! Перезапуск раунда...
 game-ticker-unknown-role = Unknown
-game-ticker-delay-start = Round start has been delayed for {$seconds} seconds.
-game-ticker-pause-start = Round start has been paused.
-game-ticker-pause-start-resumed = Round start countdown is now resumed.
-game-ticker-player-join-game-message = Welcome to Space Station 14! If this is your first time playing, be sure to read the game rules, and don't be afraid to ask for help in LOOC (local OOC) or OOC (usually available only between rounds).
-game-ticker-get-info-text = Hi and welcome to [color=white]Space Station 14![/color]
-                            The current round is: [color=white]#{$roundId}[/color]
-                            The current player count is: [color=white]{$playerCount}[/color]
-                            The current map is: [color=white]{$mapName}[/color]
-                            The current game mode is: [color=white]{$gmTitle}[/color]
+game-ticker-delay-start = Раунд был отложен на {$seconds} секунд.
+game-ticker-pause-start = Запуск раунда был приостановлен.
+game-ticker-pause-start-resumed = Отсчёт начала раунда возобновлён.
+game-ticker-player-join-game-message = Добро пожаловать на Indigo! Если это ваш первый игровой опыт здесь,
+                                        обязательно прочитайте правила и не бойтесь спрашивать в LOOC (локальный OOC)
+                                        или OOC (обычно доступен до начала и после конца раунда).
+
+game-ticker-get-info-text = Приветствует на сервере по [color=white]Space Station 14![/color]
+                            ID текущего раунда: [color=white]#{$roundId}[/color]
+                            Количество игроков: [color=white]{$playerCount}[/color]
+                            Текущая карта: [color=white]{$mapName}[/color]
+                            Текущий игровой режим: [color=white]{$gmTitle}[/color]
                             >[color=yellow]{$desc}[/color]
-game-ticker-no-map-selected = [color=red]No map selected![/color]
-game-ticker-player-no-jobs-available-when-joining = When attempting to join to the game, no jobs were available.
+game-ticker-no-map-selected = [color=red]Нет выбранной карты![/color]
+game-ticker-player-no-jobs-available-when-joining = При попытке присоединиться не было найдено свободной должности.
 
 # Displayed in chat to admins when a player joins
-player-join-message = Player {$name} joined the server!
+player-join-message = Игрок {$name} вошёл на сервер!
 
 # Displayed in chat to admins when a player leaves
-player-leave-message = Player {$name} left the server!
+player-leave-message = Игрок {$name} покинул сервер!
 
-latejoin-arrival-announcement = {$character} ({$job}) has arrived at the station!
-latejoin-arrival-sender = Station
+latejoin-arrival-announcement = {$character} ({$job}) прибыл на станцию!
+latejoin-arrival-sender = Станция

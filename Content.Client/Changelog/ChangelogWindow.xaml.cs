@@ -164,9 +164,6 @@ namespace Content.Client.Changelog
                     }
                 }
             }
-
-            var version = typeof(ChangelogWindow).Assembly.GetName().Version ?? new Version(1, 0);
-            VersionLabel.Text = Loc.GetString("changelog-version-tag", ("version", version.ToString()));
         }
 
         private TextureRect GetIcon(ChangelogLineType type)

@@ -15,8 +15,5 @@
         <ScrollContainer VerticalExpand="True" HScrollEnabled="False">
             <BoxContainer Orientation="Vertical" Name="ChangelogBody" />
         </ScrollContainer>
-
-        <PanelContainer StyleClasses="LowDivider" />
-        <Label Name="VersionLabel" HorizontalAlignment="Right" StyleClasses="LabelSubText" Margin="4 0" />
     </BoxContainer>
 </changelog:ChangelogWindow>

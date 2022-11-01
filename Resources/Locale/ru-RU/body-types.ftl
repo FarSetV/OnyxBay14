@@ -1,2 +1,2 @@
-﻿body-types-normal = Normal
-body-types-slim = Slim
+﻿body-types-normal = Обычный
+body-types-slim = Худощавый
