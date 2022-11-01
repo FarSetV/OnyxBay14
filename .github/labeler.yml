@@ -13,3 +13,6 @@
 
 ":robot: Тесты":
 - "Content.*Tests/**/*"
+
+":ru: локализация":
+- "Resources/Locale/**/*"
