@@ -16,3 +16,6 @@
 
 ":ru: локализация":
 - "Resources/Locale/**/*"
+
+"🔊 SFX":
+- "Resources/Audio/**/*"
