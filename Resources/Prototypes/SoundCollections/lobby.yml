@@ -2,5 +2,10 @@
   id: LobbyMusic
   files:
     - /Audio/Lobby/all_that_i_can_see.ogg
-    - /Audio/Lobby/space_oddity.ogg
+    - /Audio/Lobby/anyone_who_knows_what_love_is.ogg
     - /Audio/Lobby/echoes.ogg
+    - /Audio/Lobby/i_have_a_dream.ogg
+    - /Audio/Lobby/sandman.ogg
+    - /Audio/Lobby/space_oddity.ogg
+    - /Audio/Lobby/the_end_of_the_world.ogg
+    - /Audio/Lobby/the_man_who_sold_the_world.ogg

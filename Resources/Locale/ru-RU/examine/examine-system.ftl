@@ -4,8 +4,8 @@ examine-system-entity-does-not-exist = That entity doesn't exist
 
 examine-system-cant-see-entity = You can't make out whatever that is.
 
-examine-verb-name = Basic
+examine-verb-name = Общее
 
-examinable-anchored = It is anchored to the floor
+examinable-anchored = Прикреплено к полу
 
-examinable-unanchored = It is unanchored from the floor
+examinable-unanchored = Не прикреплено к полу
