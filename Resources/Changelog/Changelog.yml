@@ -75,4 +75,76 @@ entries:
   changes:
   - type: Add
     message: Порт карты Фронтир
-lastChangelog: 2022-10-17T19:11:05.0000000Z
+- id: 11
+  author: igorsaux
+  time: 2022-10-29T16:06:06.0000000Z
+  changes:
+  - type: Add
+    message: 'Порт принципа работы рад коллекторов с ониксбея: они теперь требуют плазму и нагреваются.'
+- id: 12
+  author: igorsaux
+  time: 2022-10-28T18:26:24.0000000Z
+  changes:
+  - type: Add
+    message: Переозвучены анонсы и добавлены отсутствующие.
+  - type: Add
+    message: Вместо шаттла прибытия на коробке теперь комната с крио капсулами.
+  - type: Tweak
+    message: Небольшие декоративные изменения коробки.
+  - type: Add
+    message: На коробку добавлен шаттл к карго.
+  - type: Tweak
+    message: Убрано большинство музыки из лобби, добавлено пару треков взамен.
+  - type: Tweak
+    message: Заменены лобби скрины.
+  - type: Tweak
+    message: Немного изменён параллакс космоса, он теперь темнее.
+  - type: Add
+    message: Вывеска бара теперь светится!
+- id: 13
+  author: igorsaux
+  time: 2022-10-20T11:18:59.0000000Z
+  changes:
+  - type: Add
+    message: Порт звуков шлюзов, криков и ещё по-мелочи с оникса.
+- id: 14
+  author: igorsaux
+  time: 2022-10-19T21:04:24.0000000Z
+  changes:
+  - type: Add
+    message: Добавлены слим вариации костюмов для всех оставшихся работ.
+- id: 15
+  author: Medjic
+  time: 2022-10-19T20:23:16.0000000Z
+  changes:
+  - type: Add
+    message: Добавлены слим варианты спрайтов одежды для репортера, журналиста и музыканта.
+- id: 16
+  author: igorsaux
+  time: 2022-10-19T20:21:40.0000000Z
+  changes:
+  - type: Add
+    message: Портированы "tech" тайлы с ониксбея.
+- id: 17
+  author: igorsaux
+  time: 2022-10-19T17:08:47.0000000Z
+  changes:
+  - type: Add
+    message: Добавлено ещё немного одежды для слимов с ониксбея.
+- id: 18
+  author: igorsaux
+  time: 2022-10-17T00:00:07.0000000Z
+  changes:
+  - type: Add
+    message: Добавлены ХУДы шлемам хардсюитов.
+  - type: Add
+    message: Некоторые шлемы скафандров имеют оверлей при надевании.
+  - type: Fix
+    message: Исправлено слишком маленькое потребление энергии встроенных фонариков в шлемах хардсюитов.
+- id: 19
+  author: igorsaux
+  time: 2022-10-17T19:11:05.0000000Z
+  changes:
+  - type: Add
+    message: Добавлено телосложение "Slim" для женщин.
+lastChangelog: 2022-10-29T16:06:06.0000000Z
