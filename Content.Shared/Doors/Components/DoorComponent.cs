@@ -141,9 +141,6 @@ public sealed class DoorComponent : Component, ISerializationHooks
     public HashSet<EntityUid> CurrentlyCrushing = new();
     #endregion
 
-    [DataField("board", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
-    public string? BoardPrototype;
-
     [DataField("pryingQuality", customTypeSerializer: typeof(PrototypeIdSerializer<ToolQualityPrototype>))]
     public string PryingQuality = "Prying";
 
