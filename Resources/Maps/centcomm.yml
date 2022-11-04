@@ -149,7 +149,7 @@ entities:
 - uid: 0
   components:
   - type: MetaData
-  - parent: 76
+  - parent: null
     type: Transform
   - type: MapGrid
   - type: Broadphase
@@ -9374,15 +9374,6 @@ entities:
   - pos: -2.5,2.5
     parent: 0
     type: Transform
-- uid: 76
-  components:
-  - type: MetaData
-  - type: Transform
-  - index: 2
-    type: Map
-  - type: PhysicsMap
-  - type: Broadphase
-  - type: OccluderTree
 - uid: 77
   type: ReinforcedWindow
   components:
