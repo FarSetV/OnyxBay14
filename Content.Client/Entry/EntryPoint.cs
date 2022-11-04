@@ -102,35 +102,35 @@ public sealed class EntryPoint : GameClient
         _componentFactory.RegisterClass<SharedAMEControllerComponent>();
         // Do not add to the above, they are legacy
 
-        _prototypeManager.RegisterIgnore("accent");
-        _prototypeManager.RegisterIgnore("material");
-        _prototypeManager
-            .RegisterIgnore("reaction"); //Chemical reactions only needed by server. Reactions checks are server-side.
-        _prototypeManager.RegisterIgnore("gasReaction");
-        _prototypeManager.RegisterIgnore("seed"); // Seeds prototypes are server-only.
-        _prototypeManager.RegisterIgnore("barSign");
-        _prototypeManager.RegisterIgnore("objective");
-        _prototypeManager.RegisterIgnore("holiday");
-        _prototypeManager.RegisterIgnore("aiFaction");
-        _prototypeManager.RegisterIgnore("htnCompound");
-        _prototypeManager.RegisterIgnore("htnPrimitive");
-        _prototypeManager.RegisterIgnore("gameMap");
-        _prototypeManager.RegisterIgnore("faction");
-        _prototypeManager.RegisterIgnore("lobbyBackground");
-        _prototypeManager.RegisterIgnore("advertisementsPack");
-        _prototypeManager.RegisterIgnore("metabolizerType");
-        _prototypeManager.RegisterIgnore("metabolismGroup");
-        _prototypeManager.RegisterIgnore("salvageMap");
-        _prototypeManager.RegisterIgnore("gamePreset");
-        _prototypeManager.RegisterIgnore("gameRule");
-        _prototypeManager.RegisterIgnore("worldSpell");
-        _prototypeManager.RegisterIgnore("entitySpell");
-        _prototypeManager.RegisterIgnore("instantSpell");
-        _prototypeManager.RegisterIgnore("roundAnnouncement");
-        _prototypeManager.RegisterIgnore("wireLayout");
-        _prototypeManager.RegisterIgnore("alertLevels");
-        _prototypeManager.RegisterIgnore("nukeopsRole");
-        _prototypeManager.RegisterIgnore("flavor");
+            _prototypeManager.RegisterIgnore("accent");
+            _prototypeManager.RegisterIgnore("material");
+            _prototypeManager.RegisterIgnore("reaction"); //Chemical reactions only needed by server. Reactions checks are server-side.
+            _prototypeManager.RegisterIgnore("gasReaction");
+            _prototypeManager.RegisterIgnore("seed"); // Seeds prototypes are server-only.
+            _prototypeManager.RegisterIgnore("barSign");
+            _prototypeManager.RegisterIgnore("objective");
+            _prototypeManager.RegisterIgnore("holiday");
+            _prototypeManager.RegisterIgnore("aiFaction");
+            _prototypeManager.RegisterIgnore("htnCompound");
+            _prototypeManager.RegisterIgnore("htnPrimitive");
+            _prototypeManager.RegisterIgnore("gameMap");
+            _prototypeManager.RegisterIgnore("gameMapPool");
+            _prototypeManager.RegisterIgnore("faction");
+            _prototypeManager.RegisterIgnore("lobbyBackground");
+            _prototypeManager.RegisterIgnore("advertisementsPack");
+            _prototypeManager.RegisterIgnore("metabolizerType");
+            _prototypeManager.RegisterIgnore("metabolismGroup");
+            _prototypeManager.RegisterIgnore("salvageMap");
+            _prototypeManager.RegisterIgnore("gamePreset");
+            _prototypeManager.RegisterIgnore("gameRule");
+            _prototypeManager.RegisterIgnore("worldSpell");
+            _prototypeManager.RegisterIgnore("entitySpell");
+            _prototypeManager.RegisterIgnore("instantSpell");
+            _prototypeManager.RegisterIgnore("roundAnnouncement");
+            _prototypeManager.RegisterIgnore("wireLayout");
+            _prototypeManager.RegisterIgnore("alertLevels");
+            _prototypeManager.RegisterIgnore("nukeopsRole");
+            _prototypeManager.RegisterIgnore("flavor");
 
         _componentFactory.GenerateNetIds();
         _adminManager.Initialize();
