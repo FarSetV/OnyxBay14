@@ -2,6 +2,9 @@
   id: Blindness
   name: Слепота
   description: У вас отсутствует зрение
+  whitelist:
+    components:
+      - Blindable
   components:
     - type: PermanentBlindness
 
