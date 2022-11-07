@@ -51,7 +51,6 @@
       baseWalkSpeed: 0
       baseSprintSpeed: 0
     - type: Speech
-    - type: SkeletonAccent
     - type: Actions
     - type: Vocal
       maleScream: /Audio/Voice/Skeleton/skeleton_scream.ogg
