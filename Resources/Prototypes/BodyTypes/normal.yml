@@ -1,7 +1,5 @@
 ﻿- type: bodyType
   id: HumanNormal
-  sexRestrictions:
-    - Female
   name: body-types-normal
   sprites:
     Head: MobHumanHead

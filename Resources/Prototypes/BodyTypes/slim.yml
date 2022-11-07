@@ -1,8 +1,6 @@
 ﻿- type: bodyType
   id: HumanSlim
   name: body-types-slim
-  sexRestrictions:
-    - Male
   sprites:
     Head: MobHumanSlimHead
     Hair: MobHumanoidAnyMarking
