@@ -134,6 +134,11 @@ cmd-set-ambient-light-desc = Allows you to set the ambient light for the specifi
 cmd-set-ambient-light-help = setambientlight [mapid] [r g b a]
 cmd-set-ambient-light-parse = Unable to parse args as a byte values for a color.
 
+# 'restartonroundend' command
+cmd-restartounroundend-desc = Перезапускает сервер после конца раунда.
+cmd-restartonroundend-will-restart = Сервер будет перезапущен.
+cmd-restartonroundend-will-not-restart = Сервер не будет перезапущен.
+
 ## Mapping commands
 
 cmd-savemap-desc = Serializes a map to disk. Will not save a post-init map unless forced.

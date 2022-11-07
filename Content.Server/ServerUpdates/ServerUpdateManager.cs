@@ -23,7 +23,7 @@ public sealed class ServerUpdateManager
     [Dependency] private readonly IConfigurationManager _cfg = default!;
 
     [ViewVariables]
-    private bool _updateOnRoundEnd;
+    private bool _restartOnRoundEnd;
 
     private TimeSpan? _restartTime;
 
@@ -31,6 +31,13 @@ public sealed class ServerUpdateManager
     {
         _watchdog.UpdateReceived += WatchdogOnUpdateReceived;
         _playerManager.PlayerStatusChanged += PlayerManagerOnPlayerStatusChanged;
+    }
+
+    public bool ToggleRestartOnRoundEnd()
+    {
+        _restartOnRoundEnd = !_restartOnRoundEnd;
+
+        return _restartOnRoundEnd;
     }
 
     public void Update()
@@ -47,7 +54,7 @@ public sealed class ServerUpdateManager
     /// <returns>True if the server is going to restart.</returns>
     public bool RoundEnded()
     {
-        if (_updateOnRoundEnd)
+        if (_restartOnRoundEnd)
         {
             DoShutdown();
             return true;
@@ -72,7 +79,7 @@ public sealed class ServerUpdateManager
     private void WatchdogOnUpdateReceived()
     {
         _chatManager.DispatchServerAnnouncement(Loc.GetString("server-updates-received"));
-        _updateOnRoundEnd = true;
+        _restartOnRoundEnd = true;
         ServerEmptyUpdateRestartCheck();
     }
 
@@ -86,7 +93,7 @@ public sealed class ServerUpdateManager
         // before PlayerStatusChanged gets fired.
         // So in the disconnect handler we'd still see a single player otherwise.
         var playersOnline = _playerManager.Sessions.Any(p => p.Status != SessionStatus.Disconnected);
-        if (playersOnline || !_updateOnRoundEnd)
+        if (playersOnline || !_restartOnRoundEnd)
         {
             // Still somebody online.
             return;
