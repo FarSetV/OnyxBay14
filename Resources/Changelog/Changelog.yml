@@ -147,4 +147,22 @@ entries:
   changes:
   - type: Add
     message: Добавлено телосложение "Slim" для женщин.
-lastChangelog: 2022-10-29T16:06:06.0000000Z
+- id: 20
+  author: igorsaux
+  time: 2022-11-07T20:12:05.0000000Z
+  changes:
+  - type: Tweak
+    message: Убраны ограничения по типу тела в зависимости от пола.
+- id: 21
+  author: igorsaux
+  time: 2022-11-07T19:58:09.0000000Z
+  changes:
+  - type: Fix
+    message: Фиксы нашлемных оверлеев.
+- id: 22
+  author: igorsaux
+  time: 2022-10-29T16:06:06.0000000Z
+  changes:
+  - type: Add
+    message: 'Порт принципа работы рад коллекторов с ониксбея: они теперь требуют плазму и нагреваются.'
+lastChangelog: 2022-11-07T20:12:05.0000000Z
