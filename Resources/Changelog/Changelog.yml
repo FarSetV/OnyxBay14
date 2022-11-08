@@ -165,4 +165,22 @@ entries:
   changes:
   - type: Add
     message: 'Порт принципа работы рад коллекторов с ониксбея: они теперь требуют плазму и нагреваются.'
-lastChangelog: 2022-11-07T20:12:05.0000000Z
+- id: 23
+  author: igorsaux
+  time: 2022-11-08T16:26:54.0000000Z
+  changes:
+  - type: Add
+    message: Добавлена глобальная карта. Перемещение по ней возможно только через блюспейс.
+- id: 24
+  author: igorsaux
+  time: 2022-11-07T20:12:05.0000000Z
+  changes:
+  - type: Tweak
+    message: Убраны ограничения по типу тела в зависимости от пола.
+- id: 25
+  author: igorsaux
+  time: 2022-11-07T19:58:09.0000000Z
+  changes:
+  - type: Fix
+    message: Фиксы нашлемных оверлеев.
+lastChangelog: 2022-11-08T16:26:54.0000000Z
