@@ -1187,6 +1187,19 @@ namespace Content.Shared.CCVar
             SalvageForced = CVarDef.Create("salvage.forced", "", CVar.SERVERONLY);
 
         /*
+         * Overmap
+         */
+
+        public static readonly CVarDef<bool>
+            OvermapGenerate = CVarDef.Create("overmap.generate", false, CVar.SERVERONLY);
+
+        /// <summary>
+        ///     ID of a OvermapPresetPrototype which should be used.
+        /// </summary>
+        public static readonly CVarDef<string>
+            OvermapPreset = CVarDef.Create("overmap.preset", "Default", CVar.SERVERONLY);
+
+        /*
 
          * Flavor
          */

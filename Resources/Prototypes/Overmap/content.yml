@@ -1,0 +1,178 @@
+﻿# Large
+
+- type: overmapLayerContent
+  id: RuinedCargoStorage
+  mapPath: /Maps/Salvage/ruin-cargo-salvage.yml
+  bounds: "-15,-13,22,14"
+  chance: 0.1
+  unique: true
+
+- type: overmapLayerContent
+  id: AsteroidBase
+  mapPath: /Maps/Salvage/asteroid-base.yml
+  bounds: "-12,-13,15,11"
+  chance: 0.1
+  unique: true
+
+- type: overmapLayerContent
+  id: StationStation
+  mapPath: /Maps/Salvage/stationstation.yml
+  bounds: "-17,-15,35,29"
+  chance: 0.1
+  unique: true
+
+# Medium
+
+- type: overmapLayerContent
+  id: Medium1
+  mapPath: /Maps/Salvage/medium-1.yml
+  bounds: "-7.5,-7.5,7.5,7.5"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: MediumVault1
+  mapPath: /Maps/Salvage/medium-vault-1.yml
+  bounds: "-7.5,-7.5,7.5,7.5"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: MediumOrchestra
+  mapPath: /Maps/Salvage/medium-silent-orchestra.yml
+  bounds: "-7.5,-7.5,7.5,7.5"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: MediumLibraryWreck
+  mapPath: /Maps/Salvage/medium-library.yml
+  bounds: "-8.5,-8.5,6.5,7.5"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: MediumCargoWreck
+  mapPath: /Maps/Salvage/cargo-1.yml
+  bounds: "-5.5,-5.5,5.5,9.5"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: MediumPirateWreck
+  mapPath: /Maps/Salvage/medium-pirate.yml
+  bounds: "-3.5,-9.5,6.5,7.5"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: TickColony
+  mapPath: /Maps/Salvage/tick-colony.yml
+  bounds: "-6,-7,5,7"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: CargoDock
+  mapPath: /Maps/Salvage/medium-dock.yml
+  bounds: "-7,-6,4,8"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: SpaceWaffleHome
+  mapPath: /Maps/Salvage/wh-salvage.yml
+  bounds: "-13,-12,14,11"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: MediumShuttleWreck
+  mapPath: /Maps/Salvage/medium-ruined-emergency-shuttle.yml
+  bounds: "-8.5,-8.5,8.5,8.5"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: mediumPetHospital
+  mapPath: /Maps/Salvage/medium-pet-hospital.yml
+  bounds: "-5.5,-8.5,5.5,8.5"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: MediumCrashedShuttle
+  mapPath: /Maps/Salvage/medium-crashed-shuttle.yml
+  bounds: "-7,-8,5,9"
+  chance: 0.01
+  uniquePerTile: true
+
+# Small
+
+- type: overmapLayerContent
+  id: Small1
+  mapPath: /Maps/Salvage/small-1.yml
+  bounds: "-2.5,-3.5,3.5,3.5"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: Small2
+  mapPath: /Maps/Salvage/small-2.yml
+  bounds: "-3.5,-3.5,3.5,3.5"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: SmallShip1
+  mapPath: /Maps/Salvage/small-ship-1.yml
+  bounds: "-1.5,-0.5,2.5,1.5"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: Small3
+  mapPath: /Maps/Salvage/small-3.yml
+  bounds: "-3.5,-3.5,2.5,3.5"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: SmallAISurveyDrone
+  mapPath: /Maps/Salvage/small-ai-survey-drone.yml
+  bounds: "-3.5,-3.5,3.5,3.5"
+  chance: 0.01
+  uniquePerTile: true
+
+- type: overmapLayerContent
+  id: Small4
+  mapPath: /Maps/Salvage/small-4.yml
+  bounds: "-3.5,-3.5,3.5,3.5"
+  chance: 0.01
+  uniquePerTile: true
+
+# Asteroids
+
+- type: overmapLayerContent
+  id: SmallA1
+  mapPath: /Maps/Salvage/small-a-1.yml
+  bounds: "-3.5,-3.5,3.5,3.5"
+  chance: 0.001
+
+- type: overmapLayerContent
+  id: SmallA2
+  mapPath: /Maps/Salvage/small-a-2.yml
+  bounds: "-3.5,-3.5,3.5,3.5"
+  chance: 0.001
+
+- type: overmapLayerContent
+  id: SmallA3
+  mapPath: /Maps/Salvage/small-a-3.yml
+  bounds: "-3.5,-3.5,3.5,3.5"
+  chance: 0.001
+
+- type: overmapLayerContent
+  id: SmallA4
+  mapPath: /Maps/Salvage/small-a-4.yml
+  bounds: "-3.5,-3.5,3.5,3.5"
+  chance: 0.001

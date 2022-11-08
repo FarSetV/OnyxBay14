@@ -1,3 +1,5 @@
+using Content.Server.Overmap;
+using Content.Server.Overmap.Systems;
 using Content.Server.Popups;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
@@ -14,7 +16,6 @@ using Content.Shared.Shuttles.Systems;
 using Content.Shared.Tag;
 using Robust.Server.GameObjects;
 using Robust.Shared.GameStates;
-using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
@@ -25,12 +26,13 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 {
     [Dependency] private readonly AlertsSystem _alertsSystem = default!;
     [Dependency] private readonly ActionBlockerSystem _blocker = default!;
+    [Dependency] private readonly OvermapSystem _overmap = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly PopupSystem _popupSystem = default!;
     [Dependency] private readonly ShuttleSystem _shuttle = default!;
     [Dependency] private readonly TagSystem _tags = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
-    [Dependency] private readonly PopupSystem _popupSystem = default!;
 
     public override void Initialize()
     {
@@ -43,6 +45,9 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         SubscribeLocalEvent<ShuttleConsoleComponent, ShuttleConsoleDestinationMessage>(OnDestinationMessage);
         SubscribeLocalEvent<ShuttleConsoleComponent, BoundUIClosedEvent>(OnConsoleUIClose);
 
+        SubscribeLocalEvent<ShuttleConsoleComponent, EnterBluespaceMessage>(OnEnterBluespaceMessage);
+        SubscribeLocalEvent<ShuttleConsoleComponent, ExitBluespaceMessage>(OnExitBluespaceMessage);
+
         SubscribeLocalEvent<DockEvent>(OnDock);
         SubscribeLocalEvent<UndockEvent>(OnUndock);
 
@@ -50,6 +55,78 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         SubscribeLocalEvent<PilotComponent, ComponentGetState>(OnGetState);
     }
 
+    private void OnEnterBluespaceMessage(EntityUid uid, ShuttleConsoleComponent component, EnterBluespaceMessage args)
+    {
+        EntityUid? entity = component.Owner;
+
+        var getShuttleEv = new ConsoleShuttleEvent
+        {
+            Console = uid
+        };
+
+        RaiseLocalEvent(entity.Value, ref getShuttleEv);
+        entity = getShuttleEv.Console;
+
+        if (entity is null)
+            return;
+
+        if (!TryComp<TransformComponent>(entity, out var xform) ||
+            !TryComp<ShuttleComponent>(xform.GridUid, out var shuttle))
+            return;
+
+        if (HasComp<BluespaceComponent>(xform.GridUid))
+        {
+            if (args.Session.AttachedEntity != null)
+            {
+                _popup.PopupCursor(Loc.GetString("shuttle-console-in-bluespace"),
+                    Filter.Entities(args.Session.AttachedEntity.Value));
+            }
+
+            return;
+        }
+
+        if (!_shuttle.CanTravelBluespace(shuttle.Owner, out var reason))
+        {
+            if (args.Session.AttachedEntity != null)
+                _popup.PopupCursor(reason, Filter.Entities(args.Session.AttachedEntity.Value));
+
+            return;
+        }
+
+        _shuttle.EnterBluespace(shuttle);
+    }
+
+    private void OnExitBluespaceMessage(EntityUid uid, ShuttleConsoleComponent component, ExitBluespaceMessage args)
+    {
+        EntityUid? entity = component.Owner;
+
+        var getShuttleEv = new ConsoleShuttleEvent
+        {
+            Console = uid
+        };
+
+        RaiseLocalEvent(entity.Value, ref getShuttleEv);
+        entity = getShuttleEv.Console;
+
+        if (entity is null)
+            return;
+
+        if (!TryComp<TransformComponent>(entity, out var xform) ||
+            !TryComp<ShuttleComponent>(xform.GridUid, out var shuttle))
+            return;
+
+        if (!_shuttle.CanExitBluespace(shuttle.Owner, out var reason))
+        {
+            if (args.Session.AttachedEntity != null)
+                _popup.PopupCursor(reason, Filter.Entities(args.Session.AttachedEntity.Value));
+
+            return;
+        }
+
+        _shuttle.ExitBluespace(shuttle.Owner);
+    }
+
+    [Obsolete("Use OnEnterBluespaceMessage")]
     private void OnDestinationMessage(EntityUid uid, ShuttleConsoleComponent component,
         ShuttleConsoleDestinationMessage args)
     {
@@ -220,6 +297,46 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         return result;
     }
 
+    private OvermapNavigatorBoundInterfaceState? GetOvermapNavigatorState(EntityUid uid)
+    {
+        var xForm = Transform(uid);
+
+        if (xForm.GridUid is not { } gridUid)
+            return null;
+
+        if (!TryComp<OvermapNavigatorComponent>(uid, out var navigatorComponent))
+            return null;
+
+        BluespaceState? bluespaceState = null;
+
+        if (TryComp<BluespaceComponent>(gridUid, out var bluespaceComponent))
+            bluespaceState = bluespaceComponent.State;
+
+        return new OvermapNavigatorBoundInterfaceState(
+            gridUid,
+            bluespaceState,
+            navigatorComponent.SignatureRadius,
+            navigatorComponent.IFFRadius,
+            navigatorComponent.Points
+        );
+    }
+
+    private RadarConsoleBoundInterfaceState? GetRadarConsoleState(EntityUid uid,
+        List<DockingInterfaceState>? docks = null)
+    {
+        if (!TryComp<RadarConsoleComponent>(uid, out var radarComponent))
+            return null;
+
+        var xForm = Transform(uid);
+
+        return new RadarConsoleBoundInterfaceState(
+            radarComponent.MaxRange,
+            xForm.Coordinates,
+            radarComponent.Rotation,
+            docks ?? GetAllDocks()
+        );
+    }
+
     private void UpdateState(ShuttleConsoleComponent component, List<DockingInterfaceState>? docks = null)
     {
         EntityUid? entity = component.Owner;
@@ -232,72 +349,16 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         RaiseLocalEvent(entity.Value, ref getShuttleEv);
         entity = getShuttleEv.Console;
 
-        TryComp<TransformComponent>(entity, out var consoleXform);
-        TryComp<RadarConsoleComponent>(entity, out var radar);
-        var range = radar?.MaxRange ?? 0f;
+        if (entity is null)
+            return;
 
-        TryComp<ShuttleComponent>(consoleXform?.GridUid, out var shuttle);
-
-        var destinations = new List<(EntityUid, string, bool)>();
-        var ftlState = FTLState.Available;
-        var ftlTime = TimeSpan.Zero;
-
-        if (TryComp<FTLComponent>(shuttle?.Owner, out var shuttleFtl))
+        ShuttleNavigatorRadarBoundInterfaceState state = new()
         {
-            ftlState = shuttleFtl.State;
-            ftlTime = _timing.CurTime + TimeSpan.FromSeconds(shuttleFtl.Accumulator);
-        }
+            RadarConsoleState = GetRadarConsoleState(entity.Value, docks),
+            NavigatorState = GetOvermapNavigatorState(entity.Value)
+        };
 
-        // Mass too large
-        if (entity != null && shuttle?.Owner != null &&
-            (!TryComp<PhysicsComponent>(shuttle.Owner, out var shuttleBody) ||
-             shuttleBody.Mass < 1000f))
-        {
-            var metaQuery = GetEntityQuery<MetaDataComponent>();
-
-            // Can't go anywhere when in FTL.
-            var locked = shuttleFtl != null || Paused(shuttle.Owner);
-
-            // Can't cache it because it may have a whitelist for the particular console.
-            // Include paused as we still want to show CentCom.
-            foreach (var comp in EntityQuery<FTLDestinationComponent>(true))
-            {
-                // Can't warp to itself or if it's not on the whitelist.
-                if (comp.Owner == shuttle?.Owner ||
-                    comp.Whitelist?.IsValid(entity.Value) == false)
-                    continue;
-
-                var meta = metaQuery.GetComponent(comp.Owner);
-                var name = meta.EntityName;
-
-                if (string.IsNullOrEmpty(name))
-                    name = Loc.GetString("shuttle-console-unknown");
-
-                var canTravel = !locked &&
-                                comp.Enabled &&
-                                !Paused(comp.Owner, meta) &&
-                                (!TryComp<FTLComponent>(comp.Owner, out var ftl) || ftl.State == FTLState.Cooldown);
-
-                // Can't travel to same map.
-                if (canTravel && consoleXform?.MapUid == Transform(comp.Owner).MapUid)
-                    canTravel = false;
-
-                destinations.Add((comp.Owner, name, canTravel));
-            }
-        }
-
-        docks ??= GetAllDocks();
-        var angle = Angle.FromDegrees(radar?.Rotation ?? consoleXform?.LocalRotation.Degrees ?? 0f);
-
-        _ui.GetUiOrNull(component.Owner, ShuttleConsoleUiKey.Key)
-            ?.SetState(new ShuttleConsoleBoundInterfaceState(
-                ftlState,
-                ftlTime,
-                destinations,
-                range,
-                consoleXform?.Coordinates,
-                angle,
-                docks));
+        _ui.TrySetUiState(component.Owner, ShuttleConsoleUiKey.Key, state);
     }
 
     public override void Update(float frameTime)
@@ -393,7 +454,8 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 
         _alertsSystem.ClearAlert(pilotComponent.Owner, AlertType.PilotingShuttle);
 
-        _popupSystem.PopupEntity(Loc.GetString("shuttle-pilot-end"), pilotComponent.Owner, Filter.Entities(pilotComponent.Owner));
+        _popupSystem.PopupEntity(Loc.GetString("shuttle-pilot-end"), pilotComponent.Owner,
+            Filter.Entities(pilotComponent.Owner));
 
         if (pilotComponent.LifeStage < ComponentLifeStage.Stopping)
             EntityManager.RemoveComponent<PilotComponent>(pilotComponent.Owner);

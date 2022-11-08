@@ -4,7 +4,7 @@
   mapPath: /Maps/sevastopol.yml
   minPlayers: 0
   stations:
-    Boxstation:
+    SevastopolStation:
       mapNameTemplate: 'NSS Sevastopol'
       overflowJobs:
         - Passenger

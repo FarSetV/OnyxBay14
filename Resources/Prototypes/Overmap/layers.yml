@@ -1,0 +1,62 @@
+﻿- type: overmapLayer
+  id: LargeDerelicts
+  frequency: 1
+  persistence: 0.5
+  lacunarity: 1.5
+  octaves: 1
+  minDensity: 500
+  grids:
+    - RuinedCargoStorage
+    - AsteroidBase
+    - StationStation
+
+- type: overmapLayer
+  id: MediumDerelicts
+  frequency: 5
+  persistence: 0.5
+  lacunarity: 1.5
+  octaves: 1
+  minDensity: 500
+  grids:
+    - Medium1
+    - MediumVault1
+    - MediumOrchestra
+    - MediumLibraryWreck
+    - MediumCargoWreck
+    - MediumPirateWreck
+    - TickColony
+    - CargoDock
+    - SpaceWaffleHome
+    - MediumShuttleWreck
+    - mediumPetHospital
+    - MediumCrashedShuttle
+
+- type: overmapLayer
+  id: SmallDerelicts
+  frequency: 5
+  persistence: 0.5
+  lacunarity: 1.5
+  octaves: 1
+  minDensity: 350
+  grids:
+    - Small1
+    - Small2
+    - SmallShip1
+    - Small3
+    - SmallAISurveyDrone
+    - Small4
+
+- type: overmapLayer
+  id: Asteroids
+  frequency: 5
+  persistence: 0.5
+  lacunarity: 1.5
+  octaves: 1
+  minDensity: 50
+  noiseType: Ridged
+  MinNoise: 0.9
+  grids:
+    - SmallA1
+    - SmallA2
+    - SmallA3
+    - SmallA4

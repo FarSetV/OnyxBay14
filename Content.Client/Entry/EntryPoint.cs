@@ -132,6 +132,11 @@ public sealed class EntryPoint : GameClient
             _prototypeManager.RegisterIgnore("nukeopsRole");
             _prototypeManager.RegisterIgnore("flavor");
 
+            // Overmap
+            _prototypeManager.RegisterIgnore("overmapLayerContent");
+            _prototypeManager.RegisterIgnore("overmapLayer");
+            _prototypeManager.RegisterIgnore("overmapPreset");
+
         _componentFactory.GenerateNetIds();
         _adminManager.Initialize();
         _stylesheetManager.Initialize();

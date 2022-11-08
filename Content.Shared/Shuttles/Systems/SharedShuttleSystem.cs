@@ -10,6 +10,7 @@ public abstract partial class SharedShuttleSystem : EntitySystem
 }
 
 [Flags]
+[Obsolete("Use BluespaceState")]
 public enum FTLState : byte
 {
     Invalid = 0,
@@ -36,3 +37,29 @@ public enum FTLState : byte
     Cooldown = 1 << 4,
 }
 
+
+public enum BluespaceState : byte
+{
+    Invalid = 0,
+
+    /// <summary>
+    /// A dummy state for presentation
+    /// </summary>
+    Available,
+
+    /// <summary>
+    /// Sound played and launch started
+    /// </summary>
+    Starting,
+
+    /// <summary>
+    /// When they're on the Bluespace map
+    /// </summary>
+    Travelling,
+
+    /// <summary>
+    /// Approaching destination, play effects or whatever,
+    /// </summary>
+    Arriving,
+    Cooldown,
+}

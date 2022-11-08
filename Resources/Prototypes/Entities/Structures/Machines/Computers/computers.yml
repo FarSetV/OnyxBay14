@@ -75,6 +75,7 @@
           screen: shuttle
     - type: Computer
       board: ShuttleConsoleCircuitboard
+    - type: OvermapNavigator
 
 - type: entity
   parent: BaseComputerShuttle
@@ -92,6 +93,9 @@
           screen: syndishuttle
     - type: RadarConsole
       maxRange: 1536
+    - type: OvermapNavigator
+      signatureRadius: 8000
+      IFFRadius: 4000
     - type: PointLight
       radius: 1.5
       energy: 1.6

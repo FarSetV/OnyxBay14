@@ -11,6 +11,8 @@ namespace Content.Client.Shuttles.BUI;
 public sealed class ShuttleConsoleBoundUserInterface : BoundUserInterface
 {
     private ShuttleConsoleWindow? _window;
+    private RadarTab _radarTab => _window!.ControlRadarTab;
+    private OvermapTab _overmapTab => _window!.ControlOvermapTab;
 
     public ShuttleConsoleBoundUserInterface(ClientUserInterfaceComponent owner, Enum uiKey) : base(owner, uiKey) {}
 
@@ -18,20 +20,13 @@ public sealed class ShuttleConsoleBoundUserInterface : BoundUserInterface
     {
         base.Open();
         _window = new ShuttleConsoleWindow();
-        _window.UndockPressed += OnUndockPressed;
-        _window.StartAutodockPressed += OnAutodockPressed;
-        _window.StopAutodockPressed += OnStopAutodockPressed;
-        _window.DestinationPressed += OnDestinationPressed;
+        _radarTab.UndockPressed += OnUndockPressed;
+        _radarTab.StartAutodockPressed += OnAutodockPressed;
+        _radarTab.StopAutodockPressed += OnStopAutodockPressed;
+        _overmapTab.BluespaceEnterPressed += OnBluespaceEnterPressed;
+        _overmapTab.BluespaceExitPressed += OnBluespaceExitPressed;
         _window.OpenCentered();
         _window.OnClose += OnClose;
-    }
-
-    private void OnDestinationPressed(EntityUid obj)
-    {
-        SendMessage(new ShuttleConsoleDestinationMessage()
-        {
-            Destination = obj,
-        });
     }
 
     private void OnClose()
@@ -49,27 +44,41 @@ public sealed class ShuttleConsoleBoundUserInterface : BoundUserInterface
         }
     }
 
+    private void OnBluespaceEnterPressed()
+    {
+        SendMessage(new EnterBluespaceMessage());
+    }
+
+    private void OnBluespaceExitPressed()
+    {
+        SendMessage(new ExitBluespaceMessage());
+    }
+
     private void OnStopAutodockPressed(EntityUid obj)
     {
-        SendMessage(new StopAutodockRequestMessage() {DockEntity = obj});
+        SendMessage(new StopAutodockRequestMessage {DockEntity = obj});
     }
 
     private void OnAutodockPressed(EntityUid obj)
     {
-        SendMessage(new AutodockRequestMessage() {DockEntity = obj});
+        SendMessage(new AutodockRequestMessage {DockEntity = obj});
     }
 
     private void OnUndockPressed(EntityUid obj)
     {
-        SendMessage(new UndockRequestMessage() {DockEntity = obj});
+        SendMessage(new UndockRequestMessage {DockEntity = obj});
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)
     {
         base.UpdateState(state);
-        if (state is not ShuttleConsoleBoundInterfaceState cState) return;
 
-        _window?.SetMatrix(cState.Coordinates, cState.Angle);
-        _window?.UpdateState(cState);
+        if (state is not ShuttleNavigatorRadarBoundInterfaceState cState)
+            return;
+
+        if (_window is null)
+            return;
+
+        _window.UpdateState(cState);
     }
 }

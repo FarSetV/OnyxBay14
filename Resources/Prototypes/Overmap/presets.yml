@@ -1,0 +1,7 @@
+﻿- type: overmapPreset
+  id: Default
+  layers:
+    - LargeDerelicts
+    - MediumDerelicts
+    - SmallDerelicts
+    - Asteroids

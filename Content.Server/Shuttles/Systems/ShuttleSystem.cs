@@ -1,3 +1,5 @@
+using Content.Server.Overmap;
+using Content.Server.Overmap.Systems;
 using Content.Server.Shuttles.Components;
 using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
@@ -20,6 +22,7 @@ namespace Content.Server.Shuttles.Systems
         [Dependency] private readonly SharedAudioSystem _audio = default!;
         [Dependency] private readonly SharedPhysicsSystem _physics = default!;
         [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
+        [Dependency] private readonly OvermapSystem _overmap = default!;
 
         private ISawmill _sawmill = default!;
 
@@ -54,6 +57,7 @@ namespace Content.Server.Shuttles.Systems
             base.Update(frameTime);
             UpdateEmergencyConsole(frameTime);
             UpdateHyperspace(frameTime);
+            UpdateBluespace(frameTime);
         }
 
         private void OnRoundRestart(RoundRestartCleanupEvent ev)

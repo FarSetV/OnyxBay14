@@ -8,6 +8,7 @@ namespace Content.Server.Shuttles.Components;
 /// Added to a component when it is queued or is travelling via FTL.
 /// </summary>
 [RegisterComponent]
+[Obsolete("Use BluespaceComponent")]
 public sealed class FTLComponent : Component
 {
     [ViewVariables]

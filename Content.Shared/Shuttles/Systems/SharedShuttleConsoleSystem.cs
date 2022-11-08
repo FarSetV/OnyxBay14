@@ -18,6 +18,7 @@ public abstract class SharedShuttleConsoleSystem : EntitySystem
         SubscribeLocalEvent<PilotComponent, ComponentShutdown>(HandlePilotShutdown);
         SubscribeLocalEvent<ShuttleConsoleComponent, ComponentGetState>(OnGetState);
         SubscribeLocalEvent<ShuttleConsoleComponent, ComponentHandleState>(OnHandleState);
+        SubscribeLocalEvent<ShuttleConsoleComponent, OvermapNavigatorUpdated>(OnNavigatorUpdated);
     }
 
     private void OnHandleState(EntityUid uid, ShuttleConsoleComponent component, ref ComponentHandleState args)
@@ -36,6 +37,11 @@ public abstract class SharedShuttleConsoleSystem : EntitySystem
             Zoom = component.Zoom,
         };
 
+        OnStateUpdate(uid, component);
+    }
+
+    private void OnNavigatorUpdated(EntityUid uid, ShuttleConsoleComponent component, OvermapNavigatorUpdated args)
+    {
         OnStateUpdate(uid, component);
     }
 

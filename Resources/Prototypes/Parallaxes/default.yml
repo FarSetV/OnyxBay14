@@ -53,7 +53,7 @@
   layers:
     - texture:
         !type:ImageParallaxTextureSource
-        path: "/Textures/Parallaxes/layer1.png"
+        path: "/Textures/Parallaxes/bluespace.png"
       slowness: 0.5
       scale: "3, 3"
     - texture:
