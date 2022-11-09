@@ -40,6 +40,7 @@ public sealed class ClothingSystem : SharedClothingSystem
         {"id", "IDCARD"},
         {"pocket1", "POCKET1"},
         {"pocket2", "POCKET2"},
+        {"suitstorage", "SUITSTORAGE"}
     };
 
     [Dependency] private IResourceCache _cache = default!;
