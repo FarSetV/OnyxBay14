@@ -43,6 +43,7 @@ public class StyleBase
     public const string ButtonCaution = "Caution";
 
     public const int DefaultGrabberSize = 10;
+    protected StyleBoxTexture AngleBorderRect { get; }
 
     public StyleBase(IResourceCache resCache)
     {
@@ -152,6 +153,14 @@ public class StyleBase
             Texture = buttonTex
         };
         BaseAngleRect.SetPatchMargin(StyleBox.Margin.All, 10);
+
+
+        AngleBorderRect = new StyleBoxTexture
+        {
+            Texture = resCache.GetTexture("/Textures/Interface/Nano/geometric_panel_border.svg.96dpi.png"),
+        };
+        AngleBorderRect.SetPatchMargin(StyleBox.Margin.All, 10);
+
 
         var vScrollBarGrabberNormal = new StyleBoxFlat
         {
