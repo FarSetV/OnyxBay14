@@ -12,7 +12,15 @@
             "directions": 4
         },
         {
+            "name": "equipped-FEET-HumanSlim",
+            "directions": 4
+        },
+        {
             "name": "on-equipped-FEET",
+            "directions": 4
+        },
+        {
+            "name": "on-equipped-FEET-HumanSlim",
             "directions": 4
         },
         {
