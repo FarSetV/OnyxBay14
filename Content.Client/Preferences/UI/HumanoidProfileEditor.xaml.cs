@@ -1105,7 +1105,8 @@ public sealed partial class HumanoidProfileEditor : Control
             _jobTitle = new Label()
             {
                 Text = job.LocalizedName,
-                MinSize = (175, 0)
+                MinSize = (175, 0),
+                MouseFilter = MouseFilterMode.Stop
             };
 
             if (job.LocalizedDescription != null)
