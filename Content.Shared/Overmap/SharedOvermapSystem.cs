@@ -28,9 +28,9 @@ public abstract class SharedOvermapSystem : EntitySystem
 [NetSerializable]
 public sealed class BluespaceMapUpdatedMessage : EntityEventArgs
 {
-    public readonly MapId NewId;
+    public readonly MapId? NewId;
 
-    public BluespaceMapUpdatedMessage(MapId mapId)
+    public BluespaceMapUpdatedMessage(MapId? mapId)
     {
         NewId = mapId;
     }

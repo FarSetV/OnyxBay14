@@ -1,32 +1,48 @@
-shuttle-pilot-start = Пилотирование начато
-shuttle-pilot-end = Пилотирование прекращено
-shuttle-console-in-ftl = Невозможно войти в БСС когда уже в БСС!
-shuttle-console-proximity = Слишком близко к соседним объектам
+shuttle-pilot-start = Начал пилотировать
+shuttle-pilot-end = Прекратил пилотировать
+
+shuttle-console-in-ftl = Невозможно выполнить прыжок во время прыжка!
+shuttle-console-in-bluespace = Невозможно войти в Блюспейс в Блюспейсе!
+shuttle-console-proximity = Слишком близко к другим объектам.
+shuttle-console-cant-enter-bluespace = Это не может попасть в Блюспейс!
+shuttle-console-bluespace-exit-is-occupied = Точка выхода из Блюспейса занята объектами!
+
+# Tabs
+shuttle-console-local-tab = Радар
+shuttle-console-overmap-tab = Гипер-Пространство
+
+# Overmap tab
+shuttle-console-tile-position = Сектора:
+shuttle-console-local-position = Позиция:
+shuttle-console-bluespace-label = Блюспейс
+shuttle-console-enter-bluespace-button = Войти в Блюспейс
+shuttle-console-exit-bluespace-button = Выйти из Блюспейса
+
 # Display
-shuttle-console-display-label = Дисплей
-shuttle-console-ftl-state = Состояние БСС
-shuttle-console-ftl-available = Доступно
-shuttle-console-ftl-starting = Запускается
-shuttle-console-ftl-travelling = В пути
+shuttle-console-display-label = Статус
+
+shuttle-console-ftl-state = Состояние FTL
+shuttle-console-ftl-available = Доступен
+shuttle-console-ftl-starting = Подготовка
+shuttle-console-ftl-travelling = Путешествие
 shuttle-console-ftl-arriving = Прибытие
 shuttle-console-ftl-cooldown = Охлаждение
-shuttle-console-ftl-timer = Время БСС
-# Display
-shuttle-console-max-radar = Макс. дальн. радара:
-shuttle-console-radar = Дальн. радара:
-shuttle-console-position = Местопол:
-shuttle-console-orientation = Ориент:
-shuttle-console-linear-velocity = Линейн. скр:
-shuttle-console-angular-velocity = Угл. скр:
-shuttle-console-dock-label = Стык. порты
-shuttle-console-docked = { $index } (Пристыкован)
-shuttle-console-dock-button = Пристыковать { $suffix }
-shuttle-console-hyperspace-label = Пункты назначения БСС
-shuttle-console-hyperspace-none = Пункты назначения не найдены
+
+shuttle-console-max-radar = Макс. дальность радара:
+shuttle-console-radar = Дальность радара:
+shuttle-console-position = Позиция:
+shuttle-console-orientation = Ориентация:
+shuttle-console-linear-velocity = Линейная скорость:
+shuttle-console-angular-velocity = Угловая скорость:
+
+shuttle-console-dock-label = Стыковочные шлюзы
+shuttle-console-docked = {$index} (Пристыкован)
+shuttle-console-dock-button = Шлюз {$suffix}
+
 shuttle-console-unknown = Неизвестно
-shuttle-console-iff-label = "{ $name } ({ $distance }м)
+shuttle-console-iff-label = {$name} ({$distance}м)
+
 # Buttons
-shuttle-console-strafing = Режим стрейфа
-shuttle-console-iff-toggle = Показать "свой-чужой"
-shuttle-console-dock-toggle = Показать стыковку
+shuttle-console-iff-toggle = Включить СРСЧ
+shuttle-console-dock-toggle = Показывать стыковочные шлюзы
 shuttle-console-undock = Отстыковать

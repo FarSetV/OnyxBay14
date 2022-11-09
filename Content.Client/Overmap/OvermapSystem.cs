@@ -17,6 +17,8 @@ public sealed class OvermapSystem : SharedOvermapSystem
     private void OnBluespaceMapUpdated(BluespaceMapUpdatedMessage args)
     {
         BluespaceMapId = args.NewId;
-        _mapSystem.SetAmbientLight(BluespaceMapId.Value, new Color(0, 0, 55));
+
+        if (BluespaceMapId is not null)
+            _mapSystem.SetAmbientLight(BluespaceMapId.Value, new Color(0, 0, 55));
     }
 }

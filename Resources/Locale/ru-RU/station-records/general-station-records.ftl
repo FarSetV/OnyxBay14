@@ -5,4 +5,4 @@ general-station-record-console-no-record-found = Для выбранного с�
 general-station-record-console-record-age = Возраст: { $age }
 general-station-record-console-record-title = Должность: { $job }
 general-station-record-console-record-species = Раса: { $species }
-general-station-record-console-record-gender = Гендер: { $gender }
+general-station-record-console-record-gender = Пол: { $gender }

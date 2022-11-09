@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Content.Shared.GameTicking;
 using Content.Shared.Overmap;
 using Content.Shared.Parallax;
 using Robust.Shared.Map;
@@ -29,6 +30,13 @@ public sealed class OvermapSystem : SharedOvermapSystem
         _sawmill.Level = LogLevel.Info;
 
         SubscribeLocalEvent<OvermapObjectComponent, ComponentInit>(OnOvermapPointInitialized);
+        SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
+    }
+
+    private void OnRoundRestart(RoundRestartCleanupEvent _)
+    {
+        CleanupBluespaceMap();
+        CleanupTiles();
     }
 
     private void OnOvermapPointInitialized(EntityUid uid, OvermapObjectComponent objectComponent, ComponentInit args)
@@ -65,7 +73,7 @@ public sealed class OvermapSystem : SharedOvermapSystem
 
     public void SetupBluespaceMap()
     {
-        if (BluespaceMapId is not null)
+        if (BluespaceMapId is not null && _mapManager.MapExists(BluespaceMapId.Value))
             return;
 
         BluespaceMapId = _mapManager.CreateMap();
@@ -75,8 +83,34 @@ public sealed class OvermapSystem : SharedOvermapSystem
         var parallax = EnsureComp<ParallaxComponent>(_mapManager.GetMapEntityId(BluespaceMapId.Value));
         parallax.Parallax = "FastSpace";
 
-        var msg = new BluespaceMapUpdatedMessage(BluespaceMapId.Value);
+        var msg = new BluespaceMapUpdatedMessage(BluespaceMapId);
         RaiseNetworkEvent(msg);
+    }
+
+    private void CleanupBluespaceMap()
+    {
+        if (BluespaceMapId is null)
+            return;
+
+        _sawmill.Info($"deleting {nameof(BluespaceMapId)} {BluespaceMapId}");
+        if (_mapManager.MapExists(BluespaceMapId.Value))
+            _mapManager.DeleteMap(BluespaceMapId.Value);
+
+        BluespaceMapId = null;
+
+        var msg = new BluespaceMapUpdatedMessage(BluespaceMapId);
+        RaiseNetworkEvent(msg);
+    }
+
+    private void CleanupTiles()
+    {
+        foreach (var tile in _tiles.Values)
+        {
+            if (_mapManager.MapExists(tile.MapId))
+                _mapManager.DeleteMap(tile.MapId);
+        }
+
+        _tiles.Clear();
     }
 
     public OvermapTile? MapIdToTile(MapId mapId)
