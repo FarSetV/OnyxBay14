@@ -192,12 +192,6 @@ namespace Content.Shared.CCVar
             GameMapPool = CVarDef.Create("game.map_pool", "DefaultMapPool", CVar.SERVERONLY);
 
         /// <summary>
-        ///     Controls if the game should obey map criteria or not. Overriden if a map vote or similar occurs.
-        /// </summary>
-        public static readonly CVarDef<bool>
-            GameMapForced = CVarDef.Create("game.mapforced", false, CVar.SERVERONLY);
-
-        /// <summary>
         /// The depth of the queue used to calculate which map is next in rotation.
         /// This is how long the game "remembers" that some map was put in play. Default is 16 rounds.
         /// </summary>
