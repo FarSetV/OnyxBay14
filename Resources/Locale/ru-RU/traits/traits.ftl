@@ -1,12 +1,12 @@
-﻿trait-blindness-name = Blindness
-trait-blindness-desc = You lack vision
+﻿trait-blindness-name = Слепота
+trait-blindness-desc = У вас отсутствует зрение
 
-trait-narcolepsy-name = Narcolepsy
-trait-narcolepsy-decs = You fall asleep randomly
+trait-narcolepsy-name = Нарколепсия
+trait-narcolepsy-decs = Вы иногда можете внезапно уснуть
 
-trait-pacifist-name = Pacifist
+trait-pacifist-name = Пацифист
 
-trait-sneezing-name = Runny nose
-trait-sneezing-desc = You sneeze and cough uncontrollably
+trait-sneezing-name = Насморк
+trait-sneezing-desc = Вы чи
 
 permanent-blindness-trait-examined = [color=lightblue]{CAPITALIZE(POSS-ADJ($target))} eyes are glassy and unfocused. It doesn't seem like {SUBJECT($target)} can see you.[/color]
