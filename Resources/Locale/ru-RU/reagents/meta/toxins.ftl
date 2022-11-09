@@ -1,56 +1,38 @@
-reagent-name-toxin = toxin
-reagent-desc-toxin = A toxic chemical.
-
-reagent-name-carpotoxin = carpotoxin
-reagent-desc-carpotoxin = Toxic secretions of a space carp. Causes a painful burning sensation.
-
-reagent-name-mold = mold
-reagent-desc-mold = Often found in dark, humid places or on old bread.
-
-reagent-name-polytrinic-acid = polytrinic acid
-reagent-desc-polytrinic-acid = An extremely corrosive chemical substance. The slightest touch of it will melt off most masks and headgear, and it deals extreme damage to anyone who comes directly into contact with it.
-
-reagent-name-chloral-hydrate = chloral hydrate
-reagent-desc-chloral-hydrate = In low doses, makes you drowsy. In higher doses, puts you to sleep. Overdoses deal toxin damage.
-
-reagent-name-fluorosulfuric-acid = fluorosulfuric acid
-reagent-desc-fluorosulfuric-acid = An extremely corrosive chemical substance.
-
-reagent-name-sulfuric-acid = sulfuric acid
-reagent-desc-sulfuric-acid = A highly corrosive, oily, colorless liquid.
-
-reagent-name-unstable-mutagen = unstable mutagen
-reagent-desc-unstable-mutagen = Causes mutations when injected into living people or plants. High doses may be lethal, especially in humans.
-
-reagent-name-heartbreaker-toxin = heartbreaker toxin
-reagent-desc-heartbreaker-toxin = A hallucinogenic compound that is illegal under space law. A synthetic drug derived from Mindbreaker toxin, it blocks some neurological signals to the respiratory system which causes choking.
-
-reagent-name-lexorin = lexorin
-reagent-desc-lexorin = Temporarily stops respiration and causes tissue damage. Large doses are fatal, and will cause people to pass out very quickly. Dexalin and Dexalin Plus will both remove it, however.
-
-reagent-name-mindbreaker-toxin = mindbreaker toxin
-reagent-desc-mindbreaker-toxin = A potent hallucinogenic compound that is illegal under space law. Formerly known as LSD.
-
-reagent-name-histamine = histamine
-reagent-desc-histamine = Histamine's effects become more dangerous depending on the dosage amount. They range from mildly annoying to incredibly lethal.
-
-reagent-name-theobromine = theobromine
-reagent-desc-theobromine = Theobromine is a bitter alkaloid of the cacao plant found in chocolate, and some other foods.
-
-reagent-name-amatoxin = amatoxin
-reagent-desc-amatoxin = A potent toxin found in some mushrooms.
-
-reagent-name-vent-crud = vent crud
-reagent-desc-vent-crud = A jet black substance found in poorly maintained ventilation systems.
-
-reagent-name-corpium = corpium
-reagent-desc-corpium = A Syndicate cocktail, carefully harvested from various sources. You wouldn't want this inside of you.
-
-reagent-name-uncooked-animal-proteins = uncooked animal proteins
-reagent-desc-uncooked-animal-proteins = This is very risky for the stomachs of softer lifeforms to digest.
-
-reagent-name-allicin = allicin
-reagent-desc-allicin = An organosulfur compound found in alliums like garlic, onions, and related plants.
-
-reagent-name-pax = pax
-reagent-desc-pax = A psychiatric drug which prevents the patient from directly harming anyone.
+reagent-name-toxin = токсин
+reagent-desc-toxin = Токсичный химикат.
+reagent-name-carpotoxin = карпотоксин
+reagent-desc-carpotoxin = Токсичные выделения космического карпа. Вызывает болезненное чувство жжения.
+reagent-name-mold = плесень
+reagent-desc-mold = Часто можно встретить в темных, влажных местах или на старом хлебе.
+reagent-name-polytrinic-acid = политриновая кислота
+reagent-desc-polytrinic-acid = Чрезвычайно едкое химическое вещество. Малейшее касание этого вещества расплавит большинство масок и головных уборов, и оно наносит сильнейшие повреждения всем, кто вступает с ним в непосредственный контакт.
+reagent-name-chloral-hydrate = хлоральгидрат
+reagent-desc-chloral-hydrate = В малых дозах вызывает сонливость. В больших дозах усыпляет. Передозировка вызывает отравление.
+reagent-name-fluorosulfuric-acid = фторсерная кислота
+reagent-desc-fluorosulfuric-acid = Чрезвычайно коррозийное химическое вещество.
+reagent-name-sulfuric-acid = серная кислота
+reagent-desc-sulfuric-acid = Сильно коррозийная, маслянистая, бесцветная жидкость.
+reagent-name-unstable-mutagen = нестабильный мутаген
+reagent-desc-unstable-mutagen = Вызывает мутации при введении в живых людей или растения. Высокие дозы могут быть смертельными, особенно для людей.
+reagent-name-heartbreaker-toxin = токсин хартбрейкер
+reagent-desc-heartbreaker-toxin = Галлюциногенное соединение, запрещенное космическим законом. Синтетический наркотик, получаемый из токсина хартбрейкер, блокирует некоторые нервные сигналы дыхательной системы, что вызывает удушье.
+reagent-name-lexorin = лексорин
+reagent-desc-lexorin = Временно останавливает дыхание и вызывает повреждение тканей. Большие дозы смертельны и приводят к быстрой потере сознания. Дексалин и Дексалин Плюс способны вывести его из организма.
+reagent-name-mindbreaker-toxin = токсин майндбрейкер
+reagent-desc-mindbreaker-toxin = Сильнодействующее галлюциногенное вещество, запрещенное космическим законом. Ранее было известно как ЛСД.
+reagent-name-histamine = гистамин
+reagent-desc-histamine = Эффект гистамина варьируется в зависимости от дозы. От слегка раздражающего до невероятно смертельного.
+reagent-name-theobromine = теобромин
+reagent-desc-theobromine = Теобромин - это горький алкалоид, выделяемый из семян какао, который можно встретить в шоколаде и некоторых других продуктах.
+reagent-name-amatoxin = аматоксин
+reagent-desc-amatoxin = Сильный токсин, содержащийся в некоторых грибах.
+reagent-name-vent-crud = вентиляционная грязь
+reagent-desc-vent-crud = Черное вещество, которое можно встретить в плохо обслуживаемых вентиляционных системах.
+reagent-name-corpium = корпиум
+reagent-desc-corpium = Коктейль Синдиката, тщательно собранный из различных источников. Вы не захотите, чтобы это оказалось внутри вас.
+reagent-name-uncooked-animal-proteins = непрожаренные животные протеины
+reagent-desc-uncooked-animal-proteins = Крайне опасны для желудков более слабых форм жизни.
+reagent-name-allicin = аллицин
+reagent-desc-allicin = Сероорганическое соединение, содержащееся в растениях-аллиумах, таких как чеснок, лук и других.
+reagent-name-pax = пакс
+reagent-desc-pax = Психиатрический препарат, который не позволяет употребившему причинять вред кому-либо напрямую.

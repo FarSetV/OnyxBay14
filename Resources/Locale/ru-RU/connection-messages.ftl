@@ -1,25 +1,20 @@
-﻿whitelist-not-whitelisted = You are not whitelisted.
-whitelist-not-whitelisted-rp = You are not whitelisted. To become whitelisted, visit our Discord (which can be found at https://spacestation14.io) and check the #rp-whitelist channel.
-
-command-whitelistadd-description = Adds the player with the given username to the server whitelist.
+whitelist-not-whitelisted = Вас нет в вайтлисте.
+whitelist-not-whitelisted-rp = Вас нет в вайтлисте. Чтобы попасть в вайтлист, посетите наш Discord (ссылку можно найти по адресу https://discord.station14.ru).
+command-whitelistadd-description = Добавить игрока с указанным юзернеймом в вайтлист.
 command-whitelistadd-help = whitelistadd <username>
-command-whitelistadd-existing = {$username} is already on the whitelist!
-command-whitelistadd-added = {$username} added to the whitelist
-command-whitelistadd-not-found = Unable to find '{$username}'
-
-command-whitelistremove-description = Removes the player with the given username from the server whitelist.
+command-whitelistadd-existing = { $username } уже в вайтлисте!
+command-whitelistadd-added = { $username } добавлен в вайтлист
+command-whitelistadd-not-found = Пользователь '{ $username }' не найден
+command-whitelistremove-description = Удалить игрока с указанным юзернеймом из вайтлиста.
 command-whitelistremove-help = whitelistremove <username>
-command-whitelistremove-existing = {$username} is not on the whitelist!
-command-whitelistremove-removed = {$username} removed from the whitelist
-command-whitelistremove-not-found = Unable to find '{$username}'
-
-command-kicknonwhitelisted-description = Kicks all non-whitelisted players from the server.
+command-whitelistremove-existing = { $username } не в вайтлисте!
+command-whitelistremove-removed = Пользователь { $username } удалён из вайтлиста
+command-whitelistremove-not-found = Пользователь '{ $username }' не найден
+command-kicknonwhitelisted-description = Кикнуть с сервера всех пользователей не из вайтлиста.
 command-kicknonwhitelisted-help = kicknonwhitelisted
-
-ban-banned-permanent = This ban is appeal only.
-ban-expires = This ban is for {$duration} minutes and will expire at {$time} UTC.
-ban-banned-1 = You, or another user of this computer or connection, are banned from playing here.
-ban-banned-2 = The ban reason is: "{$reason}"
-
-soft-player-cap-full = The server is full!
-panic-bunker-account-denied = This server is in Panic mode and you were rejected. Contact the server administrator for help.
+ban-banned-permanent = Этот бан можно только обжаловать. Для этого посетите наш Discord: https://discord.ss14.ru
+ban-expires = Вы получили бан на { $duration } минут, и он истечёт { $time } по UTC (для москосвкого времени добавьте 3 часа).
+ban-banned-1 = Вам, или другому пользователю этого компьютера или соединения, запрещено здесь играть.
+ban-banned-2 = Причина бана: "{ $reason }"
+soft-player-cap-full = Сервер заполнен!
+panic-bunker-account-denied = Этот сервер находится в режиме "Паника", и вам было отказано в доступе. Обратитесь за помощью к администрации сервера.

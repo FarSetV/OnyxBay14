@@ -1,53 +1,36 @@
-signal-port-name-toggle = Toggle
-signal-port-description-toggle = Toggles the state of a device.
-
-signal-port-name-on-receiver = On
-signal-port-description-on-receiver = Turns a device on.
-
-signal-port-name-off-receiver = Off
-signal-port-description-off-receiver = Turns a device off.
-
-signal-port-name-forward = Forward
-signal-port-description-forward = Makes a device (e.g. conveyer) operate in the normal direction.
-
-signal-port-name-reverse = Reverse
-signal-port-description-reverse = Makes a device (e.g. conveyer) operate in the reverse direction.
-
-signal-port-name-open = Open
-signal-port-description-open = Opens a device.
-
-signal-port-name-close = Close
-signal-port-description-close = Closes a device.
-
-signal-port-name-trigger = Trigger
-signal-port-description-trigger = Triggers some mechanism on the device.
-
-signal-port-name-order-sender = Order sender
-signal-port-description-order-sender = Cargo console order sender
-
-signal-port-name-order-receiver = Order receiver
-signal-port-description-order-receiver = Cargo console order receiver
-
-signal-port-name-pressurize = Pressurize
-signal-port-description-pressurize = Causes the device to starts releasing air until some target pressure is reached.
-
-signal-port-name-depressurize = Depressurize
-signal-port-description-depressurize = Causes the device to starts siphoning air until some target pressure is reached.
-
-signal-port-name-pod-sender = Cloning pod
-signal-port-description-pod-sender = Cloning pod signal sender
-
-signal-port-name-pod-receiver = Cloning pod
-signal-port-description-pod-receiver = Cloning pod signal receiver
-
-signal-port-name-med-scanner-sender = Medical scanner
-signal-port-description-med-scanner-sender = Medical scanner signal sender
-
-signal-port-name-med-scanner-receiver = Medical scanner
-signal-port-description-med-scanner-receiver = Medical scanner signal receiver
-
-signal-port-name-artifact-analyzer-sender = Console
-signal-port-description-artifact-analyzer-sender = Analysis console signal sender
-
-signal-port-name-artifact-analyzer-receiver = Pad
-signal-port-description-artifact-analyzer-receiver = Artifact analyzer signal receiver
+signal-port-name-toggle = Переключить
+signal-port-description-toggle = Переключает состояние устройства.
+signal-port-name-on-receiver = Вкл
+signal-port-description-on-receiver = Включает устройство.
+signal-port-name-off-receiver = Выкл
+signal-port-description-off-receiver = Выключает устройство.
+signal-port-name-forward = Вперёд
+signal-port-description-forward = Заставляет устройство (например, конвейер) работать в нормальном направлении.
+signal-port-name-reverse = Обратно
+signal-port-description-reverse = Заставляет устройство (например, конвейер) работать в обратном направлении.
+signal-port-name-open = Открыть
+signal-port-description-open = Открывает устройство.
+signal-port-name-close = Закрыть
+signal-port-description-close = Закрывает устройство.
+signal-port-name-trigger = Триггер
+signal-port-description-trigger = Запускает определенный механизм на устройстве.
+signal-port-name-order-sender = Отправитель заказа
+signal-port-description-order-sender = Отправитель заказа на компьютер карго
+signal-port-name-order-receiver = Получатель заказа
+signal-port-description-order-receiver = Получатель заказа на компьютер карго
+signal-port-name-pressurize = Нагнетатель давления
+signal-port-description-pressurize = Заставляет устройство закачивать воздух, пока не будет достигнуто заданное давление.
+signal-port-name-depressurize = Сбрасыватель давления
+signal-port-description-depressurize = Заставляет устройство откачивать воздух, пока не будет достигнуто заданное давление.
+signal-port-name-pod-sender = Капсула клонирования
+signal-port-description-pod-sender = Передатчик сигнала капсулы клонирования
+signal-port-name-pod-receiver = Капсула клонирования
+signal-port-description-pod-receiver = Приёмник сигнала капсулы клонирования
+signal-port-name-med-scanner-sender = Медицинский сканер
+signal-port-description-med-scanner-sender = Передатчик сигнала медицинского сканера
+signal-port-name-med-scanner-receiver = Медицинский сканер
+signal-port-description-med-scanner-receiver = Приёмник сигнала медицинского сканера
+signal-port-name-artifact-analyzer-sender = Консоль
+signal-port-description-artifact-analyzer-sender = Передатчик сигнала аналитической консоли
+signal-port-name-artifact-analyzer-receiver = Платформа
+signal-port-description-artifact-analyzer-receiver = Приёмник сигнала анализатора артефактов

@@ -1,9 +1,8 @@
-﻿### EscapeMenu.xaml
+### EscapeMenu.xaml
 
-ui-escape-title = Esc Menu
-ui-escape-options = Options
-ui-escape-rules = Rules
+ui-escape-title = Esc Меню
+ui-escape-options = Настройки
+ui-escape-rules = Правила
 ui-escape-wiki = Wiki
-ui-escape-disconnect = Disconnect
-ui-escape-quit = Quit
-
+ui-escape-disconnect = Отключиться
+ui-escape-quit = Выйти

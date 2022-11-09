@@ -1,35 +1,28 @@
-
-gun-selected-mode-examine = Current selected fire mode is [color={$color}]{$mode}[/color].
-gun-fire-rate-examine = Fire rate is [color={$color}]{$fireRate}[/color] per second.
-gun-selector-verb = Change to {$mode}
-gun-selected-mode = Selected {$mode}
-gun-disabled = You can't use guns!
-gun-clumsy = The gun blows up in your face!
-
+gun-selected-mode-examine = Выбран режим огня [color={ $color }]{ $mode }[/color].
+gun-fire-rate-examine = Скорострельность [color={ $color }]{ $fireRate }[/color] в секунду.
+gun-selector-verb = Изменить на { $mode }
+gun-selected-mode = Выбран { $mode }
+gun-disabled = Вы не можете использовать оружие!
+gun-clumsy = Оружие взрывается вам в лицо!
 # SelectiveFire
-gun-SemiAuto = semi-auto
-gun-Burst = burst
-gun-FullAuto = full-auto
-
+gun-SemiAuto = полуавто
+gun-Burst = очередь
+gun-FullAuto = авто
 # BallisticAmmoProvider
-gun-ballistic-cycle = Cycle
-gun-ballistic-cycled = Cycled
-gun-ballistic-cycled-empty = Cycled (empty)
-
+gun-ballistic-cycle = Перезарядка
+gun-ballistic-cycled = Перезаряжено
+gun-ballistic-cycled-empty = Разряжено
 # CartridgeAmmo
-gun-cartridge-spent = It is [color=red]spent[/color].
-gun-cartridge-unspent = It is [color=lime]not spent[/color].
-
+gun-cartridge-spent = Он [color=red]израсходован[/color].
+gun-cartridge-unspent = Он [color=lime]не израсходован[/color].
 # BatteryAmmoProvider
-gun-battery-examine = It has enough charge for [color={$color}]{$count}[/color] shots.
-
+gun-battery-examine = Заряда хватит на [color={ $color }]{ $count }[/color] выстрелов.
 # MagazineAmmoProvider
-gun-magazine-examine = It has [color={$color}]{$count}[/color] shots remaining.
-
+gun-magazine-examine = Осталось [color={ $color }]{ $count }[/color] выстрелов.
 # RevolverAmmoProvider
-gun-revolver-empty = Empty revolver
-gun-revolver-full = Revolver full
-gun-revolver-insert = Inserted
-gun-revolver-spin = Spin revolver
-gun-revolver-spun = Spun
-gun-speedloader-empty = Speedloader empty
+gun-revolver-empty = Разрядить револьвер
+gun-revolver-full = Револьвер полностью заряжен
+gun-revolver-insert = Заряжен
+gun-revolver-spin = Вращать барабан
+gun-revolver-spun = Барабан вращается
+gun-speedloader-empty = Спидлоадер пуст

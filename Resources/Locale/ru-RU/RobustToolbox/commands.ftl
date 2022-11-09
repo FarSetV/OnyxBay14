@@ -518,3 +518,8 @@ cmd-vv-desc = Usage: vv <path|entity ID|guihover>
 
 cmd-vvinvoke-desc = Invoke/Call a path with arguments using VV.
 cmd-vvinvoke-desc = Usage: vvinvoke <path> [arguments...]
+
+# 'restartonroundend' command
+cmd-restartounroundend-desc = Перезапускает сервер после конца раунда.
+cmd-restartonroundend-will-restart = Сервер будет перезапущен.
+cmd-restartonroundend-will-not-restart = Сервер не будет перезапущен.

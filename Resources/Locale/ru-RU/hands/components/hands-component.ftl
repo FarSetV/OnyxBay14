@@ -1,4 +1,4 @@
-hands-component-disarm-success-others-message = {CAPITALIZE(THE($disarmer))} disarms {THE($disarmed)}!
-hands-component-disarm-success-message = You disarm {THE($disarmed)}!
-hands-component-shove-success-others-message = {CAPITALIZE(THE($shover))} shoves {THE($shoved)}!
-hands-component-shove-success-message = You shove {THE($shoved)}!
+hands-component-disarm-success-others-message = { CAPITALIZE($disarmer) } обезвреживает { $disarmed }!
+hands-component-disarm-success-message = Вы обезвредили { $disarmed }!
+hands-component-shove-success-others-message = { CAPITALIZE($shover) } толкает { $shoved }!
+hands-component-shove-success-message = Вы толкаете { $shoved }!

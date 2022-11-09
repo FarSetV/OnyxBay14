@@ -1,4 +1,4 @@
-server-reboot = Reboot
-server-shutdown = Shutdown
-server-ooc-toggle = Toggle OOC
-server-looc-toggle = Toggle LOOC
+server-reboot = Перезапустить
+server-shutdown = Выключить
+server-ooc-toggle = Вкл/Выкл OOC
+server-looc-toggle = Вкл/Выкл LOOC

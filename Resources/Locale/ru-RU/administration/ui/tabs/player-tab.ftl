@@ -1,5 +1,5 @@
-﻿player-tab-username = Username
-player-tab-character = Character
-player-tab-job = Job
-player-tab-antagonist = Antagonist
+player-tab-username = Пользователь
+player-tab-character = Персонаж
+player-tab-job = Должность
+player-tab-antagonist = Антагонист
 player-tab-overlay = Overlay

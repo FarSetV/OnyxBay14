@@ -1,4 +1,4 @@
-disease-scanner-diseased = DISEASED
-disease-scanner-not-diseased = No diseases
-disease-scanner-gave-other = You gave {THE($target)} {CAPITALIZE($disease)}!
-disease-scanner-gave-self = You gave yourself {CAPITALIZE($disease)}! Congratulations!
+disease-scanner-diseased = БОЛЕЗНЬ
+disease-scanner-not-diseased = Болезней нет
+disease-scanner-gave-other = Вы передаёте { $target } { CAPITALIZE($disease) }!
+disease-scanner-gave-self = Вы передаёте себе { CAPITALIZE($disease) }! Поздравляем!

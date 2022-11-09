@@ -1,29 +1,20 @@
-ent-CrateEngineeringGear = Engineering gear crate
-    .desc = Various engineering gear parts.
-
-ent-CrateEngineeringToolbox = Toolbox crate
-    .desc = Two mechanical and two electrical toolboxes.
-
-ent-CrateEngineeringPowercell = AME crate
-    .desc = Three microcreactor powercells.
-
-ent-CrateEngineeringCableLV = LV cable crate
-    .desc = 3 coils of LV cables.
-
-ent-CrateEngineeringCableMV = MV cable crate
-    .desc = 3 coils of MV cables.
-
-ent-CrateEngineeringCableHV = HV cable crate
-    .desc = 3 coils of HV cables.
-
-ent-CrateEngineeringCableBulk = Bulk cable crate
-    .desc = 2 coils each for every cable type.
-
-ent-CrateEngineeringElectricalSupplies = Electrical Supplies Crate
-    .desc = NT is not responsible for any workplace infighting relating to the insulated gloves included within these crates.
-
-ent-CrateEngineeringJetpack = Jetpack crate
-    .desc = Two jetpacks for those who don't know how to use fire extinguishers.
-
-ent-CrateEngineeringMiniJetpack = Mini jetpack crate
-    .desc = Two mini jetpacks for those who want an extra challenge.
+ent-CrateEngineeringGear = ящик инженерного оборудования
+    .desc = Различные инженерные компоненты.
+ent-CrateEngineeringToolbox = ящик ящиков для инструментов
+    .desc = Два обычных и два электромонтанжных ящика для инструментов.
+ent-CrateEngineeringPowercell = ящик батарей.
+    .desc = Три микрореакторные батареи.
+ent-CrateEngineeringCableLV = ящик кабеля НВ
+    .desc = 3 мотка низковольтного кабеля.
+ent-CrateEngineeringCableMV = ящик кабеля СВ
+    .desc = 3 мотка средневольтного кабеля.
+ent-CrateEngineeringCableHV = ящик кабеля ВВ
+    .desc = 3 мотка высоковольтного кабеля.
+ent-CrateEngineeringCableBulk = ящик кабеля различного вольтажа
+    .desc = 2 мотка кабеля каждого типа.
+ent-CrateEngineeringElectricalSupplies = ящик электромонтажного снаряжения
+    .desc = NT не несёт ответственности за любые рабочие конфликты, связанные с изолированными перчатками, входящими в комплект этих ящиков.
+ent-CrateEngineeringJetpack = ящик джетпаков
+    .desc = Два джетпака для тех, кто не умеет пользоваться огнетушителями.
+ent-CrateEngineeringMiniJetpack = ящик мини-джетпаков
+    .desc = Два мини-джетпака для тех, кому хочется вызова.

@@ -31,5 +31,5 @@ humanoid-profile-editor-job-priority-high-button = Высший
 humanoid-profile-editor-job-priority-medium-button = Средный
 humanoid-profile-editor-job-priority-low-button = Низкий
 humanoid-profile-editor-job-priority-never-button = Никогда
-humanoid-profile-editor-markings-tab = Отметины
+humanoid-profile-editor-markings-tab = Черты внешности
 humanoid-profile-editor-flavortext-tab = Описание

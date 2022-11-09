@@ -1,13 +1,9 @@
-﻿## UI
+## UI
 
-crew-monitoring-user-interface-title = Crew Monitoring
-
-crew-monitoring-user-interface-name = Name
-crew-monitoring-user-interface-status = Status
-crew-monitoring-user-interface-location = Location
-
-crew-monitoring-user-interface-alive = Alive
-crew-monitoring-user-interface-dead = Dead
-crew-monitoring-user-interface-no-info = N/A
-
-
+crew-monitoring-user-interface-title = Мониторинг экипажа
+crew-monitoring-user-interface-name = Имя
+crew-monitoring-user-interface-status = Статус
+crew-monitoring-user-interface-location = Местоположение
+crew-monitoring-user-interface-alive = Жив
+crew-monitoring-user-interface-dead = Мёртв
+crew-monitoring-user-interface-no-info = Н/Д
