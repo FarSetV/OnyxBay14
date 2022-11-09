@@ -1,7 +1,7 @@
 ﻿- type: trait
   id: Blindness
-  name: Слепота
-  description: У вас отсутствует зрение
+  name: trait-blindness-name
+  description: trait-blindness-desc
   whitelist:
     components:
       - Blindable
@@ -10,8 +10,8 @@
 
 - type: trait
   id: Narcolepsy
-  name: Нарколепсия
-  description: Вы иногда можете внезапно уснуть
+  name: trait-narcolepsy-name
+  description: trait-narcolepsy-decs
   components:
     - type: Narcolepsy
       timeBetweenIncidents: 300, 600
@@ -19,6 +19,6 @@
 
 - type: trait
   id: Pacifist
-  name: Пацифист
+  name: trait-pacifist-name
   components:
     - type: Pacifist
