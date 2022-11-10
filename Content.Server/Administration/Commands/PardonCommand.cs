@@ -1,8 +1,10 @@
 ﻿using System.Text;
 using Content.Server.Database;
+using Content.Server.DiscordWebhooks.Webhooks;
 using Content.Shared.Administration;
 using Robust.Server.Player;
 using Robust.Shared.Console;
+using Robust.Shared.Network;
 
 
 namespace Content.Server.Administration.Commands
@@ -57,6 +59,15 @@ namespace Content.Server.Administration.Commands
             await dbMan.AddServerUnbanAsync(new ServerUnbanDef(banId, player?.UserId, DateTimeOffset.Now));
 
             shell.WriteLine($"Pardoned ban with id {banId}");
+            SendWebhookMessage(player, banId);
+        }
+
+        private void SendWebhookMessage(IPlayerSession? admin, int banIdm)
+        {
+            var banWebhook = new PardonMessageDiscordWebhook();
+            var author = admin is not null ? admin.Name : "SERVER";
+
+            banWebhook.SendMessage(author, $"Снял бан #{banIdm}");
         }
     }
 }

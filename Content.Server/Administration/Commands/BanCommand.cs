@@ -4,6 +4,8 @@ using System.Net.Sockets;
 using System.Text;
 using Content.Server.Chat.Managers;
 using Content.Server.Database;
+using Content.Server.DiscordWebhooks;
+using Content.Server.DiscordWebhooks.Webhooks;
 using Content.Server.Popups;
 using Content.Shared.Administration;
 using Content.Shared.Chat;
@@ -126,6 +128,19 @@ namespace Content.Server.Administration.Commands
                 entity.SystemOrNull<PopupSystem>()
                     ?.PopupEntity(message, targetPlayer.AttachedEntity.Value, Filter.SinglePlayer(targetPlayer), PopupType.LargeCaution);
             }
+
+            var banInfo = await dbMan.GetServerBanAsync(banDef.Address?.address, banDef.UserId, banDef.HWId);
+            SendWebhookMessage(player, reason, expires, targetPlayer, banInfo!.Id!.Value);
+        }
+
+        private void SendWebhookMessage(IPlayerSession? admin, string reason, DateTimeOffset? until, IPlayerSession victim, int banId)
+        {
+            var banWebhook = new BanMessageDiscordWebhook();
+
+            var author = admin is not null ? admin.Name : "SERVER";
+            var formattedUntil = until is not null ? $"до {DiscordWebhooksManager.ToDiscordTimeStamp(until.Value)}" : "навсегда";
+
+            banWebhook.SendMessage(author, $"Забанил {victim.Name} по причине  \"{reason}\" {formattedUntil}. #{banId}");
         }
 
         public CompletionResult GetCompletion(IConsoleShell shell, string[] args)

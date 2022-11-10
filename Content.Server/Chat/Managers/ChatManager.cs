@@ -1,16 +1,14 @@
 using System.Linq;
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
-using Content.Server.MoMMI;
+using Content.Server.DiscordWebhooks.Webhooks;
 using Content.Server.Preferences.Managers;
-using Content.Server.Station.Systems;
 using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Database;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
-using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Utility;
@@ -31,14 +29,11 @@ namespace Content.Server.Chat.Managers
         };
 
         [Dependency] private readonly IServerNetManager _netManager = default!;
-        [Dependency] private readonly IMoMMILink _mommiLink = default!;
         [Dependency] private readonly IAdminManager _adminManager = default!;
         [Dependency] private readonly IAdminLogManager _adminLogger = default!;
         [Dependency] private readonly IServerPreferencesManager _preferencesManager = default!;
         [Dependency] private readonly IConfigurationManager _configurationManager = default!;
-        [Dependency] private readonly IEntityManager _entityManager = default!;
-
-        private StationSystem _stationSystem = default!;
+        private OOCMessageDiscordWebhook _oocMessageDiscord = default!;
 
         /// <summary>
         /// The maximum length a player-sent message can be sent
@@ -50,11 +45,11 @@ namespace Content.Server.Chat.Managers
 
         public void Initialize()
         {
-            _stationSystem = _entityManager.EntitySysManager.GetEntitySystem<StationSystem>();
             _netManager.RegisterNetMessage<MsgChatMessage>();
 
             _configurationManager.OnValueChanged(CCVars.OocEnabled, OnOocEnabledChanged, true);
             _configurationManager.OnValueChanged(CCVars.AdminOocEnabled, OnAdminOocEnabledChanged, true);
+            _oocMessageDiscord = new OOCMessageDiscordWebhook();
         }
 
         private void OnOocEnabledChanged(bool val)
@@ -177,7 +172,7 @@ namespace Content.Server.Chat.Managers
 
             //TODO: player.Name color, this will need to change the structure of the MsgChatMessage
             ChatMessageToAll(ChatChannel.OOC, message, wrappedMessage, colorOverride);
-            _mommiLink.SendOOCMessage(player.Name, message);
+            _oocMessageDiscord.SendMessage(player.Name, message);
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"OOC from {player:Player}: {message}");
         }
 

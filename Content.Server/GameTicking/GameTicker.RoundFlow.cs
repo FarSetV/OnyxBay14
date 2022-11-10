@@ -360,10 +360,12 @@ namespace Content.Server.GameTicking
             }
             // This ordering mechanism isn't great (no ordering of minds) but functions
             var listOfPlayerInfoFinal = listOfPlayerInfo.OrderBy(pi => pi.PlayerOOCName).ToArray();
-
-            RaiseNetworkEvent(new RoundEndMessageEvent(gamemodeTitle, roundEndText, roundDuration, RoundId,
+            var ev = new RoundEndMessageEvent(gamemodeTitle, roundEndText, roundDuration, RoundId,
                 listOfPlayerInfoFinal.Length, listOfPlayerInfoFinal, LobbySong,
-                new SoundCollectionSpecifier("RoundEnd").GetSound()));
+                new SoundCollectionSpecifier("RoundEnd").GetSound());
+
+            RaiseLocalEvent(ev);
+            RaiseNetworkEvent(ev);
         }
 
         public void RestartRound()

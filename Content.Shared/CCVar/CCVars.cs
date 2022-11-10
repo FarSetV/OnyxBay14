@@ -272,24 +272,23 @@ namespace Content.Shared.CCVar
          * Discord
          */
 
-        /// <summary>
-        /// URL of the Discord webhook which will relay all ahelp messages.
-        /// </summary>
         public static readonly CVarDef<string> DiscordAHelpWebhook =
-            CVarDef.Create("discord.ahelp_webhook", string.Empty, CVar.SERVERONLY);
+            CVarDef.Create("discord.ahelp.webhook", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
 
-        /// <summary>
-        /// The server icon to use in the Discord ahelp embed footer.
-        /// Valid values are specified at https://discord.com/developers/docs/resources/channel#embed-object-embed-footer-structure.
-        /// </summary>
-        public static readonly CVarDef<string> DiscordAHelpFooterIcon =
-            CVarDef.Create("discord.ahelp_footer_icon", string.Empty, CVar.SERVERONLY);
+        public static readonly CVarDef<string> DiscordOOCWebhook =
+            CVarDef.Create("discord.ooc.webhook", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
 
-        /// <summary>
-        /// The avatar to use for the webhook. Should be an URL.
-        /// </summary>
-        public static readonly CVarDef<string> DiscordAHelpAvatar =
-            CVarDef.Create("discord.ahelp_avatar", string.Empty, CVar.SERVERONLY);
+        public static readonly CVarDef<string> DiscordEmoteWebhook =
+            CVarDef.Create("discord.emote.webhook", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
+
+        public static readonly CVarDef<string> DiscordBanWebhook =
+            CVarDef.Create("discord.ban.webhook", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
+
+        public static readonly CVarDef<string> DiscordRoundEndWebhook =
+            CVarDef.Create("discord.roundend.webhook", string.Empty, CVar.SERVERONLY | CVar.CONFIDENTIAL);
+
+        public static readonly CVarDef<string> DiscordRoundEndMention =
+            CVarDef.Create("discord.roundend.mention_role", string.Empty, CVar.SERVERONLY);
 
         /*
          * Suspicion

@@ -7,6 +7,8 @@ using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Content.Server.Administration.Managers;
+using Content.Server.DiscordWebhooks;
+using Content.Server.DiscordWebhooks.Webhooks;
 using Content.Server.GameTicking;
 using Content.Server.Players;
 using Content.Shared.Administration;
@@ -28,26 +30,16 @@ namespace Content.Server.Administration.Systems
         [Dependency] private readonly IConfigurationManager _config = default!;
         [Dependency] private readonly IPlayerLocator _playerLocator = default!;
         [Dependency] private readonly GameTicker _gameTicker = default!;
+        [Dependency] private readonly DiscordWebhooksManager _webhooks = default!;
 
         private ISawmill _sawmill = default!;
-        private readonly HttpClient _httpClient = new();
         private string _webhookUrl = string.Empty;
         private WebhookData? _webhookData;
-        private string _footerIconUrl = string.Empty;
-        private string _avatarUrl = string.Empty;
         private string _serverName = string.Empty;
         private readonly Dictionary<NetUserId, (string? id, string username, string description, string? characterName, GameRunLevel lastRunLevel)> _relayMessages = new();
         private Dictionary<NetUserId, string> _oldMessageIds = new();
         private readonly Dictionary<NetUserId, Queue<string>> _messageQueues = new();
         private readonly HashSet<NetUserId> _processingChannels = new();
-
-        // Max embed description length is 4096, according to https://discord.com/developers/docs/resources/channel#embed-object-embed-limits
-        // Keep small margin, just to be safe
-        private const ushort DescriptionMax = 4000;
-
-        // Maximum length a message can be before it is cut off
-        // Should be shorter than DescriptionMax
-        private const ushort MessageLengthCap = 3000;
 
         // Text to be used to cut off messages that are too long. Should be shorter than MessageLengthCap
         private const string TooLongText = "... **(too long)**";
@@ -57,9 +49,8 @@ namespace Content.Server.Administration.Systems
         public override void Initialize()
         {
             base.Initialize();
+
             _config.OnValueChanged(CCVars.DiscordAHelpWebhook, OnWebhookChanged, true);
-            _config.OnValueChanged(CCVars.DiscordAHelpFooterIcon, OnFooterIconChanged, true);
-            _config.OnValueChanged(CCVars.DiscordAHelpAvatar, OnAvatarChanged, true);
             _config.OnValueChanged(CVars.GameHostName, OnServerNameChanged, true);
             _sawmill = IoCManager.Resolve<ILogManager>().GetSawmill("AHELP");
             _maxAdditionalChars = GenerateAHelpMessage("", "", true).Length;
@@ -101,7 +92,6 @@ namespace Content.Server.Administration.Systems
         {
             base.Shutdown();
             _config.UnsubValueChanged(CCVars.DiscordAHelpWebhook, OnWebhookChanged);
-            _config.UnsubValueChanged(CCVars.DiscordAHelpFooterIcon, OnFooterIconChanged);
             _config.UnsubValueChanged(CVars.GameHostName, OnServerNameChanged);
         }
 
@@ -112,51 +102,13 @@ namespace Content.Server.Administration.Systems
             if (url == string.Empty)
                 return;
 
-            // Basic sanity check and capturing webhook ID and token
-            var match = Regex.Match(url, @"^https://discord\.com/api/webhooks/(\d+)/((?!.*/).*)$");
-
-            if (!match.Success)
-            {
-                // TODO: Ideally, CVar validation during setting should be better integrated
-                Logger.Warning("Webhook URL does not appear to be valid. Using anyways...");
-                return;
-            }
-
-            if (match.Groups.Count <= 2)
-            {
-                Logger.Error("Could not get webhook ID or token.");
-                return;
-            }
-
-            var webhookId = match.Groups[1].Value;
-            var webhookToken = match.Groups[2].Value;
-
             // Fire and forget
-            _ = SetWebhookData(webhookId, webhookToken);
+            _ = SetWebhookData(url);
         }
 
-        private async Task SetWebhookData(string id, string token)
+        private async Task SetWebhookData(string url)
         {
-            var response = await _httpClient.GetAsync($"https://discord.com/api/v10/webhooks/{id}/{token}");
-
-            var content = await response.Content.ReadAsStringAsync();
-            if (!response.IsSuccessStatusCode)
-            {
-                _sawmill.Log(LogLevel.Error, $"Discord returned bad status code when trying to get webhook data (perhaps the webhook URL is invalid?): {response.StatusCode}\nResponse: {content}");
-                return;
-            }
-
-            _webhookData = JsonSerializer.Deserialize<WebhookData>(content);
-        }
-
-        private void OnFooterIconChanged(string url)
-        {
-            _footerIconUrl = url;
-        }
-
-        private void OnAvatarChanged(string url)
-        {
-            _avatarUrl = url;
+            _webhookData = await _webhooks.GetWebhookData(url);
         }
 
         private async void ProcessQueue(NetUserId userId, Queue<string> messages)
@@ -165,8 +117,8 @@ namespace Content.Server.Administration.Systems
             var exists = _relayMessages.TryGetValue(userId, out var existingEmbed);
 
             // Whether the message will become too long after adding these new messages
-            var tooLong = exists && messages.Sum(msg => Math.Min(msg.Length, MessageLengthCap) + "\n".Length)
-                    + existingEmbed.description.Length > DescriptionMax;
+            var tooLong = exists && messages.Sum(msg => Math.Min(msg.Length, DiscordWebhooksManager.MessageLengthCap) + "\n".Length)
+                    + existingEmbed.description.Length > DiscordWebhooksManager.DescriptionMax;
 
             // If there is no existing embed, or it is getting too long, we create a new embed
             if (!exists || tooLong)
@@ -218,8 +170,8 @@ namespace Content.Server.Administration.Systems
             while (messages.TryDequeue(out var message))
             {
                 // In case someone thinks they're funny
-                if (message.Length > MessageLengthCap)
-                    message = message[..(MessageLengthCap - TooLongText.Length)] + TooLongText;
+                if (message.Length > DiscordWebhooksManager.MessageLengthCap)
+                    message = message[..(DiscordWebhooksManager.MessageLengthCap - TooLongText.Length)] + TooLongText;
 
                 existingEmbed.description += $"\n{message}";
             }
@@ -230,31 +182,28 @@ namespace Content.Server.Administration.Systems
             // Otherwise patch (edit) it
             if (existingEmbed.id == null)
             {
-                var request = await _httpClient.PostAsync($"{_webhookUrl}?wait=true",
-                    new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));
+                var response = await _webhooks.SendAsync(_webhookUrl, payload);
 
-                var content = await request.Content.ReadAsStringAsync();
-                if (!request.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                 {
-                    _sawmill.Log(LogLevel.Error, $"Discord returned bad status code when posting message (perhaps the message is too long?): {request.StatusCode}\nResponse: {content}");
                     _relayMessages.Remove(userId);
                     return;
                 }
 
-                var id = JsonNode.Parse(content)?["id"];
+                var id = await DiscordWebhooksManager.TryGetId(response);
                 if (id == null)
                 {
+                    var content = await response.Content.ReadAsStringAsync();
                     _sawmill.Log(LogLevel.Error, $"Could not find id in json-content returned from discord webhook: {content}");
                     _relayMessages.Remove(userId);
                     return;
                 }
 
-                existingEmbed.id = id.ToString();
+                existingEmbed.id = id;
             }
             else
             {
-                var request = await _httpClient.PatchAsync($"{_webhookUrl}/messages/{existingEmbed.id}",
-                    new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));
+                var request = await _webhooks.PatchAsync(_webhookUrl, existingEmbed.id, payload);
 
                 if (!request.IsSuccessStatusCode)
                 {
@@ -295,17 +244,15 @@ namespace Content.Server.Administration.Systems
             return new WebhookPayload
             {
                 Username = username,
-                AvatarUrl = _avatarUrl,
                 Embeds = new List<Embed>
                 {
-                    new Embed
+                    new()
                     {
                         Description = messages,
                         Color = color,
                         Footer = new EmbedFooter
                         {
                             Text = $"{serverName} ({round})",
-                            IconUrl = _footerIconUrl,
                         },
                     },
                 },
@@ -388,9 +335,9 @@ namespace Content.Server.Administration.Systems
                 var str = message.Text;
                 var unameLength = senderSession.Name.Length;
 
-                if (unameLength + str.Length + _maxAdditionalChars > DescriptionMax)
+                if (unameLength + str.Length + _maxAdditionalChars > DiscordWebhooksManager.DescriptionMax)
                 {
-                    str = str[..(DescriptionMax - _maxAdditionalChars - unameLength)];
+                    str = str[..(DiscordWebhooksManager.DescriptionMax - _maxAdditionalChars - unameLength)];
                 }
                 _messageQueues[msg.UserId].Enqueue(GenerateAHelpMessage(senderSession.Name, str, !personalChannel, admins.Count == 0));
             }
@@ -429,75 +376,6 @@ namespace Content.Server.Administration.Systems
             stringbuilder.Append($" **{username}:** ");
             stringbuilder.Append(message);
             return stringbuilder.ToString();
-        }
-
-        // https://discord.com/developers/docs/resources/channel#message-object-message-structure
-        private struct WebhookPayload
-        {
-            [JsonPropertyName("username")]
-            public string Username { get; set; } = "";
-
-            [JsonPropertyName("avatar_url")]
-            public string AvatarUrl { get; set; } = "";
-
-            [JsonPropertyName("embeds")]
-            public List<Embed>? Embeds { get; set; } = null;
-
-            [JsonPropertyName("allowed_mentions")]
-            public Dictionary<string, string[]> AllowedMentions { get; set; } =
-                new()
-                {
-                    { "parse", Array.Empty<string>() },
-                };
-
-            public WebhookPayload()
-            {
-            }
-        }
-
-        // https://discord.com/developers/docs/resources/channel#embed-object-embed-structure
-        private struct Embed
-        {
-            [JsonPropertyName("description")]
-            public string Description { get; set; } = "";
-
-            [JsonPropertyName("color")]
-            public int Color { get; set; } = 0;
-
-            [JsonPropertyName("footer")]
-            public EmbedFooter? Footer { get; set; } = null;
-
-            public Embed()
-            {
-            }
-        }
-
-        // https://discord.com/developers/docs/resources/channel#embed-object-embed-footer-structure
-        private struct EmbedFooter
-        {
-            [JsonPropertyName("text")]
-            public string Text { get; set; } = "";
-
-            [JsonPropertyName("icon_url")]
-            public string IconUrl { get; set; } = "";
-
-            public EmbedFooter()
-            {
-            }
-        }
-
-        // https://discord.com/developers/docs/resources/webhook#webhook-object-webhook-structure
-        private struct WebhookData
-        {
-            [JsonPropertyName("guild_id")]
-            public string? GuildId { get; set; } = null;
-
-            [JsonPropertyName("channel_id")]
-            public string? ChannelId { get; set; } = null;
-
-            public WebhookData()
-            {
-            }
         }
     }
 }

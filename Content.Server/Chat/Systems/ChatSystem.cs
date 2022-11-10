@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
 using Content.Server.Chat.Managers;
+using Content.Server.DiscordWebhooks.Webhooks;
 using Content.Server.GameTicking;
 using Content.Server.Ghost.Components;
 using Content.Server.Mind.Components;
@@ -58,6 +59,7 @@ public sealed partial class ChatSystem : SharedChatSystem
     private const int WhisperRange = 2; // how far whisper goes in world units
     private const string DefaultAnnouncementSound = "/Audio/Announcements/announce.ogg";
 
+    private EmoteMessageDiscordWebhook _emoteWebhook = default!;
     private bool _loocEnabled = true;
     private bool _deadLoocEnabled = false;
     private readonly bool _adminLoocEnabled = true;
@@ -67,6 +69,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         InitializeRadio();
         _configurationManager.OnValueChanged(CCVars.LoocEnabled, OnLoocEnabledChanged, true);
         _configurationManager.OnValueChanged(CCVars.DeadLoocEnabled, OnDeadLoocEnabledChanged, true);
+        _emoteWebhook = new EmoteMessageDiscordWebhook();
 
         SubscribeLocalEvent<GameRunLevelChangedEvent>(OnGameChange);
     }
@@ -134,7 +137,7 @@ public sealed partial class ChatSystem : SharedChatSystem
         // Was there an emote in the message? If so, send it.
         if (player != null && emoteStr != message && emoteStr != null)
         {
-            SendEntityEmote(source, emoteStr, hideChat);
+            SendEntityEmote(source, emoteStr, hideChat, player);
         }
 
         // This can happen if the entire string is sanitized out.
@@ -151,7 +154,7 @@ public sealed partial class ChatSystem : SharedChatSystem
                 SendEntityWhisper(source, message, hideChat);
                 break;
             case InGameICChatType.Emote:
-                SendEntityEmote(source, message, hideChat);
+                SendEntityEmote(source, message, hideChat, player);
                 break;
         }
     }
@@ -346,19 +349,25 @@ public sealed partial class ChatSystem : SharedChatSystem
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Whisper from {ToPrettyString(source):user}, original: {originalMessage}, transformed: {message}.");
     }
 
-    private void SendEntityEmote(EntityUid source, string action, bool hideChat)
+    private void SendEntityEmote(EntityUid source, string action, bool hideChat, IPlayerSession? player = null)
     {
         if (!_actionBlocker.CanEmote(source)) return;
 
         var name = FormattedMessage.EscapeText(Identity.Name(source, EntityManager));
+        var message = FormattedMessage.EscapeText(action);
 
         // Emotes use Identity.Name, since it doesn't actually involve your voice at all.
         var wrappedMessage = Loc.GetString("chat-manager-entity-me-wrap-message",
             ("entityName", name),
-             ("message", FormattedMessage.EscapeText(action)));
+             ("message", message));
 
         SendInVoiceRange(ChatChannel.Emotes, action, wrappedMessage, source, hideChat);
         _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Emote from {ToPrettyString(source):user}: {action}");
+
+        if (player is not null)
+        {
+            _emoteWebhook.SendMessage($"{name} ({player.Name})", message);
+        }
     }
 
     // ReSharper disable once InconsistentNaming
