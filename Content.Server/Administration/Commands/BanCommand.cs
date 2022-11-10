@@ -138,9 +138,18 @@ namespace Content.Server.Administration.Commands
             var banWebhook = new BanMessageDiscordWebhook();
 
             var author = admin is not null ? admin.Name : "SERVER";
-            var formattedUntil = until is not null ? $"до {DiscordWebhooksManager.ToDiscordTimeStamp(until.Value)}" : "навсегда";
+            var formattedUntil = until is not null ? $"до {DiscordWebhooksManager.ToDiscordTimeStamp(until.Value, "f")}" : "навсегда";
 
-            banWebhook.SendMessage(author, $"Забанил {victim} по причине  \"{reason}\" {formattedUntil}. #{banId}");
+            var message = new StringBuilder();
+
+            message.Append("\nВыдан бан\n");
+            message.Append($"**От:** {author}\n");
+            message.Append($"**Игрок:** {victim}\n");
+            message.Append($"**Причина:** \"{reason}\"\n");
+            message.Append($"**Время:** {formattedUntil}\n");
+            message.Append($"**ID:** {banId}");
+
+            banWebhook.SendMessage(message.ToString());
         }
 
         public CompletionResult GetCompletion(IConsoleShell shell, string[] args)

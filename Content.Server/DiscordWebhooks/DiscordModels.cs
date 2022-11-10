@@ -11,6 +11,8 @@ public struct WebhookPayload
 
     [JsonPropertyName("embeds")] public List<Embed>? Embeds { get; set; } = null;
 
+    [JsonPropertyName("content")] public string? Content { get; set; } = null;
+
     [JsonPropertyName("allowed_mentions")]
     public Dictionary<string, string[]> AllowedMentions { get; set; } =
         new()

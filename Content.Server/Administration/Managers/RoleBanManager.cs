@@ -5,6 +5,8 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Content.Server.Database;
+using Content.Server.DiscordWebhooks;
+using Content.Server.DiscordWebhooks.Webhooks;
 using Content.Shared.Roles;
 using Robust.Server.Player;
 using Robust.Shared.Console;
@@ -21,12 +23,14 @@ public sealed class RoleBanManager
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IPlayerLocator _playerLocator = default!;
 
+    private BanMessageDiscordWebhook _banWebhook = default!;
     private const string JobPrefix = "Job:";
 
     private readonly Dictionary<NetUserId, HashSet<ServerRoleBanDef>> _cachedRoleBans = new();
 
     public void Initialize()
     {
+        _banWebhook = new BanMessageDiscordWebhook();
         _playerManager.PlayerStatusChanged += OnPlayerStatusChanged;
     }
 
@@ -173,6 +177,27 @@ public sealed class RoleBanManager
 
         var length = expires == null ? Loc.GetString("cmd-roleban-inf") : Loc.GetString("cmd-roleban-until", ("expires", expires));
         shell.WriteLine(Loc.GetString("cmd-roleban-success", ("target", target), ("role", role), ("reason", reason), ("length", length)));
+
+        var banIds = await _db.GetServerRoleBansAsync(addressRange?.Item1, targetUid, targetHWid);
+        SendWebhookMessage(player, target, role, reason, expires, banIds.Last().Id!.Value);
+    }
+
+    private void SendWebhookMessage(IPlayerSession? admin, string victim, string role, string reason, DateTimeOffset? until, int banId)
+    {
+        var author = admin is not null ? admin.Name : "SERVER";
+        var formattedUntil = until is not null ? $"до {DiscordWebhooksManager.ToDiscordTimeStamp(until.Value, "f")}" : "навсегда";
+
+        var message = new StringBuilder();
+
+        message.Append("\nВыдан джоббан\n");
+        message.Append($"**От:** {author}\n");
+        message.Append($"**Игрок:** {victim}\n");
+        message.Append($"**Причина:** \"{reason}\"\n");
+        message.Append($"**Время:** {formattedUntil}\n");
+        message.Append($"**Роль:** {role}\n");
+        message.Append($"**ID:** {banId}");
+
+        _banWebhook.SendMessage(message.ToString());
     }
     #endregion
 }

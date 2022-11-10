@@ -172,7 +172,7 @@ namespace Content.Server.Chat.Managers
 
             //TODO: player.Name color, this will need to change the structure of the MsgChatMessage
             ChatMessageToAll(ChatChannel.OOC, message, wrappedMessage, colorOverride);
-            _oocMessageDiscord.SendMessage(player.Name, message);
+            _oocMessageDiscord.SendMessage($"**{player.Name}:** {message}");
             _adminLogger.Add(LogType.Chat, LogImpact.Low, $"OOC from {player:Player}: {message}");
         }
 

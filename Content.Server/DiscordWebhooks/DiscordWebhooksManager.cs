@@ -89,9 +89,9 @@ public sealed class DiscordWebhooksManager : IDisposable
         return JsonNode.Parse(content)?["id"]?.ToString();
     }
 
-    public static string ToDiscordTimeStamp(DateTimeOffset dateTimeOffset)
+    public static string ToDiscordTimeStamp(DateTimeOffset dateTimeOffset, string postfix = "t")
     {
-        return $"<t:{dateTimeOffset.ToUnixTimeSeconds()}:t>";
+        return $"<t:{dateTimeOffset.ToUnixTimeSeconds()}:{postfix}>";
     }
 
     public static string ToRoleMention(string roleId)

@@ -9,6 +9,10 @@ public abstract class GenericMessageDiscordWebhook
     public virtual CVarDef<string> Webhook => default!;
     public virtual int Color => 0;
     public virtual string Prefix => string.Empty;
+    public virtual Dictionary<string, string[]> AllowedMentions => new()
+    {
+        { "parse", Array.Empty<string>() }
+    };
 
     [Dependency] private readonly DiscordWebhooksManager _discord = default!;
     [Dependency] private readonly IConfigurationManager _cfg = default!;
@@ -38,7 +42,16 @@ public abstract class GenericMessageDiscordWebhook
         _webhookUrl = value;
     }
 
-    public async void SendMessage(string sender, string message)
+    public async void SendMention(string roleId)
+    {
+        await _discord.SendAsync(_webhookUrl, new WebhookPayload
+        {
+            AllowedMentions = AllowedMentions,
+            Content = $"{DiscordWebhooksManager.ToRoleMention(roleId)}"
+        });
+    }
+
+    public async void SendMessage(string message, bool addTimestamp = true)
     {
         if (string.IsNullOrWhiteSpace(_webhookUrl))
             return;
@@ -49,13 +62,14 @@ public abstract class GenericMessageDiscordWebhook
         var messageBuilder = new StringBuilder();
         var prefix = Prefix;
 
+        if (addTimestamp)
+            messageBuilder.Append($"{DiscordWebhooksManager.ToDiscordTimeStamp(DateTimeOffset.Now)} ");
+
         if (!string.IsNullOrEmpty(prefix))
         {
-            messageBuilder.Append($"{prefix}: ");
+            messageBuilder.Append($"{prefix} ");
         }
 
-        messageBuilder.Append(DiscordWebhooksManager.ToDiscordTimeStamp(DateTimeOffset.Now));
-        messageBuilder.Append($" **{sender}:** ");
         messageBuilder.Append(message);
 
         var formattedMessage = messageBuilder.ToString();

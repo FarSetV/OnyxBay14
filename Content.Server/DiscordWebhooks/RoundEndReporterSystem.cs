@@ -37,16 +37,16 @@ public sealed class RoundEndReporterSystem : EntitySystem
 
     private void OnRoundEnd(RoundEndMessageEvent ev)
     {
+        if (!string.IsNullOrEmpty(_mentionRole))
+            _roundEndWebhook.SendMention(_mentionRole);
+
         var message = new StringBuilder();
 
-        message.Append($"Раунд #{ev.RoundId} закончился.\n");
+        message.Append($"\nРаунд #{ev.RoundId} закончился\n");
         message.Append($"Режим: {ev.GamemodeTitle}\n");
         message.Append($"Игроков: {ev.PlayerCount}\n");
         message.Append($"Продолжительность: {ev.RoundDuration}");
 
-        if (!string.IsNullOrEmpty(_mentionRole))
-            message.Append($"\n{DiscordWebhooksManager.ToRoleMention(_mentionRole)}");
-
-        _roundEndWebhook.SendMessage("SERVER", message.ToString());
+        _roundEndWebhook.SendMessage(message.ToString(), false);
     }
 }

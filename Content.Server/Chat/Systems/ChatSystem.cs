@@ -366,7 +366,7 @@ public sealed partial class ChatSystem : SharedChatSystem
 
         if (player is not null)
         {
-            _emoteWebhook.SendMessage($"{name} ({player.Name})", message);
+            _emoteWebhook.SendMessage($"**{name} ({player.Name}):** {message}");
         }
     }
 

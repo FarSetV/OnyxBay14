@@ -61,10 +61,7 @@ namespace Content.Server.Administration.Commands
 
             shell.WriteLine($"Pardoned ban with id {banId}");
 
-            if (ban.UserId is not { } userId)
-                return;
-
-            var target = await locator.LookupIdAsync(userId);
+            var target = await locator.LookupIdAsync(ban.UserId!.Value);
             SendWebhookMessage(player, banId, target?.Username);
         }
 
@@ -72,9 +69,18 @@ namespace Content.Server.Administration.Commands
         {
             var banWebhook = new PardonMessageDiscordWebhook();
             var author = admin is not null ? admin.Name : "SERVER";
-            var victimFormatted = victim is null ? "" : $" с {victim}";
 
-            banWebhook.SendMessage(author, $"Снял бан #{banIdm}{victimFormatted}");
+            var message = new StringBuilder();
+
+            message.Append("\nСнят бан\n");
+            message.Append($"**От:** {author}");
+
+            if (victim is not null)
+                message.Append($"**Игрок:** {victim}\n");
+
+            message.Append($"**ID:** {banIdm}");
+
+            banWebhook.SendMessage(message.ToString());
         }
     }
 }
