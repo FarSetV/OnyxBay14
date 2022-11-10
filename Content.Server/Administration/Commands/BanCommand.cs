@@ -117,6 +117,9 @@ namespace Content.Server.Administration.Commands
 
             shell.WriteLine(response.ToString());
 
+            var banInfo = await dbMan.GetServerBanAsync(banDef.Address?.address, banDef.UserId, banDef.HWId);
+            SendWebhookMessage(player, reason, expires, located.Username, banInfo!.Id!.Value);
+
             if (!plyMgr.TryGetSessionById(targetUid, out var targetPlayer))
                 return;
 
@@ -128,19 +131,16 @@ namespace Content.Server.Administration.Commands
                 entity.SystemOrNull<PopupSystem>()
                     ?.PopupEntity(message, targetPlayer.AttachedEntity.Value, Filter.SinglePlayer(targetPlayer), PopupType.LargeCaution);
             }
-
-            var banInfo = await dbMan.GetServerBanAsync(banDef.Address?.address, banDef.UserId, banDef.HWId);
-            SendWebhookMessage(player, reason, expires, targetPlayer, banInfo!.Id!.Value);
         }
 
-        private void SendWebhookMessage(IPlayerSession? admin, string reason, DateTimeOffset? until, IPlayerSession victim, int banId)
+        private void SendWebhookMessage(IPlayerSession? admin, string reason, DateTimeOffset? until, string victim, int banId)
         {
             var banWebhook = new BanMessageDiscordWebhook();
 
             var author = admin is not null ? admin.Name : "SERVER";
             var formattedUntil = until is not null ? $"до {DiscordWebhooksManager.ToDiscordTimeStamp(until.Value)}" : "навсегда";
 
-            banWebhook.SendMessage(author, $"Забанил {victim.Name} по причине  \"{reason}\" {formattedUntil}. #{banId}");
+            banWebhook.SendMessage(author, $"Забанил {victim} по причине  \"{reason}\" {formattedUntil}. #{banId}");
         }
 
         public CompletionResult GetCompletion(IConsoleShell shell, string[] args)

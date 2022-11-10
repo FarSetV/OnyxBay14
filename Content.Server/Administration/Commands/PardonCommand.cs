@@ -20,6 +20,7 @@ namespace Content.Server.Administration.Commands
         {
             var player = shell.Player as IPlayerSession;
             var dbMan = IoCManager.Resolve<IServerDbManager>();
+            var locator = IoCManager.Resolve<IPlayerLocator>();
 
             if (args.Length != 1)
             {
@@ -59,15 +60,21 @@ namespace Content.Server.Administration.Commands
             await dbMan.AddServerUnbanAsync(new ServerUnbanDef(banId, player?.UserId, DateTimeOffset.Now));
 
             shell.WriteLine($"Pardoned ban with id {banId}");
-            SendWebhookMessage(player, banId);
+
+            if (ban.UserId is not { } userId)
+                return;
+
+            var target = await locator.LookupIdAsync(userId);
+            SendWebhookMessage(player, banId, target?.Username);
         }
 
-        private void SendWebhookMessage(IPlayerSession? admin, int banIdm)
+        private void SendWebhookMessage(IPlayerSession? admin, int banIdm, string? victim)
         {
             var banWebhook = new PardonMessageDiscordWebhook();
             var author = admin is not null ? admin.Name : "SERVER";
+            var victimFormatted = victim is null ? "" : $" с {victim}";
 
-            banWebhook.SendMessage(author, $"Снял бан #{banIdm}");
+            banWebhook.SendMessage(author, $"Снял бан #{banIdm}{victimFormatted}");
         }
     }
 }
