@@ -183,4 +183,36 @@ entries:
   changes:
   - type: Fix
     message: Фиксы нашлемных оверлеев.
-lastChangelog: 2022-11-08T16:26:54.0000000Z
+- id: 26
+  author: igorsaux
+  time: 2022-11-10T00:15:22.0000000Z
+  changes:
+  - type: Add
+    message: В раздатчиках канистр кол-во предметов увеличено с 5 до 10.
+  - type: Remove
+    message: Убраны замки на канистрах.
+- id: 27
+  author: igorsaux
+  time: 2022-11-09T23:54:28.0000000Z
+  changes:
+  - type: Fix
+    message: Исправлены критические баги овермапы.
+- id: 28
+  author: Lovla
+  time: 2022-11-09T20:40:41.0000000Z
+  changes:
+  - type: Add
+    message: Локализация на русский язык.
+- id: 29
+  author: igorsaux
+  time: 2022-11-09T11:00:01.0000000Z
+  changes:
+  - type: Fix
+    message: Добавлены спрайты ботинок для слим бодибилда.
+- id: 30
+  author: igorsaux
+  time: 2022-11-08T16:26:54.0000000Z
+  changes:
+  - type: Add
+    message: Добавлена глобальная карта. Перемещение по ней возможно только через блюспейс.
+lastChangelog: 2022-11-10T00:15:22.0000000Z
