@@ -1,6 +1,6 @@
 ﻿using Content.Client.Changelog;
-using Content.Client.Links;
 using Content.Client.UserInterface.Systems.EscapeMenu;
+using Content.Shared.Links;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 
@@ -23,19 +23,19 @@ public sealed class LinkBanner : BoxContainer
         var uriOpener = IoCManager.Resolve<IUriOpener>();
 
         var rulesButton = new Button { Text = Loc.GetString("server-info-rules-button") };
-        rulesButton.OnPressed += _ => uriOpener.OpenUri(UILinks.Rules);
+        rulesButton.OnPressed += _ => uriOpener.OpenUri(Links.Rules);
 
         var discordButton = new Button { Text = Loc.GetString("server-info-discord-button") };
-        discordButton.OnPressed += _ => uriOpener.OpenUri(UILinks.Discord);
+        discordButton.OnPressed += _ => uriOpener.OpenUri(Links.Discord);
 
         var websiteButton = new Button { Text = Loc.GetString("server-info-website-button") };
-        websiteButton.OnPressed += _ => uriOpener.OpenUri(UILinks.Website);
+        websiteButton.OnPressed += _ => uriOpener.OpenUri(Links.Website);
 
         var wikiButton = new Button { Text = Loc.GetString("server-info-wiki-button") };
-        wikiButton.OnPressed += _ => uriOpener.OpenUri(UILinks.Wiki);
+        wikiButton.OnPressed += _ => uriOpener.OpenUri(Links.Wiki);
 
         var donateButton = new Button { Text = Loc.GetString("server-info-donate-button") };
-        donateButton.OnPressed += _ => uriOpener.OpenUri(UILinks.Donate);
+        donateButton.OnPressed += _ => uriOpener.OpenUri(Links.Donate);
 
         var changelogButton = new ChangelogButton();
         changelogButton.OnPressed += _ => _userInterfaceManager.GetUIController<ChangelogUIController>().ToggleWindow();

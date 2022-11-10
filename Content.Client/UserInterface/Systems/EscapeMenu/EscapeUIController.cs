@@ -1,6 +1,6 @@
 ﻿using Content.Client.Gameplay;
 using Content.Client.Info;
-using Content.Client.Links;
+using Content.Shared.Links;
 using Content.Client.UserInterface.Controls;
 using JetBrains.Annotations;
 using Robust.Client.Console;
@@ -85,7 +85,7 @@ public sealed class EscapeUIController : UIController, IOnStateEntered<GameplayS
 
         _escapeWindow.WikiButton.OnPressed += _ =>
         {
-            _uri.OpenUri(UILinks.Wiki);
+            _uri.OpenUri(Links.Wiki);
         };
 
         CommandBinds.Builder

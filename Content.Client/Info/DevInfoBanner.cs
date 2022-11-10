@@ -1,6 +1,6 @@
 ﻿using Content.Client.Changelog;
 using Content.Client.Credits;
-using Content.Client.Links;
+using Content.Shared.Links;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.IoC;
@@ -21,7 +21,7 @@ namespace Content.Client.Info
             var uriOpener = IoCManager.Resolve<IUriOpener>();
 
             var reportButton = new Button {Text = Loc.GetString("server-info-report-button")};
-            reportButton.OnPressed += args => uriOpener.OpenUri(UILinks.BugReport);
+            reportButton.OnPressed += args => uriOpener.OpenUri(Links.BugReport);
 
             var creditsButton = new Button {Text = Loc.GetString("server-info-credits-button")};
             creditsButton.OnPressed += args => new CreditsWindow().Open();
