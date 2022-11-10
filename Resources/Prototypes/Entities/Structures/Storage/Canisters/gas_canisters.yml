@@ -87,8 +87,6 @@
       price: 1000
     - type: AccessReader
       access: [["Atmospherics"], ["ResearchDirector"]]
-    - type: Lock
-      locked: false
 
 - type: entity
   parent: GasCanister
@@ -250,8 +248,6 @@
               max: 1
         - !type:DoActsBehavior
           acts: [ "Destruction" ]
-    - type: Lock
-      locked: true
 
 - type: entity
   parent: GasCanister
@@ -286,8 +282,6 @@
         - !type:DoActsBehavior
           acts: [ "Destruction" ]
         - !type:DumpCanisterBehavior
-    - type: Lock
-      locked: true
 
 - type: entity
   parent: GasCanister
@@ -322,8 +316,6 @@
               max: 1
         - !type:DoActsBehavior
           acts: [ "Destruction" ]
-    - type: Lock
-      locked: true
 
 - type: entity
   parent: GasCanister
@@ -395,8 +387,6 @@
               max: 1
         - !type:DoActsBehavior
           acts: [ "Destruction" ]
-    - type: Lock
-      locked: true
 
 - type: entity
   parent: GasCanister
@@ -471,8 +461,6 @@
             max: 1
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
-  - type: Lock
-    locked: true
 
 # Broke Entities
 
