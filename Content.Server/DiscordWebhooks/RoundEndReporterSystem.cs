@@ -2,6 +2,7 @@
 using Content.Server.DiscordWebhooks.Webhooks;
 using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
+using Robust.Server.Player;
 using Robust.Shared.Configuration;
 
 namespace Content.Server.DiscordWebhooks;
@@ -9,6 +10,7 @@ namespace Content.Server.DiscordWebhooks;
 public sealed class RoundEndReporterSystem : EntitySystem
 {
     [Dependency] private readonly IConfigurationManager _cfg = default!;
+    [Dependency] private readonly IPlayerManager _playerManager = default!;
     private RoundEndMessageDiscordWebhook _roundEndWebhook = default!;
     private string _mentionRole = string.Empty;
 
@@ -44,7 +46,7 @@ public sealed class RoundEndReporterSystem : EntitySystem
 
         message.Append($"\nРаунд #{ev.RoundId} закончился\n");
         message.Append($"Режим: {ev.GamemodeTitle}\n");
-        message.Append($"Игроков: {ev.PlayerCount}\n");
+        message.Append($"Игроков: {_playerManager.PlayerCount}\n");
         message.Append($"Продолжительность: {ev.RoundDuration}");
 
         _roundEndWebhook.SendMessage(message.ToString(), false);
