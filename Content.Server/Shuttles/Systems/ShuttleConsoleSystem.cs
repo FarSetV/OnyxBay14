@@ -1,4 +1,3 @@
-using Content.Server.Overmap;
 using Content.Server.Overmap.Systems;
 using Content.Server.Popups;
 using Content.Server.Power.Components;
@@ -8,6 +7,7 @@ using Content.Server.Shuttles.Events;
 using Content.Server.UserInterface;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Alert;
+using Content.Shared.Bluespace;
 using Content.Shared.Popups;
 using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.Shuttles.Components;
@@ -17,7 +17,6 @@ using Content.Shared.Tag;
 using Robust.Server.GameObjects;
 using Robust.Shared.GameStates;
 using Robust.Shared.Player;
-using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
 namespace Content.Server.Shuttles.Systems;
@@ -26,12 +25,10 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
 {
     [Dependency] private readonly AlertsSystem _alertsSystem = default!;
     [Dependency] private readonly ActionBlockerSystem _blocker = default!;
-    [Dependency] private readonly OvermapSystem _overmap = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly PopupSystem _popupSystem = default!;
     [Dependency] private readonly ShuttleSystem _shuttle = default!;
     [Dependency] private readonly TagSystem _tags = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
 
     public override void Initialize()
@@ -85,15 +82,11 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             return;
         }
 
-        if (!_shuttle.CanTravelBluespace(shuttle.Owner, out var reason))
-        {
-            if (args.Session.AttachedEntity != null)
-                _popup.PopupCursor(reason, Filter.Entities(args.Session.AttachedEntity.Value));
-
+        if (_shuttle.TryEnterBluespace(shuttle, out _, out var reason))
             return;
-        }
 
-        _shuttle.EnterBluespace(shuttle);
+        if (args.Session.AttachedEntity != null)
+            _popup.PopupCursor(reason, Filter.Entities(args.Session.AttachedEntity.Value));
     }
 
     private void OnExitBluespaceMessage(EntityUid uid, ShuttleConsoleComponent component, ExitBluespaceMessage args)
@@ -115,15 +108,11 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
             !TryComp<ShuttleComponent>(xform.GridUid, out var shuttle))
             return;
 
-        if (!_shuttle.CanExitBluespace(shuttle.Owner, out var reason))
-        {
-            if (args.Session.AttachedEntity != null)
-                _popup.PopupCursor(reason, Filter.Entities(args.Session.AttachedEntity.Value));
-
+        if (_shuttle.TryExitBluespace(xform.GridUid.Value, shuttle, out var reason))
             return;
-        }
 
-        _shuttle.ExitBluespace(shuttle.Owner);
+        if (args.Session.AttachedEntity != null)
+            _popup.PopupCursor(reason, Filter.Entities(args.Session.AttachedEntity.Value));
     }
 
     [Obsolete("Use OnEnterBluespaceMessage")]

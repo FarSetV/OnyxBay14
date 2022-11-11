@@ -1,7 +1,7 @@
 ﻿using Robust.Shared.Map;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.Overmap;
+namespace Content.Shared.Overmap.Systems;
 
 public abstract class SharedOvermapSystem : EntitySystem
 {
@@ -20,18 +20,4 @@ public abstract class SharedOvermapSystem : EntitySystem
 
     public static Vector2 OvermapBluespaceSize =>
         new(OvermapTilesCount.X * OvermapTileSize * ScaleFactor, OvermapTilesCount.Y * OvermapTileSize * ScaleFactor);
-
-    public MapId? BluespaceMapId { get; protected set; }
-}
-
-[Serializable]
-[NetSerializable]
-public sealed class BluespaceMapUpdatedMessage : EntityEventArgs
-{
-    public readonly MapId? NewId;
-
-    public BluespaceMapUpdatedMessage(MapId? mapId)
-    {
-        NewId = mapId;
-    }
 }

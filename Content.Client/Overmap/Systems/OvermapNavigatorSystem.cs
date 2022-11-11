@@ -1,8 +1,8 @@
-﻿using Content.Shared.Overmap;
+﻿using Content.Shared.Overmap.Systems;
 using Content.Shared.Shuttles.Components;
 using Robust.Shared.GameStates;
 
-namespace Content.Client.Overmap;
+namespace Content.Client.Overmap.Systems;
 
 public sealed class OvermapNavigatorSystem : SharedOvermapNavigatorSystem
 {

@@ -1,4 +1,6 @@
-﻿using Content.Shared.Overmap;
+﻿using Content.Server.Bluespace;
+using Content.Shared.Overmap;
+using Content.Shared.Overmap.Systems;
 using Content.Shared.Shuttles.Components;
 using Robust.Shared.GameStates;
 using Robust.Shared.Timing;
@@ -10,6 +12,7 @@ public sealed class OvermapNavigatorSystem : SharedOvermapNavigatorSystem
 {
     [Dependency] private readonly EntityManager _entityManager = default!;
     [Dependency] private readonly OvermapSystem _overmap = default!;
+    [Dependency] private readonly BluespaceSystem _bluespace = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     private TimeSpan _nextUpdate = TimeSpan.Zero;
 
@@ -98,7 +101,7 @@ public sealed class OvermapNavigatorSystem : SharedOvermapNavigatorSystem
                     VisibleName = name,
                     EntityUid = entity,
                     TilePosition = _overmap.GetTileEntityOn(entity)?.Position ?? Vector2i.Zero,
-                    InBluespace = _overmap.IsEntityInBluespace(entity, xForm),
+                    InBluespace = _bluespace.IsEntityInBluespace(entity, xForm),
                     Color = color
                 });
             }

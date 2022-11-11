@@ -73,7 +73,7 @@ namespace Content.Server.Administration.Commands
             var message = new StringBuilder();
 
             message.Append("\nСнят бан\n");
-            message.Append($"**От:** {author}");
+            message.Append($"**От:** {author}\n");
 
             if (victim is not null)
                 message.Append($"**Игрок:** {victim}\n");

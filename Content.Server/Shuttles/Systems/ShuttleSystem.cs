@@ -1,16 +1,16 @@
-using Content.Server.Overmap;
+using Content.Server.Bluespace;
+using Content.Server.Bluespace.Events;
 using Content.Server.Overmap.Systems;
 using Content.Server.Shuttles.Components;
-using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
 using Content.Shared.Shuttles.Systems;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
-using Robust.Shared.Configuration;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
+using Robust.Shared.Player;
 
 namespace Content.Server.Shuttles.Systems
 {
@@ -23,6 +23,7 @@ namespace Content.Server.Shuttles.Systems
         [Dependency] private readonly SharedPhysicsSystem _physics = default!;
         [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
         [Dependency] private readonly OvermapSystem _overmap = default!;
+        [Dependency] private readonly BluespaceSystem _bluespace = default!;
 
         private ISawmill _sawmill = default!;
 
@@ -50,6 +51,11 @@ namespace Content.Server.Shuttles.Systems
 
             SubscribeLocalEvent<GridInitializeEvent>(OnGridInit);
             SubscribeLocalEvent<GridFixtureChangeEvent>(OnGridFixtureChange);
+
+            SubscribeLocalEvent<ShuttleComponent, BeforeEnterBluespaceEvent>(OnBeforeEnterBluespace);
+            SubscribeLocalEvent<ShuttleComponent, AfterEnterBluespaceEvent>(OnAfterEnterBluespace);
+            SubscribeLocalEvent<ShuttleComponent, BeforeExitBluespaceEvent>(OnBeforeExitBluespace);
+            SubscribeLocalEvent<ShuttleComponent, AfterExitBluespaceEvent>(OnAfterExitBluespace);
         }
 
         public override void Update(float frameTime)

@@ -1,9 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+using Content.Server.Bluespace.Events;
 using Content.Server.Shuttles.Components;
-using Content.Shared.Shuttles.Systems;
+using Content.Shared.Bluespace;
 using Robust.Shared.Audio;
-using Robust.Shared.Map;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
 
@@ -16,25 +15,99 @@ public sealed partial class ShuttleSystem
     private readonly SoundSpecifier _startupSound =
         new SoundPathSpecifier("/Audio/Effects/Shuttle/hyperspace_begin.ogg");
 
-    public bool CanTravelBluespace(EntityUid uid, [NotNullWhen(false)] out string? reason,
-        TransformComponent? xform = null)
+    private void UpdateBluespace(float frameTime)
     {
-        if (_overmap.GetTileEntityOn(uid) is null)
+        foreach (var component in EntityQuery<ShuttleComponent>())
         {
-            reason = Loc.GetString("shuttle-console-cant-enter-bluespace");
+            component.EnginesCooldown = Math.Max(component.EnginesCooldown - frameTime, 0f);
+        }
+    }
+
+    private void OnAfterExitBluespace(EntityUid uid, ShuttleComponent component, AfterExitBluespaceEvent args)
+    {
+        _thruster.DisableLinearThrusters(component);
+
+        if (component.TravelStream != null)
+        {
+            component.TravelStream?.Stop();
+            component.TravelStream = null;
+        }
+
+        _audio.PlayGlobal(_arrivalSound,
+            Filter.Empty().AddInRange(Transform(uid).MapPosition, GetSoundRange(uid)),
+            _arrivalSound.Params);
+
+        component.EnginesCooldown = FTLCooldown;
+    }
+
+    private void OnBeforeExitBluespace(EntityUid uid, ShuttleComponent component, BeforeExitBluespaceEvent args)
+    {
+        var xForm = Transform(uid);
+
+        DoTheDinosaur(xForm);
+        SetDockBolts(component.Owner, false);
+        SetDocks(component.Owner, true);
+
+        if (!TryComp(component.Owner, out PhysicsComponent? body))
+            return;
+
+        body.LinearVelocity = Vector2.Zero;
+        body.AngularVelocity = 0f;
+        body.LinearDamping = ShuttleLinearDamping;
+        body.AngularDamping = ShuttleAngularDamping;
+    }
+
+    private void OnBeforeEnterBluespace(EntityUid uid, ShuttleComponent component, BeforeEnterBluespaceEvent ev)
+    {
+        DoTheDinosaur(Transform(uid));
+    }
+
+    private void OnAfterEnterBluespace(EntityUid uid, ShuttleComponent component, AfterEnterBluespaceEvent args)
+    {
+        if (TryComp(component.Owner, out PhysicsComponent? body))
+        {
+            body.LinearVelocity = Vector2.Zero;
+            body.AngularVelocity = 0f;
+            body.LinearDamping = 0f;
+            body.AngularDamping = 0f;
+        }
+
+        if (component.TravelSound != null)
+        {
+            component.TravelStream = _audio.PlayGlobal(component.TravelSound,
+                Filter.Pvs(component.Owner, 4f, EntityManager), component.TravelSound.Params);
+        }
+
+        SetDockBolts(component.Owner, true);
+    }
+
+    public bool TryEnterBluespace(
+        ShuttleComponent shuttle,
+        [NotNullWhen(true)] out BluespaceComponent? component,
+        [NotNullWhen(false)] out string? reason
+    )
+    {
+        var uid = shuttle.Owner;
+
+        if (shuttle.EnginesCooldown > float.Epsilon)
+        {
+            reason = Loc.GetString("shuttle-engines-on-cooldown");
+            component = null;
             return false;
         }
 
-        reason = null;
+        if (!TryComp<MapGridComponent>(uid, out var grid))
+        {
+            reason = Loc.GetString("shuttle-cant-enter-bluespace");
+            component = null;
+            return false;
+        }
 
-        if (!TryComp<MapGridComponent>(uid, out var grid) ||
-            !Resolve(uid, ref xform))
-            return true;
-
-        var bounds = xform.WorldMatrix.TransformBox(grid.Grid.LocalAABB).Enlarged(ShuttleFTLRange);
+        var xForm = Transform(grid.Owner);
+        var bounds = xForm.WorldMatrix.TransformBox(grid.Grid.LocalAABB).Enlarged(ShuttleFTLRange);
         var bodyQuery = GetEntityQuery<PhysicsComponent>();
 
-        foreach (var other in _mapManager.FindGridsIntersecting(xform.MapID, bounds))
+        foreach (var other in _mapManager.FindGridsIntersecting(xForm.MapID, bounds))
         {
             if (grid.Owner == other.GridEntityId ||
                 !bodyQuery.TryGetComponent(other.GridEntityId, out var body) ||
@@ -42,169 +115,33 @@ public sealed partial class ShuttleSystem
                 continue;
 
             reason = Loc.GetString("shuttle-console-proximity");
+            component = null;
             return false;
         }
 
-        return true;
-    }
-
-    public bool TryEnterBluespace(ShuttleComponent shuttle, [NotNullWhen(true)] out BluespaceComponent? component)
-    {
-        var uid = shuttle.Owner;
-        component = null;
-
-        if (HasComp<BluespaceComponent>(uid))
+        if (!_bluespace.TryEnterBluespace(grid.Owner, DefaultStartupTime, out component, out reason))
         {
-            _sawmill.Warning($"tried queuing {ToPrettyString(uid)} which already has BluespaceComponent?");
+            component = null;
             return false;
         }
 
         // TODO: Maybe move this to docking instead?
         SetDocks(uid, false);
 
-        component = AddComp<BluespaceComponent>(uid);
-        component.State = BluespaceState.Starting;
-        component.Accumulator = DefaultStartupTime;
         // TODO: Need BroadcastGrid to not be bad.
         _audio.PlayGlobal(_startupSound,
             Filter.Empty().AddInRange(Transform(uid).MapPosition, GetSoundRange(component.Owner)),
             _startupSound.Params);
 
-        // Make sure the map is setup before we leave to avoid pop-in (e.g. parallax).
-        _overmap.SetupBluespaceMap();
-
         return true;
     }
 
-    private void UpdateBluespace(float frameTime)
+    public bool TryExitBluespace(EntityUid uid, ShuttleComponent? component, [NotNullWhen(false)] out string? reason)
     {
-        foreach (var comp in EntityQuery<BluespaceComponent>())
-        {
-            comp.Accumulator -= frameTime;
+        if (Resolve(uid, ref component) && TryComp<MapGridComponent>(uid, out var grid))
+            return _bluespace.TryExitBluespace(grid.Owner, DefaultArrivalTime, null, out reason);
 
-            if (comp.Accumulator > 0f)
-                continue;
-
-            var xform = Transform(comp.Owner);
-            PhysicsComponent? body;
-
-            switch (comp.State)
-            {
-                // Startup time has elapsed and in bluespace.
-                case BluespaceState.Starting:
-                    DoTheDinosaur(xform);
-
-                    comp.State = BluespaceState.Travelling;
-                    xform.Coordinates =
-                        new EntityCoordinates(_mapManager.GetMapEntityId(_overmap.BluespaceMapId!.Value),
-                            _overmap.LocalPositionToBluespace(comp.Owner)!.Value);
-
-                    if (TryComp(comp.Owner, out body))
-                    {
-                        body.LinearVelocity = Vector2.Zero;
-                        body.AngularVelocity = 0f;
-                        body.LinearDamping = 0f;
-                        body.AngularDamping = 0f;
-                    }
-
-                    if (comp.TravelSound != null)
-                    {
-                        comp.TravelStream = _audio.PlayGlobal(comp.TravelSound,
-                            Filter.Pvs(comp.Owner, 4f, EntityManager), comp.TravelSound.Params);
-                    }
-
-                    SetDockBolts(comp.Owner, true);
-                    break;
-                // Arrived
-                case BluespaceState.Arriving:
-                    DoTheDinosaur(xform);
-                    SetDockBolts(comp.Owner, false);
-                    SetDocks(comp.Owner, true);
-
-                    if (TryComp(comp.Owner, out body))
-                    {
-                        body.LinearVelocity = Vector2.Zero;
-                        body.AngularVelocity = 0f;
-                        body.LinearDamping = ShuttleLinearDamping;
-                        body.AngularDamping = ShuttleAngularDamping;
-                    }
-
-                    TryComp(comp.Owner, out ShuttleComponent? shuttle);
-                    _overmap.GetExitLocation(comp.Owner, out var localPosition, out var mapId, out var tilePosition);
-                    mapId ??= _overmap.GetMapForTileOrCreate(tilePosition);
-
-                    xform.Coordinates = new EntityCoordinates(_mapManager.GetMapEntityId(mapId.Value), localPosition);
-
-                    if (shuttle != null)
-                        _thruster.DisableLinearThrusters(shuttle);
-
-                    if (comp.TravelStream != null)
-                    {
-                        comp.TravelStream?.Stop();
-                        comp.TravelStream = null;
-                    }
-
-                    _audio.PlayGlobal(_arrivalSound,
-                        Filter.Empty().AddInRange(Transform(comp.Owner).MapPosition, GetSoundRange(comp.Owner)),
-                        _arrivalSound.Params);
-
-                    comp.State = BluespaceState.Cooldown;
-                    comp.Accumulator = FTLCooldown;
-                    break;
-                case BluespaceState.Cooldown:
-                    RemComp<BluespaceComponent>(comp.Owner);
-                    break;
-            }
-        }
-    }
-
-    public bool CanExitBluespace(EntityUid uid, [NotNullWhen(false)] out string? reason)
-    {
-        _overmap.GetExitLocation(uid, out _, out var mapId, out _);
-
-        // The map is empty so why not.
-        if (mapId is null)
-        {
-            reason = null;
-            return true;
-        }
-
-        var occupied = _mapManager
-            .FindGridsIntersecting(mapId.Value, Comp<MapGridComponent>(uid).Grid.LocalAABB)
-            .Any();
-
-        if (occupied)
-        {
-            reason = Loc.GetString("shuttle-console-bluespace-exit-is-occupied");
-            return false;
-        }
-
-        reason = null;
-        return true;
-    }
-
-    public bool EnterBluespace(ShuttleComponent component, float startupTime = DefaultStartupTime)
-    {
-        if (!TryEnterBluespace(component, out var bluespace))
-            return false;
-
-        bluespace.StartupTime = startupTime;
-        bluespace.Accumulator = bluespace.StartupTime;
-
-        return true;
-    }
-
-    public bool ExitBluespace(EntityUid uid, BluespaceComponent? component = null)
-    {
-        if (!Resolve(uid, ref component))
-            return false;
-
-        if (!CanExitBluespace(uid, out _))
-            return false;
-
-        component.Accumulator += DefaultArrivalTime;
-        component.State = BluespaceState.Arriving;
-
-        return true;
+        reason = Loc.GetString("shuttle-cant-enter-bluespace");
+        return false;
     }
 }

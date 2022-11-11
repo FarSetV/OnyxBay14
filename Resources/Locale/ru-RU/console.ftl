@@ -2,10 +2,9 @@ shuttle-pilot-start = Piloting ship
 shuttle-pilot-end = Stopped piloting
 
 shuttle-console-in-ftl = Невозможно выполнить прыжок во время прыжка!
-shuttle-console-in-bluespace = Невозможно войти в Блюспейс в Блюспейсе!
 shuttle-console-proximity = Слишком близко к другим объектам.
-shuttle-console-cant-enter-bluespace = Это не может попасть в Блюспейс!
-shuttle-console-bluespace-exit-is-occupied = Точка выхода из Блюспейса занята объектами!
+shuttle-engines-on-cooldown = Двигатели ещё не готовы.
+shuttle-cant-enter-bluespace = Нарушена целостность шаттла.
 
 # Tabs
 shuttle-console-local-tab = Радар

@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Content.Server.Bluespace;
 using Content.Shared.GameTicking;
-using Content.Shared.Overmap;
-using Content.Shared.Parallax;
+using Content.Shared.Overmap.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
@@ -14,6 +14,7 @@ public sealed class OvermapSystem : SharedOvermapSystem
     // TODO: Pause maps?
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly BluespaceSystem _bluespace = default!;
     private readonly Dictionary<Vector2i, OvermapTile> _tiles = new();
     private ISawmill _sawmill = default!;
 
@@ -35,7 +36,6 @@ public sealed class OvermapSystem : SharedOvermapSystem
 
     private void OnRoundRestart(RoundRestartCleanupEvent _)
     {
-        CleanupBluespaceMap();
         CleanupTiles();
     }
 
@@ -69,37 +69,6 @@ public sealed class OvermapSystem : SharedOvermapSystem
         }
 
         _sawmill.Info($"entity {ToPrettyString(entity)} placed at {tile.Position.X}, {tile.Position.Y}");
-    }
-
-    public void SetupBluespaceMap()
-    {
-        if (BluespaceMapId is not null && _mapManager.MapExists(BluespaceMapId.Value))
-            return;
-
-        BluespaceMapId = _mapManager.CreateMap();
-        _sawmill.Info($"created bluespace map: {BluespaceMapId}");
-        DebugTools.Assert(!_mapManager.IsMapPaused(BluespaceMapId.Value));
-
-        var parallax = EnsureComp<ParallaxComponent>(_mapManager.GetMapEntityId(BluespaceMapId.Value));
-        parallax.Parallax = "FastSpace";
-
-        var msg = new BluespaceMapUpdatedMessage(BluespaceMapId);
-        RaiseNetworkEvent(msg);
-    }
-
-    private void CleanupBluespaceMap()
-    {
-        if (BluespaceMapId is null)
-            return;
-
-        _sawmill.Info($"deleting {nameof(BluespaceMapId)} {BluespaceMapId}");
-        if (_mapManager.MapExists(BluespaceMapId.Value))
-            _mapManager.DeleteMap(BluespaceMapId.Value);
-
-        BluespaceMapId = null;
-
-        var msg = new BluespaceMapUpdatedMessage(BluespaceMapId);
-        RaiseNetworkEvent(msg);
     }
 
     private void CleanupTiles()
@@ -210,14 +179,6 @@ public sealed class OvermapSystem : SharedOvermapSystem
         return tile.MapId;
     }
 
-    public bool IsEntityInBluespace(EntityUid entity, TransformComponent? xForm = null)
-    {
-        if (!Resolve(entity, ref xForm))
-            return false;
-
-        return xForm.MapID == BluespaceMapId;
-    }
-
     /// <summary>
     ///     Returns useful information about the exit point.
     /// </summary>
@@ -252,8 +213,8 @@ public sealed class OvermapSystem : SharedOvermapSystem
         var xFormA = xFormQuery.GetComponent(a);
         var xFormB = xFormQuery.GetComponent(b);
 
-        var positionA = IsEntityInBluespace(a, xFormA) ? xFormA.WorldPosition : LocalPositionToBluespace(a);
-        var positionB = IsEntityInBluespace(b, xFormB) ? xFormB.WorldPosition : LocalPositionToBluespace(b);
+        var positionA = _bluespace.IsEntityInBluespace(a, xFormA) ? xFormA.WorldPosition : LocalPositionToBluespace(a);
+        var positionB = _bluespace.IsEntityInBluespace(b, xFormB) ? xFormB.WorldPosition : LocalPositionToBluespace(b);
 
         if (positionA is null || positionB is null)
             return null;

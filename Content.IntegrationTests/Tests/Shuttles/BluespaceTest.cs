@@ -1,8 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using Content.Server.Bluespace;
 using Content.Server.Overmap;
 using Content.Server.Overmap.Systems;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Systems;
+using Content.Shared.Bluespace;
 using NUnit.Framework;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
@@ -13,6 +16,8 @@ namespace Content.IntegrationTests.Tests.Shuttles;
 
 [TestFixture]
 [TestOf(typeof(ShuttleSystem))]
+[TestOf(typeof(BluespaceSystem))]
+[SuppressMessage("Usage", "RA0002:Invalid access")]
 public sealed class BluespaceTests
 {
     [Test]
@@ -27,6 +32,7 @@ public sealed class BluespaceTests
         var random = server.ResolveDependency<IRobustRandom>();
         var shuttleSystem = entitiesManager.System<ShuttleSystem>();
         var overmapSystem = entitiesManager.System<OvermapSystem>();
+        var bluespacepSystem = entitiesManager.System<BluespaceSystem>();
 
         var shuttleGridEn = EntityUid.Invalid;
         var startTilePosition = Vector2i.Zero;
@@ -51,7 +57,7 @@ public sealed class BluespaceTests
 
             startTilePosition = tilePosition.Value;
 
-            Assert.That(shuttleSystem.TryEnterBluespace(shuttle, out bpComponent), Is.True);
+            Assert.That(shuttleSystem.TryEnterBluespace(shuttle, out bpComponent, out _), Is.True);
             bpComponent!.Accumulator = 0;
         });
 
@@ -59,10 +65,10 @@ public sealed class BluespaceTests
 
         await server.WaitAssertion(() =>
         {
-            Assert.That(overmapSystem.IsEntityInBluespace(shuttleGridEn), Is.True);
+            Assert.That(bluespacepSystem.IsEntityInBluespace(shuttleGridEn), Is.True);
 
             bpComponent = entitiesManager.GetComponent<BluespaceComponent>(shuttleGridEn);
-            shuttleSystem.ExitBluespace(shuttleGridEn, bpComponent);
+            Assert.That(shuttleSystem.TryExitBluespace(shuttleGridEn, null, out _), Is.True);
 
             bpComponent.Accumulator = 0;
         });
@@ -71,7 +77,7 @@ public sealed class BluespaceTests
 
         await server.WaitAssertion(() =>
         {
-            Assert.That(overmapSystem.IsEntityInBluespace(shuttleGridEn), Is.False);
+            Assert.That(bluespacepSystem.IsEntityInBluespace(shuttleGridEn), Is.False);
 
             var xForm = entitiesManager.GetComponent<TransformComponent>(shuttleGridEn);
             var tilePosition = overmapSystem.GetTileEntityOn(shuttleGridEn)!.Position;
@@ -110,7 +116,7 @@ public sealed class BluespaceTests
 
             xForm.WorldPosition = new Vector2(0, 0);
 
-            Assert.That(shuttleSystem.TryEnterBluespace(shuttle, out bpComponent), Is.True);
+            Assert.That(shuttleSystem.TryEnterBluespace(shuttle, out bpComponent, out _), Is.True);
             bpComponent!.Accumulator = 0;
         });
 
@@ -124,7 +130,7 @@ public sealed class BluespaceTests
 
             xForm.WorldPosition = new Vector2(0, 0);
 
-            Assert.That(shuttleSystem.ExitBluespace(shuttleGridEn), Is.False);
+            Assert.That(shuttleSystem.TryExitBluespace(shuttleGridEn, null, out _), Is.False);
         });
     }
 
@@ -155,7 +161,7 @@ public sealed class BluespaceTests
 
             xForm.WorldPosition = new Vector2(0, 0);
 
-            Assert.That(shuttleSystem.TryEnterBluespace(shuttle, out bpComponent), Is.True);
+            Assert.That(shuttleSystem.TryEnterBluespace(shuttle, out bpComponent, out _), Is.True);
             bpComponent!.Accumulator = 0;
         });
 
@@ -169,7 +175,58 @@ public sealed class BluespaceTests
 
             xForm.WorldPosition = new Vector2(500, 500);
 
-            Assert.That(shuttleSystem.ExitBluespace(shuttleGridEn), Is.True);
+            Assert.That(shuttleSystem.TryExitBluespace(shuttleGridEn, null, out _), Is.True);
+        });
+    }
+
+    [Test]
+    public async Task TestBluespaceFreezingAndUnfreezing()
+    {
+        await using var pairTracker = await PoolManager.GetServerClient(new PoolSettings { NoClient = true });
+        var server = pairTracker.Pair.Server;
+        await server.WaitIdleAsync();
+
+        var mapManager = server.ResolveDependency<IMapManager>();
+        var entitiesManager = server.ResolveDependency<IEntityManager>();
+        var shuttleSystem = entitiesManager.System<ShuttleSystem>();
+        var bluespacepSystem = entitiesManager.System<BluespaceSystem>();
+
+        var shuttleGridEn = EntityUid.Invalid;
+        BluespaceComponent bpComponent;
+
+        await server.WaitAssertion(() =>
+        {
+            var mapId = mapManager.CreateMap();
+            var grid = mapManager.CreateGrid(mapId);
+            shuttleGridEn = grid.GridEntityId;
+
+            entitiesManager.EnsureComponent(shuttleGridEn, out TransformComponent _);
+            entitiesManager.EnsureComponent(shuttleGridEn, out OvermapObjectComponent _);
+            entitiesManager.EnsureComponent(shuttleGridEn, out ShuttleComponent shuttle);
+
+            Assert.That(shuttleSystem.TryEnterBluespace(shuttle, out bpComponent, out _), Is.True);
+            bpComponent!.Accumulator = 0;
+        });
+
+        await server.WaitRunTicks(30);
+
+        await server.WaitAssertion(() =>
+        {
+            Assert.That(bluespacepSystem.IsEntityInBluespace(shuttleGridEn), Is.True);
+            Assert.That(mapManager.IsMapPaused(bluespacepSystem.GetBluespace()), Is.False);
+
+            bpComponent = entitiesManager.GetComponent<BluespaceComponent>(shuttleGridEn);
+            shuttleSystem.TryExitBluespace(shuttleGridEn, null, out _);
+
+            bpComponent.Accumulator = 0;
+        });
+
+        await server.WaitRunTicks(30);
+
+        await server.WaitAssertion(() =>
+        {
+            Assert.That(bluespacepSystem.IsEntityInBluespace(shuttleGridEn), Is.False);
+            Assert.That(mapManager.IsMapPaused(bluespacepSystem.GetBluespace()), Is.True);
         });
     }
 }
