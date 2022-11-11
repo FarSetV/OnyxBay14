@@ -1,9 +1,12 @@
-﻿using JetBrains.Annotations;
+﻿using Content.Server.Administration;
+using Content.Shared.Administration;
+using JetBrains.Annotations;
 using Robust.Shared.Console;
 
 namespace Content.Server.ServerUpdates;
 
 [UsedImplicitly]
+[AdminCommand(AdminFlags.Server)]
 public sealed class RestartOnRoundEndCommand : LocalizedCommands
 {
     public override string Command => "restartounroundend";
