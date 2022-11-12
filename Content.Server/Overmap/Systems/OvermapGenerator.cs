@@ -1,9 +1,9 @@
 ﻿using System.Linq;
+using Content.Server.BluespaceOvermapTransition;
 using Content.Server.GameTicking.Events;
 using Content.Server.Overmap.Prototypes;
+using Content.Shared.Bluespace;
 using Content.Shared.CCVar;
-using Content.Shared.Overmap;
-using Content.Shared.Overmap.Systems;
 using Robust.Server.Maps;
 using Robust.Shared.Configuration;
 using Robust.Shared.Map;
@@ -21,6 +21,7 @@ public sealed class OvermapGenerator : EntitySystem
     [Dependency] private readonly OvermapSystem _overmap = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly BluespaceOvermapTransitionSystem _transition = default!;
     private ISawmill _sawmill = default!;
 
     public override void Initialize()
@@ -51,7 +52,7 @@ public sealed class OvermapGenerator : EntitySystem
 
     private void GenerateLayer(OvermapLayerPrototype layer)
     {
-        var bluespaceSize = SharedOvermapSystem.OvermapBluespaceSize;
+        var bluespaceSize = SharedBluespaceSystem.OvermapBluespaceSize;
         var loadedGrids = 0;
 
         if (!Enum.TryParse(layer.NoiseType, out NoiseGenerator.NoiseType noiseType))
@@ -84,7 +85,7 @@ public sealed class OvermapGenerator : EntitySystem
                 position.X = 0;
             }
 
-            var tilePosition = _overmap.BluespacePositionToTilePosition(position);
+            var tilePosition = _transition.BluespacePositionToTilePosition(position);
             var flooredTilePosition = tilePosition.Floored();
             var noiseValue = noise.GetNoiseTiled(position);
 
@@ -120,7 +121,7 @@ public sealed class OvermapGenerator : EntitySystem
                     if (gridToSpawn.Unique)
                         uniquePrototypes.Add(gridToSpawn.ID);
 
-                    var localPosition = _overmap.BluespacePositionToLocalPosition(position, tilePosition);
+                    var localPosition = _transition.BluespacePositionToLocalPosition(position, tilePosition);
                     var angle = _random.NextAngle();
                     var box2 = Box2.CenteredAround(localPosition, gridToSpawn.Bounds.Size);
                     var box2Rotated = new Box2Rotated(box2, angle, localPosition);

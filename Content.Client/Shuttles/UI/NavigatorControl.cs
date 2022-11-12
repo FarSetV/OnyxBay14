@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Content.Client.Stylesheets;
+using Content.Shared.Bluespace;
 using Content.Shared.Overmap;
 using Content.Shared.Overmap.Systems;
 using Content.Shared.Shuttles.BUIStates;
@@ -13,10 +14,10 @@ namespace Content.Client.Shuttles.UI;
 
 public sealed class NavigatorControl : Control
 {
-    private Font _labelsFonts = default!;
     private const int PixelDensity = 32;
     [Dependency] private readonly IResourceCache _cache = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
+    private readonly Font _labelsFonts;
 
     private readonly Dictionary<EntityUid, Label> _pointsLabels = new();
     private OvermapNavigatorBoundInterfaceState? _state;
@@ -26,7 +27,7 @@ public sealed class NavigatorControl : Control
         IoCManager.InjectDependencies(this);
 
         _labelsFonts = _cache.Exo2Stack(size: (int) (8 * UIScale));
-        MinSize = SharedOvermapSystem.OvermapBluespaceSize / PixelDensity;
+        MinSize = SharedBluespaceSystem.OvermapBluespaceSize / PixelDensity;
         RectClipContent = true;
     }
 
@@ -89,7 +90,7 @@ public sealed class NavigatorControl : Control
 
     private Vector2 BluespacePixelDensity()
     {
-        return SharedOvermapSystem.OvermapBluespaceSize / PixelSizeBox.Size;
+        return SharedBluespaceSystem.OvermapBluespaceSize / PixelSizeBox.Size;
     }
 
     private void DrawPoints(DrawingHandleScreen handle)
@@ -154,27 +155,24 @@ public sealed class NavigatorControl : Control
 
         if (point.InBluespace)
         {
-            var bluespaceSize = SharedOvermapSystem.OvermapBluespaceSize;
+            var bluespaceSize = SharedBluespaceSystem.OvermapBluespaceSize;
 
             var worldPosition = new Vector2(
                 Math.Clamp(xForm.WorldPosition.X, 0, bluespaceSize.X),
                 Math.Clamp(xForm.WorldPosition.Y, 0, bluespaceSize.Y)
             );
 
-            // TODO: Anyway this has a small offset sowehow 🤯
             return worldPosition / pixelsDensity;
         }
 
-        var tilePixelsSize = TilePixelSize();
-        var tilePosition = point.TilePosition;
-        var tileCenterPosition = tilePosition * tilePixelsSize + tilePixelsSize / 2;
-        var tileHalfSize = SharedOvermapSystem.OvermapTileSize / 2f;
-        var tileRelativePosition = new Vector2(
-            Math.Clamp(xForm.WorldPosition.X, -tileHalfSize + 150, tileHalfSize - 150),
-            Math.Clamp(xForm.WorldPosition.Y, -tileHalfSize + 150, tileHalfSize - 150)
+        var halfSize = SharedOvermapTile.TileSize / 2;
+        var localPosition = new Vector2(
+            Math.Clamp(xForm.LocalPosition.X, -halfSize, halfSize),
+            Math.Clamp(xForm.LocalPosition.Y, -halfSize, halfSize)
         );
+        var position = SharedOvermapTile.GetWorldMatrix(point.TilePosition).Transform(localPosition);
 
-        return tileCenterPosition + tileRelativePosition * SharedOvermapSystem.ScaleFactor / pixelsDensity;
+        return SharedBluespaceSystem.ScaleMatrix.Transform(position) / pixelsDensity;
     }
 
     private void DrawRanges(DrawingHandleScreen handle)

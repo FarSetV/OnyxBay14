@@ -60,7 +60,7 @@ public sealed partial class OvermapTab : Control
         }
         else
         {
-            BluespaceButton.Disabled = true;
+            BluespaceButton.Disabled = _state.EnginesCooldown > float.Epsilon;
         }
     }
 

@@ -13,7 +13,7 @@ namespace Content.Shared.Doors.Components;
 
 [NetworkedComponent]
 [RegisterComponent]
-public sealed class DoorComponent : Component, ISerializationHooks
+public sealed class DoorComponent : Component
 {
     /// <summary>
     /// The current state of the door -- whether it is open, closed, opening, or closing.

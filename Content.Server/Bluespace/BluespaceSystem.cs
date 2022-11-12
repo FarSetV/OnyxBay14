@@ -37,7 +37,7 @@ public sealed class BluespaceSystem : SharedBluespaceSystem
         float enterTime,
         [NotNullWhen(true)] out BluespaceComponent? component,
         [NotNullWhen(false)] out string? reason
-        )
+    )
     {
         _sawmill.Info($"{ToPrettyString(uid)} tries to enter bluespace");
 
@@ -65,7 +65,8 @@ public sealed class BluespaceSystem : SharedBluespaceSystem
         return true;
     }
 
-    public bool TryExitBluespace(EntityUid uid, float exitTime, BluespaceComponent? component, [NotNullWhen(false)] out string? reason)
+    public bool TryExitBluespace(EntityUid uid, float exitTime, BluespaceComponent? component,
+        [NotNullWhen(false)] out string? reason)
     {
         _sawmill.Info($"{ToPrettyString(uid)} tries to exit bluespace");
 

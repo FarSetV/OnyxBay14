@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Content.Server.Bluespace;
+﻿using System.Linq;
 using Content.Shared.GameTicking;
 using Content.Shared.Overmap.Systems;
 using Robust.Shared.Map;
@@ -11,14 +9,10 @@ namespace Content.Server.Overmap.Systems;
 
 public sealed class OvermapSystem : SharedOvermapSystem
 {
-    // TODO: Pause maps?
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly BluespaceSystem _bluespace = default!;
-    private readonly Dictionary<Vector2i, OvermapTile> _tiles = new();
     private ISawmill _sawmill = default!;
-
-    public IEnumerable<OvermapTile> Tiles => _tiles.Values;
+    private OvermapTiles _tiles = new();
 
     public override void Initialize()
     {
@@ -59,13 +53,12 @@ public sealed class OvermapSystem : SharedOvermapSystem
         DebugTools.Assert(xForm.MapID != MapId.Nullspace,
             $"trying to place entity which is in nullspace: {ToPrettyString(entity)}");
 
-        var tile = Tiles.FirstOrDefault(t => t.MapId == xForm.MapID);
+        var tile = _tiles.GetByMapId(xForm.MapID);
 
         if (tile is null)
         {
             _sawmill.Info($"binding map {xForm.MapID} to {position.X}, {position.Y}");
-            tile = new OvermapTile(position, xForm.MapID);
-            _tiles[position] = tile;
+            tile = _tiles.AddTile(position, xForm.MapID);
         }
 
         _sawmill.Info($"entity {ToPrettyString(entity)} placed at {tile.Position.X}, {tile.Position.Y}");
@@ -73,25 +66,14 @@ public sealed class OvermapSystem : SharedOvermapSystem
 
     private void CleanupTiles()
     {
-        foreach (var tile in _tiles.Values)
-        {
-            if (_mapManager.MapExists(tile.MapId))
-                _mapManager.DeleteMap(tile.MapId);
-        }
-
-        _tiles.Clear();
-    }
-
-    public OvermapTile? MapIdToTile(MapId mapId)
-    {
-        return Tiles.FirstOrDefault(tile => tile.MapId == mapId);
+        _tiles = new OvermapTiles();
     }
 
     public OvermapTile? GetTileEntityOn(EntityUid entityUid)
     {
         var xForm = Transform(entityUid);
 
-        return MapIdToTile(xForm.MapID);
+        return _tiles.GetByMapId(xForm.MapID);
     }
 
     public IEnumerable<EntityUid> GetOvermapEntities()
@@ -101,67 +83,7 @@ public sealed class OvermapSystem : SharedOvermapSystem
 
     public IEnumerable<OvermapObjectComponent> GetOvermapObjects()
     {
-        return EntityQuery<OvermapObjectComponent>();
-    }
-
-    public Vector2? LocalPositionToBluespace(EntityUid entity)
-    {
-        var tile = GetTileEntityOn(entity);
-
-        if (tile is null)
-            return null;
-
-        var xForm = Transform(entity);
-        var halfSize = OvermapTileSize / 2f;
-        var localPosition = new Vector2(
-            Math.Clamp(xForm.WorldPosition.X, -halfSize, halfSize),
-            Math.Clamp(xForm.WorldPosition.Y, -halfSize, halfSize)
-        );
-
-        return new Vector2(
-            (OvermapTileSize * tile.Position.X + halfSize + localPosition.X) * ScaleFactor,
-            (OvermapTileSize * tile.Position.Y + halfSize + localPosition.Y) * ScaleFactor
-        );
-    }
-
-    public Vector2 BluespacePositionToTilePosition(EntityUid entity)
-    {
-        var xForm = Transform(entity);
-        return BluespacePositionToTilePosition(xForm.WorldPosition);
-    }
-
-    public Vector2 BluespacePositionToTilePosition(Vector2 position)
-    {
-        var bluespaceSize = OvermapBluespaceSize;
-        var worldPosition = new Vector2(
-            Math.Clamp(position.X, 0, bluespaceSize.X),
-            Math.Clamp(position.Y, 0, bluespaceSize.Y)
-        );
-        var tilePosition = worldPosition / ScaleFactor / OvermapTileSize;
-
-        tilePosition.X = Math.Clamp(tilePosition.X, 0, OvermapTilesCount.X);
-        tilePosition.Y = Math.Clamp(tilePosition.Y, 0, OvermapTilesCount.Y);
-
-        return tilePosition;
-    }
-
-    public Vector2 BluespacePositionToLocalPosition(EntityUid entity, Vector2? tilePosition = null)
-    {
-        var xForm = Comp<TransformComponent>(entity);
-
-        return BluespacePositionToLocalPosition(xForm.WorldPosition, tilePosition);
-    }
-
-    public Vector2 BluespacePositionToLocalPosition(Vector2 position, Vector2? tilePosition = null)
-    {
-        tilePosition ??= BluespacePositionToTilePosition(position);
-        var halfSize = OvermapTileSize / 2f;
-        var normalized = new Vector2(
-            (float) (tilePosition.Value.X - Math.Truncate(tilePosition.Value.X)),
-            (float) (tilePosition.Value.Y - Math.Truncate(tilePosition.Value.Y))
-        );
-
-        return new Vector2(OvermapTileSize * normalized.X - halfSize, OvermapTileSize * normalized.Y - halfSize);
+        return EntityQuery<OvermapObjectComponent>(true);
     }
 
     public MapId GetMapForTileOrCreate(Vector2i tilePosition)
@@ -170,55 +92,14 @@ public sealed class OvermapSystem : SharedOvermapSystem
             $"{tilePosition} is out of overmap's bounds");
         DebugTools.Assert(tilePosition.X >= 0 || tilePosition.Y >= 0, $"{tilePosition} is below zero");
 
-        if (!_tiles.TryGetValue(tilePosition, out var tile))
-        {
-            _tiles[tilePosition] = new OvermapTile(tilePosition, _mapManager.CreateMap());
-            tile = _tiles[tilePosition];
-        }
+        if (_tiles.TryGetByPosition(tilePosition, out var tile))
+            return tile.MapId;
+
+        var mapId = _mapManager.CreateMap();
+        _mapManager.AddUninitializedMap(mapId);
+        _mapManager.SetMapPaused(mapId, true);
+        tile = _tiles.AddTile(tilePosition, mapId);
 
         return tile.MapId;
-    }
-
-    /// <summary>
-    ///     Returns useful information about the exit point.
-    /// </summary>
-    /// <param name="uid">The entity that wants to exit the bluespace.</param>
-    /// <param name="localPosition">The new position of the entity when it exit the bluespace.</param>
-    /// <param name="mapId">
-    ///     The new map where the entity will be when it exit the bluespace. Maybe null if the map is not
-    ///     exists yet. You can create the map by <see cref="GetMapForTileOrCreate" /> using the next out parameter.
-    /// </param>
-    /// <param name="tilePosition">Position of the entity on overmap.</param>
-    public void GetExitLocation(EntityUid uid, out Vector2 localPosition, [NotNullWhen(true)] out MapId? mapId,
-        out Vector2i tilePosition)
-    {
-        mapId = null;
-        var tilePositionF = BluespacePositionToTilePosition(uid);
-        localPosition = BluespacePositionToLocalPosition(uid, tilePositionF);
-        tilePosition = tilePositionF.Floored();
-
-        if (_tiles.ContainsKey(tilePosition))
-        {
-            mapId = _tiles[tilePosition].MapId;
-            return;
-        }
-
-        mapId = GetMapForTileOrCreate(tilePosition);
-    }
-
-    public float? GetDistance(EntityUid a, EntityUid b)
-    {
-        var xFormQuery = GetEntityQuery<TransformComponent>();
-
-        var xFormA = xFormQuery.GetComponent(a);
-        var xFormB = xFormQuery.GetComponent(b);
-
-        var positionA = _bluespace.IsEntityInBluespace(a, xFormA) ? xFormA.WorldPosition : LocalPositionToBluespace(a);
-        var positionB = _bluespace.IsEntityInBluespace(b, xFormB) ? xFormB.WorldPosition : LocalPositionToBluespace(b);
-
-        if (positionA is null || positionB is null)
-            return null;
-
-        return (positionA.Value - positionB.Value).Length;
     }
 }

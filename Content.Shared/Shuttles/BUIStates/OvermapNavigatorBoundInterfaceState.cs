@@ -13,14 +13,16 @@ public class OvermapNavigatorBoundInterfaceState : BoundUserInterfaceState
     public readonly EntityUid ParentGrid;
 
     public readonly BluespaceState? BluespaceState;
+    public readonly float EnginesCooldown;
     public readonly float SignatureRadius;
     public readonly float IFFRadius;
     public readonly List<OvermapPointState> OvermapPoints;
 
-    public OvermapNavigatorBoundInterfaceState(EntityUid parentGrid, BluespaceState? bluespaceState, float signatureRadius, float iffRadius, List<OvermapPointState> overmapPoints)
+    public OvermapNavigatorBoundInterfaceState(EntityUid parentGrid, BluespaceState? bluespaceState, float enginesCooldown, float signatureRadius, float iffRadius, List<OvermapPointState> overmapPoints)
     {
         ParentGrid = parentGrid;
         BluespaceState = bluespaceState;
+        EnginesCooldown = enginesCooldown;
         SignatureRadius = signatureRadius;
         IFFRadius = iffRadius;
         OvermapPoints = overmapPoints;

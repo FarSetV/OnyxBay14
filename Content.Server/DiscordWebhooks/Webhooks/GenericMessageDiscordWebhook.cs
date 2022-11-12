@@ -29,11 +29,6 @@ public abstract class GenericMessageDiscordWebhook
         Initialize();
     }
 
-    ~GenericMessageDiscordWebhook()
-    {
-        _cfg.UnsubValueChanged(Webhook, OnWebhookChanged);
-    }
-
     private void Initialize()
     {
         IoCManager.InjectDependencies(this);

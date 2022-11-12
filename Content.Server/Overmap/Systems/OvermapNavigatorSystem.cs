@@ -1,16 +1,17 @@
 ﻿using Content.Server.Bluespace;
+using Content.Server.BluespaceOvermapTransition;
 using Content.Shared.Overmap;
 using Content.Shared.Overmap.Systems;
 using Content.Shared.Shuttles.Components;
 using Robust.Shared.GameStates;
 using Robust.Shared.Timing;
-using Robust.Shared.Utility;
 
 namespace Content.Server.Overmap.Systems;
 
 public sealed class OvermapNavigatorSystem : SharedOvermapNavigatorSystem
 {
     [Dependency] private readonly EntityManager _entityManager = default!;
+    [Dependency] private readonly BluespaceOvermapTransitionSystem _transition = default!;
     [Dependency] private readonly OvermapSystem _overmap = default!;
     [Dependency] private readonly BluespaceSystem _bluespace = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
@@ -57,7 +58,7 @@ public sealed class OvermapNavigatorSystem : SharedOvermapNavigatorSystem
                 if (!overmapObject.ShowOnOvermap && !isSelf)
                     continue;
 
-                var distance = _overmap.GetDistance(navigator.Owner, entity);
+                var distance = _transition.GetDistance(navigator.Owner, entity);
 
                 if (distance is null)
                     continue;

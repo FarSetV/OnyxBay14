@@ -139,7 +139,7 @@ public sealed partial class ShuttleSystem
     public bool TryExitBluespace(EntityUid uid, ShuttleComponent? component, [NotNullWhen(false)] out string? reason)
     {
         if (Resolve(uid, ref component) && TryComp<MapGridComponent>(uid, out var grid))
-            return _bluespace.TryExitBluespace(grid.Owner, DefaultArrivalTime, null, out reason);
+            return _bluespace.TryExitBluespace(grid.Owner, 0f, null, out reason);
 
         reason = Loc.GetString("shuttle-cant-enter-bluespace");
         return false;

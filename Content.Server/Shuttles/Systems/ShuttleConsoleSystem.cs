@@ -301,9 +301,15 @@ public sealed class ShuttleConsoleSystem : SharedShuttleConsoleSystem
         if (TryComp<BluespaceComponent>(gridUid, out var bluespaceComponent))
             bluespaceState = bluespaceComponent.State;
 
+        var engineCooldown = 0f;
+
+        if (TryComp<ShuttleComponent>(gridUid, out var shuttleComponent))
+            engineCooldown = shuttleComponent.EnginesCooldown;
+
         return new OvermapNavigatorBoundInterfaceState(
             gridUid,
             bluespaceState,
+            engineCooldown,
             navigatorComponent.SignatureRadius,
             navigatorComponent.IFFRadius,
             navigatorComponent.Points
