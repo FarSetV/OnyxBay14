@@ -19,7 +19,7 @@ namespace Content.Shared.CCVar
             CVarDef.Create("server.id", "unknown_server_id", CVar.REPLICATED | CVar.SERVER);
 
         /// <summary>
-        ///     Do hard restart after round end?
+        ///     Do a shutdown after round end?
         /// </summary>
         public static readonly CVarDef<bool> HardRestart =
             CVarDef.Create("server.hard_restart", false, CVar.SERVERONLY);

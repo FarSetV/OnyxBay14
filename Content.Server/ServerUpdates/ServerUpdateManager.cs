@@ -1,12 +1,6 @@
-﻿using System.Linq;
-using Content.Server.Chat.Managers;
-using Content.Shared.CCVar;
+﻿using Content.Shared.CCVar;
 using Robust.Server;
-using Robust.Server.Player;
-using Robust.Server.ServerStatus;
 using Robust.Shared.Configuration;
-using Robust.Shared.Enums;
-using Robust.Shared.Timing;
 
 namespace Content.Server.ServerUpdates;
 
@@ -18,8 +12,8 @@ public sealed class ServerUpdateManager
     [Dependency] private readonly IBaseServer _server = default!;
     [Dependency] private readonly IConfigurationManager _cfg = default!;
 
-    [ViewVariables]
     private bool _restartOnRoundEnd;
+    private bool _loopCheck;
 
     public void Initialize()
     {
@@ -38,6 +32,12 @@ public sealed class ServerUpdateManager
     /// <returns>True if the server is going to restart.</returns>
     public bool RoundEnded()
     {
+        if (!_loopCheck)
+        {
+            _loopCheck = true;
+            return false;
+        }
+
         if (!_restartOnRoundEnd)
             return false;
 
