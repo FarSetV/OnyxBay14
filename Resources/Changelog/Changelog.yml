@@ -229,4 +229,16 @@ entries:
     message: В раздатчиках канистр кол-во предметов увеличено с 5 до 10.
   - type: Remove
     message: Убраны замки на канистрах.
-lastChangelog: 2022-11-12T17:50:23.0000000Z
+- id: 33
+  author: igorsaux
+  time: 2022-11-13T12:44:00.0000000Z
+  changes:
+  - type: Add
+    message: Добавлен научный шаттл на востоке от научного отдела (под отбытием).
+- id: 34
+  author: No-Tips
+  time: 2022-11-12T17:50:23.0000000Z
+  changes:
+  - type: Tweak
+    message: Цвета радиоканалов теперь такие же, как и в Опухбее.
+lastChangelog: 2022-11-13T12:44:00.0000000Z
