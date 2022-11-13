@@ -101,7 +101,7 @@ public sealed class OvermapNavigatorSystem : SharedOvermapNavigatorSystem
                 {
                     VisibleName = name,
                     EntityUid = entity,
-                    TilePosition = _overmap.GetTileEntityOn(entity)?.Position ?? Vector2i.Zero,
+                    TilePosition = _overmap.GetTileEntityOn(entity, xFormQuery)?.Position ?? Vector2i.Zero,
                     InBluespace = _bluespace.IsEntityInBluespace(entity, xForm),
                     Color = color
                 });

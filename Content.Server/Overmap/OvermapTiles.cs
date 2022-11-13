@@ -1,6 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Content.Shared.Overmap.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Utility;
 
@@ -9,6 +7,7 @@ namespace Content.Server.Overmap;
 public sealed class OvermapTiles
 {
     private readonly Dictionary<Vector2i, OvermapTile> _tiles = new();
+    private readonly Dictionary<MapId, OvermapTile> _tilesByMapId = new();
 
     public OvermapTile AddTile(Vector2i position, MapId mapId)
     {
@@ -19,13 +18,9 @@ public sealed class OvermapTiles
 
         tile = new OvermapTile(position, mapId);
         _tiles.Add(position, tile);
+        _tilesByMapId.Add(mapId, tile);
 
         return tile;
-    }
-
-    public OvermapTile? GetByMapId(MapId mapId)
-    {
-        return _tiles.Values.FirstOrDefault(tile => tile.MapId == mapId);
     }
 
     public OvermapTile? GetByPosition(Vector2i position)
@@ -40,8 +35,17 @@ public sealed class OvermapTiles
 
     public bool TryGetByMapId(MapId mapId, [NotNullWhen(true)] out OvermapTile? tile)
     {
-        tile = GetByMapId(mapId);
+        return _tilesByMapId.TryGetValue(mapId, out tile);
+    }
 
-        return tile is not null;
+    public IEnumerable<MapId> GetMapIds()
+    {
+        return _tilesByMapId.Keys;
+    }
+
+    public void Clear()
+    {
+        _tiles.Clear();
+        _tilesByMapId.Clear();
     }
 }

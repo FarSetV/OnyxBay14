@@ -71,10 +71,10 @@ public sealed class BluespaceOvermapTransitionSystem : EntitySystem
         mapId ??= _overmap.GetMapForTileOrCreate(tilePosition);
 
         if (!_mapManager.IsMapInitialized(mapId.Value))
-        {
             _mapManager.DoMapInitialize(mapId.Value);
+
+        if (_mapManager.IsMapPaused(mapId.Value))
             _mapManager.SetMapPaused(mapId.Value, false);
-        }
 
         RaiseLocalEvent(ev.EntityUid, new BeforeExitBluespaceEvent(ev.EntityUid, localPosition, mapId.Value));
 

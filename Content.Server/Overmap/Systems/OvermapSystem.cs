@@ -12,7 +12,7 @@ public sealed class OvermapSystem : SharedOvermapSystem
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     private ISawmill _sawmill = default!;
-    private OvermapTiles _tiles = new();
+    public readonly OvermapTiles Tiles = new();
 
     public override void Initialize()
     {
@@ -53,12 +53,12 @@ public sealed class OvermapSystem : SharedOvermapSystem
         DebugTools.Assert(xForm.MapID != MapId.Nullspace,
             $"trying to place entity which is in nullspace: {ToPrettyString(entity)}");
 
-        var tile = _tiles.GetByMapId(xForm.MapID);
+        Tiles.TryGetByMapId(xForm.MapID, out var tile);
 
         if (tile is null)
         {
             _sawmill.Info($"binding map {xForm.MapID} to {position.X}, {position.Y}");
-            tile = _tiles.AddTile(position, xForm.MapID);
+            tile = Tiles.AddTile(position, xForm.MapID);
         }
 
         _sawmill.Info($"entity {ToPrettyString(entity)} placed at {tile.Position.X}, {tile.Position.Y}");
@@ -66,14 +66,15 @@ public sealed class OvermapSystem : SharedOvermapSystem
 
     private void CleanupTiles()
     {
-        _tiles = new OvermapTiles();
+        Tiles.Clear();
     }
 
-    public OvermapTile? GetTileEntityOn(EntityUid entityUid)
+    public OvermapTile? GetTileEntityOn(EntityUid entityUid, EntityQuery<TransformComponent>? xFormQuery = null)
     {
-        var xForm = Transform(entityUid);
+        var xForm = xFormQuery?.GetComponent(entityUid) ?? Transform(entityUid);
+        Tiles.TryGetByMapId(xForm.MapID, out var map);
 
-        return _tiles.GetByMapId(xForm.MapID);
+        return map;
     }
 
     public IEnumerable<EntityUid> GetOvermapEntities()
@@ -92,13 +93,13 @@ public sealed class OvermapSystem : SharedOvermapSystem
             $"{tilePosition} is out of overmap's bounds");
         DebugTools.Assert(tilePosition.X >= 0 || tilePosition.Y >= 0, $"{tilePosition} is below zero");
 
-        if (_tiles.TryGetByPosition(tilePosition, out var tile))
+        if (Tiles.TryGetByPosition(tilePosition, out var tile))
             return tile.MapId;
 
         var mapId = _mapManager.CreateMap();
         _mapManager.AddUninitializedMap(mapId);
         _mapManager.SetMapPaused(mapId, true);
-        tile = _tiles.AddTile(tilePosition, mapId);
+        tile = Tiles.AddTile(tilePosition, mapId);
 
         return tile.MapId;
     }
