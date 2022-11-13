@@ -10,7 +10,6 @@ using Content.Server.EUI;
 using Content.Server.GameTicking;
 using Content.Server.GhostKick;
 using Content.Server.GuideGenerator;
-using Content.Server.Info;
 using Content.Server.IoC;
 using Content.Server.Maps;
 using Content.Server.NodeContainer.NodeGroups;
@@ -151,7 +150,6 @@ namespace Content.Server.Entry
                 }
 
                 case ModUpdateLevel.FramePostEngine:
-                    _updateManager.Update();
                     _playTimeTracking?.Update();
                     break;
             }

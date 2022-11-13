@@ -15,37 +15,21 @@ namespace Content.Server.ServerUpdates;
 /// </summary>
 public sealed class ServerUpdateManager
 {
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
-    [Dependency] private readonly IWatchdogApi _watchdog = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IChatManager _chatManager = default!;
     [Dependency] private readonly IBaseServer _server = default!;
     [Dependency] private readonly IConfigurationManager _cfg = default!;
 
     [ViewVariables]
     private bool _restartOnRoundEnd;
 
-    private TimeSpan? _restartTime;
-
     public void Initialize()
     {
-        _watchdog.UpdateReceived += WatchdogOnUpdateReceived;
-        _playerManager.PlayerStatusChanged += PlayerManagerOnPlayerStatusChanged;
+        _restartOnRoundEnd = _cfg.GetCVar(CCVars.HardRestart);
+        _cfg.OnValueChanged(CCVars.HardRestart, OnValueChanged);
     }
 
-    public bool ToggleRestartOnRoundEnd()
+    private void OnValueChanged(bool value)
     {
-        _restartOnRoundEnd = !_restartOnRoundEnd;
-
-        return _restartOnRoundEnd;
-    }
-
-    public void Update()
-    {
-        if (_restartTime != null && _restartTime < _gameTiming.RealTime)
-        {
-            DoShutdown();
-        }
+        _restartOnRoundEnd = value;
     }
 
     /// <summary>
@@ -54,60 +38,13 @@ public sealed class ServerUpdateManager
     /// <returns>True if the server is going to restart.</returns>
     public bool RoundEnded()
     {
-        if (_restartOnRoundEnd)
-        {
-            DoShutdown();
-            return true;
-        }
+        if (!_restartOnRoundEnd)
+            return false;
 
-        return false;
+        DoShutdown();
+        return true;
     }
 
-    private void PlayerManagerOnPlayerStatusChanged(object? sender, SessionStatusEventArgs e)
-    {
-        switch (e.NewStatus)
-        {
-            case SessionStatus.Connecting:
-                _restartTime = null;
-                break;
-            case SessionStatus.Disconnected:
-                ServerEmptyUpdateRestartCheck();
-                break;
-        }
-    }
-
-    private void WatchdogOnUpdateReceived()
-    {
-        _chatManager.DispatchServerAnnouncement(Loc.GetString("server-updates-received"));
-        _restartOnRoundEnd = true;
-        ServerEmptyUpdateRestartCheck();
-    }
-
-    /// <summary>
-    ///     Checks whether there are still players on the server,
-    /// and if not starts a timer to automatically reboot the server if an update is available.
-    /// </summary>
-    private void ServerEmptyUpdateRestartCheck()
-    {
-        // Can't simple check the current connected player count since that doesn't update
-        // before PlayerStatusChanged gets fired.
-        // So in the disconnect handler we'd still see a single player otherwise.
-        var playersOnline = _playerManager.Sessions.Any(p => p.Status != SessionStatus.Disconnected);
-        if (playersOnline || !_restartOnRoundEnd)
-        {
-            // Still somebody online.
-            return;
-        }
-
-        if (_restartTime != null)
-        {
-            // Do nothing because I guess we already have a timer running..?
-            return;
-        }
-
-        var restartDelay = TimeSpan.FromSeconds(_cfg.GetCVar(CCVars.UpdateRestartDelay));
-        _restartTime = restartDelay + _gameTiming.RealTime;
-    }
 
     private void DoShutdown()
     {

@@ -19,24 +19,14 @@ namespace Content.Shared.CCVar
             CVarDef.Create("server.id", "unknown_server_id", CVar.REPLICATED | CVar.SERVER);
 
         /// <summary>
-        ///     Name of the rules txt file in the "Resources/Server Info" dir. Include the extension.
+        ///     Do hard restart after round end?
         /// </summary>
-        public static readonly CVarDef<string> RulesFile =
-            CVarDef.Create("server.rules_file", "Rules.txt", CVar.REPLICATED | CVar.SERVER);
-
-        /// <summary>
-        ///     A loc string for what should be displayed as the title on the Rules window.
-        /// </summary>
-        public static readonly CVarDef<string> RulesHeader =
-            CVarDef.Create("server.rules_header", "ui-rules-header", CVar.REPLICATED | CVar.SERVER);
+        public static readonly CVarDef<bool> HardRestart =
+            CVarDef.Create("server.hard_restart", false, CVar.SERVERONLY);
 
         /*
          * Ambience
          */
-        //TODO: This is so that this compiles, yell at me if this is still in
-        public static readonly CVarDef<bool> AmbienceBasicEnabled =
-            CVarDef.Create("ambiance.basic_enabled", true, CVar.CLIENTONLY | CVar.ARCHIVE);
-
 
         /// <summary>
         /// How long we'll wait until re-sampling nearby objects for ambience. Should be pretty fast, but doesn't have to match the tick rate.
@@ -1288,16 +1278,6 @@ namespace Content.Shared.CCVar
         /// </summary>
         public static readonly CVarDef<float> DragDropDeadZone =
             CVarDef.Create("control.drag_dead_zone", 12f, CVar.CLIENTONLY | CVar.ARCHIVE);
-
-        /*
-         * UPDATE
-         */
-
-        /// <summary>
-        /// If a server update restart is pending, the delay after the last player leaves before we actually restart. In seconds.
-        /// </summary>
-        public static readonly CVarDef<float> UpdateRestartDelay =
-            CVarDef.Create("update.restart_delay", 20f, CVar.SERVERONLY);
 
         /*
          * Ghost
