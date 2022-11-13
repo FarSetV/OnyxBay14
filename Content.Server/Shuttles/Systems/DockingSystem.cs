@@ -288,7 +288,8 @@ namespace Content.Server.Shuttles.Systems
         /// <summary>
         /// Docks 2 ports together and assumes it is valid.
         /// </summary>
-        public void Dock(DockingComponent dockA, DockingComponent dockB)
+        /// <param name="force">Forces opening of docks. Used by <see cref="DockCommand"/> to open the docks in "mapping mode".</param>
+        public void Dock(DockingComponent dockA, DockingComponent dockB, bool force = false)
         {
             if (dockB.Owner.GetHashCode() < dockA.Owner.GetHashCode())
             {
@@ -354,9 +355,10 @@ namespace Content.Server.Shuttles.Systems
             dockB.DockJointId = joint.ID;
 
             if (TryComp(dockA.Owner, out DoorComponent? doorA))
-            {   
-                if (_doorSystem.TryOpen(doorA.Owner, doorA))
+            {
+                if (_doorSystem.TryOpen(doorA.Owner, doorA) || force)
                 {
+                    _doorSystem.StartOpening(doorA.Owner, doorA);
                     doorA.ChangeAirtight = false;
                     if (TryComp<AirlockComponent>(dockA.Owner, out var airlockA))
                     {
@@ -367,8 +369,9 @@ namespace Content.Server.Shuttles.Systems
 
             if (TryComp(dockB.Owner, out DoorComponent? doorB))
             {
-                if (_doorSystem.TryOpen(doorB.Owner, doorB))
+                if (_doorSystem.TryOpen(doorB.Owner, doorB) || force)
                 {
+                    _doorSystem.StartOpening(doorB.Owner, doorB);
                     doorB.ChangeAirtight = false;
                     if (TryComp<AirlockComponent>(dockB.Owner, out var airlockB))
                     {

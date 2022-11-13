@@ -47,6 +47,6 @@ public sealed class DockCommand : IConsoleCommand
         }
 
         var dockSystem = EntitySystem.Get<DockingSystem>();
-        dockSystem.Dock(dock1, dock2);
+        dockSystem.Dock(dock1, dock2, true);
     }
 }
