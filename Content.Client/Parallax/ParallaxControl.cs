@@ -89,7 +89,7 @@ public sealed class ParallaxControl : Control
                     handle.DrawTextureRect(tex, UIBox2.FromDimensions(origin, texSize));
                 }
             }
-        });
+        }, Color.Transparent);
 
         _grainShader.SetParameter("SCREEN_TEXTURE", _buffer.Texture);
         _grainShader.SetParameter("strength", 100.0f);

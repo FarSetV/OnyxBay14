@@ -45,7 +45,7 @@ public sealed class BackgroundControl : TextureRect
         handle.RenderInRenderTarget(_buffer, () =>
         {
             base.Draw(handle);
-        });
+        }, Color.Transparent);
 
         if (_cfg.GetCVar(CCVars.Shaders))
         {

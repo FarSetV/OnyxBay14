@@ -160,7 +160,7 @@ public sealed class HelmetOverlay : Overlay
 
             skipHud:
             handle.UseShader(null);
-        });
+        }, Color.Transparent);
 
 
         handle.DrawTextureRect(_buffer.Texture, args.ViewportBounds, Color.White);
